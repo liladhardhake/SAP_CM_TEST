@@ -1,0 +1,1214 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<webservices_profile category="Internal">
+   <storable name="webservices_profile" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Administrator"/>
+         <string name="1" value="Administrator"/>
+         <string name="2" value="Administrator"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.WSProfileConfig" ver="310.0">
+         <boolean name="2-way Authentication" value="false"/>
+         <string name="Binding name" value="RatingServicesPortBinding"/>
+         <boolean name="Desktop Validation" value="false"/>
+         <boolean name="Disable Underscore Binding Mode" value="false"/>
+         <boolean name="Disable Wrapper Style" value="false"/>
+         <boolean name="Enable Big Decimal" value="false"/>
+         <boolean name="Enable JAAS" value="false"/>
+         <boolean name="Enable Username Token" value="false"/>
+         <boolean name="Enable WS Addressing" value="false"/>
+         <boolean name="Enforce RM" value="false"/>
+         <string name="JAAS Module" value=""/>
+         <string name="JAAS Properties" value=""/>
+         <string name="Max Enum Members" value="256"/>
+         <boolean name="Populate OriginalData Field" value="false"/>
+         <string name="Port type" value="RatingServices"/>
+         <boolean name="Process Implicit SOAP Headers" value="false"/>
+         <string name="RM Store" value="In Memory"/>
+         <string name="Schema Bindings" value=""/>
+         <boolean name="Schema Validation" value="false"/>
+         <boolean name="Security Enabled" value="false"/>
+         <storable name="Security Profile TLS" null="true"/>
+         <storable name="Security Settings" null="true"/>
+         <string name="Service Port name" value="ratingPort"/>
+         <boolean name="Simple Mode Enabled" value="false"/>
+         <string name="TLS keystore file" value=""/>
+         <bytearray name="TLS keystore file content"><![CDATA[`
+]]></bytearray>
+         <password name="TLS keystore password" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+         <password name="Username Token Password" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+         <string name="Username Token Username" value=""/>
+         <list classname="java.util.LinkedList" name="concatenationFilePathList"/>
+         <string name="helper_class" value="ws.MZ1717151637292.WS_CC_BulkLoader.WSHelperImpl"/>
+         <list classname="java.util.LinkedList" name="includeFiles">
+            <storable name="0" storable-id="dr.WSDLIncludeFileStoreable" ver="2.1">
+               <string name="fileContent" quoted="true"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>\u000d
+<xs:schema targetNamespace="http://schema.ws.highdeal.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schema.ws.highdeal.com/">
+  <xs:complexType name="MassResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="0" name="failures" type="tns:Integer">
+            <xs:annotation>
+              <xs:documentation>The number of erroneous single operations due to a business error. Check the error stack (category, message, cause).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Response">
+    <xs:sequence>
+      <xs:element name="status" type="tns:ResponseStatus"/>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+      <xs:element minOccurs="0" name="error" type="tns:Failure"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ResponseStatus">
+    <xs:restriction base="tns:String256">
+      <xs:enumeration value="return"/>
+      <xs:enumeration value="error"/>
+      <xs:enumeration value="inProgress"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Failure">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="category" type="tns:FailureCategory"/>
+      <!--should be minOccurs="1"-->
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+      <xs:element minOccurs="0" name="cause" type="tns:FailureCause">
+        <xs:annotation>
+          <xs:documentation>Consult the SAP CC Error Code Reference documentation for more information. Consider also the causedBy element.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="causedBy" type="tns:FailureCause"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="FailureCategory">
+    <xs:restriction base="tns:String256">
+      <xs:enumeration value="alreadyExists"/>
+      <xs:enumeration value="doesNotExist"/>
+      <xs:enumeration value="invalid"/>
+      <xs:enumeration value="prerequisiteMissing"/>
+      <xs:enumeration value="incompatibleConfiguration"/>
+      <xs:enumeration value="illegalState"/>
+      <xs:enumeration value="temporaryIllegalState"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="FailureCause">
+    <xs:sequence>
+      <xs:element name="module" type="xs:string"/>
+      <xs:element name="code" type="xs:int"/>
+      <xs:element name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NullableDate">
+    <xs:complexContent>
+      <xs:extension base="tns:NullableFlag">
+        <xs:sequence>
+          <xs:element name="value" type="xs:dateTime"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="NullableString">
+    <xs:complexContent>
+      <xs:extension base="tns:NullableFlag">
+        <xs:sequence>
+          <xs:element name="value" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="NullableFlag">
+    <xs:attribute name="undef" type="xs:boolean"/>
+  </xs:complexType>
+  <xs:complexType name="AdditionalInfo">
+    <xs:sequence>
+      <xs:element name="name" type="tns:String256"/>
+      <xs:element minOccurs="0" name="description" type="tns:String2000"/>
+      <xs:choice>
+        <xs:element name="string" type="tns:String2000"/>
+        <xs:element name="date" type="tns:Date"/>
+        <xs:element name="number" type="tns:Decimal28_6"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <!--Search Filter-->
+  <xs:complexType name="SearchFilter">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="searchWindow" type="tns:SearchFilterWindow"/>
+      <xs:element default="false" minOccurs="0" name="totalCountRequired" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SearchFilterWindow">
+    <xs:annotation>
+      <xs:documentation>The settings to enable reference-based pagination of search results in response. Several operation requests are necessary to retrieve the complete results.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="windowSize" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>The maximum number of results expected in the operation response. The SAP CC system returns a subset of the matching result set.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="fromUniqueId" type="tns:String256">
+        <xs:annotation>
+          <xs:documentation>The reference to start pagination from. When omitted in the first search operation request, the beginning of the result set is returned
+            by the SAP CC system.
+            When set in an operation request, it must be equal to the lastUniqueId element in the previous operation response.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SearchResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="totalCount" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>The number of remaining objects in the set after the current page found by the SAP CC system. This includes the number of objects in the current set.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="lastUniqueId" type="tns:String256">
+            <xs:annotation>
+              <xs:documentation>The reference of the last element in case of pagination. Set up the fromUniqueId element in the next search operation request with this reference value.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="StringAttributeDescription">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="enumeration" type="tns:StringEnumeration"/>
+        <xs:element name="pattern" type="tns:String256"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DateAttributeDescription">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="enumeration" type="tns:DateEnumeration"/>
+        <xs:element name="range" type="tns:DateRange"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NumberAttributeDescription">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="enumeration" type="tns:NumberEnumeration"/>
+        <xs:element name="range" type="tns:NumberRange"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AdditionalAttributeDescription">
+    <xs:sequence>
+      <xs:element name="name" type="tns:String256"/>
+      <xs:choice>
+        <xs:element name="pattern" type="tns:String256"/>
+        <xs:element name="stringEnumeration" type="tns:StringEnumeration"/>
+        <xs:element name="numberEnumeration" type="tns:NumberEnumeration"/>
+        <xs:element name="dateEnumeration" type="tns:DateEnumeration"/>
+        <xs:element name="numberRange" type="tns:NumberRange"/>
+        <xs:element name="dateRange" type="tns:DateRange"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StringEnumeration">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="value" type="tns:String2000"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DateEnumeration">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="value" type="tns:Date"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NumberEnumeration">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="value" type="tns:Decimal28_6"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DateRange">
+    <xs:sequence>
+      <xs:element maxOccurs="1" name="min" type="tns:DateBoundary"/>
+      <xs:element maxOccurs="1" name="max" type="tns:DateBoundary"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DateBoundary">
+    <xs:simpleContent>
+      <xs:extension base="tns:Date">
+        <xs:attribute default="true" name="included" type="xs:boolean"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="NumberRange">
+    <xs:sequence>
+      <xs:element maxOccurs="1" name="min" type="tns:NumberBoundary"/>
+      <xs:element maxOccurs="1" name="max" type="tns:NumberBoundary"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NumberBoundary">
+    <xs:simpleContent>
+      <xs:extension base="tns:Decimal28_6">
+        <xs:attribute default="true" name="included" type="xs:boolean"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="IntegerRange">
+    <xs:sequence>
+      <xs:element maxOccurs="1" name="min" type="tns:IntegerBoundary"/>
+      <xs:element maxOccurs="1" name="max" type="tns:IntegerBoundary"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IntegerBoundary">
+    <xs:simpleContent>
+      <xs:extension base="tns:Integer22">
+        <xs:attribute default="true" name="included" type="xs:boolean"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="SearchOrderType">
+    <xs:restriction base="tns:String256">
+      <xs:enumeration value="asc"/>
+      <xs:enumeration value="desc"/>
+      <xs:enumeration value="noOrder"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SearchFilterType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="boolean"/>
+      <xs:enumeration value="number"/>
+      <xs:enumeration value="string"/>
+      <xs:enumeration value="date"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--SAP CC base types-->
+  <xs:simpleType name="Decimal28_6">
+    <xs:restriction base="xs:decimal">
+      <xs:maxInclusive value="9999999999999999999999.999999"/>
+      <xs:minInclusive value="-9999999999999999999999.999999"/>
+      <xs:totalDigits value="28"/>
+      <xs:fractionDigits value="6"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Long">
+    <xs:restriction base="xs:long">
+      <xs:maxInclusive value="9223372036854775807"/>
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Integer">
+    <xs:restriction base="xs:int">
+      <xs:maxInclusive value="2147483647"/>
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Integer22">
+    <xs:restriction base="xs:decimal">
+      <xs:totalDigits value="22"/>
+      <xs:fractionDigits value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PositiveDecimal28_6">
+    <xs:restriction base="tns:Decimal28_6">
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CurrencyCode">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="5"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Amount">
+    <xs:simpleContent>
+      <xs:extension base="tns:Decimal28_6">
+        <xs:attribute name="currencyCode" type="tns:CurrencyCode"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PositiveAmount">
+    <xs:simpleContent>
+      <xs:extension base="tns:PositiveDecimal28_6">
+        <xs:attribute name="currencyCode" type="tns:CurrencyCode"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="String256">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="256"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NotEmptyString256">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="256"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="String2000">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="2000"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Date">
+    <xs:restriction base="xs:dateTime">
+      <xs:pattern value="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CountryCode">
+    <xs:restriction base="xs:string">
+      <xs:length value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Empty">
+    <xs:restriction base="xs:string">
+      <xs:length value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType abstract="true" name="CatalogObject">
+    <xs:sequence>
+      <xs:element name="id" type="tns:String256"/>
+      <xs:element minOccurs="0" name="description" type="tns:String2000"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="additionalInfo" type="tns:AdditionalInfo"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType abstract="true" name="Table">
+    <xs:complexContent>
+      <xs:extension base="tns:CatalogObject">
+        <xs:sequence>
+          <xs:element name="tableClassId" type="tns:String256"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType abstract="true" name="CatalogTable">
+    <xs:complexContent>
+      <xs:extension base="tns:Table">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="agreementId" type="tns:String256"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CatalogSearchFilter">
+    <xs:complexContent>
+      <xs:extension base="tns:SearchFilter">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="tns:StringAttributeDescription"/>
+          <xs:element minOccurs="0" name="description" type="tns:StringAttributeDescription"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="additionalInfo" type="tns:AdditionalAttributeDescription"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="TableSearchFilter">
+    <xs:complexContent>
+      <xs:extension base="tns:CatalogSearchFilter">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="tableClassId" type="tns:StringAttributeDescription"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CatalogTableSearchFilter">
+    <xs:complexContent>
+      <xs:extension base="tns:TableSearchFilter">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="agreementId" type="tns:StringAttributeDescription"/>
+          <xs:element default="catalog" minOccurs="0" name="tableScope" type="tns:TableScope"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="TableScope">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="agreement"/>
+      <xs:enumeration value="both"/>
+      <xs:enumeration value="catalog"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>]]></string>
+               <string name="filePathSequence" value="rating_1.xsd"/>
+            </storable>
+            <storable name="1" storable-id="dr.WSDLIncludeFileStoreable" ver="2.1">
+               <string name="fileContent" quoted="true"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>\u000d
+<xs:schema targetNamespace="http://schema.provisioning.ws.highdeal.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schema.provisioning.ws.highdeal.com/" xmlns:operationalstatus="http://operationalstatus.ws.highdeal.com/" xmlns:core="http://schema.ws.highdeal.com/" xmlns:contract="http://contract.ws.highdeal.com/">
+  <xs:import namespace="http://schema.ws.highdeal.com/" schemaLocation="rating_1.xsd"/>
+  <xs:import namespace="http://contract.ws.highdeal.com/" schemaLocation="rating_1_2_3.xsd"/>
+  <xs:import namespace="http://operationalstatus.ws.highdeal.com/" schemaLocation="rating_1_2_3_4_5.xsd"/>
+  <xs:element name="chargingContractMaintainRequest" type="tns:MaintainChargingContractRequest"/>
+  <xs:element name="chargingContractMaintainResponse" type="tns:ContractOperationResponse"/>
+  <xs:element name="chargingContractCancelRequest" type="tns:CancelChargingContractRequest"/>
+  <xs:element name="chargingContractCancelResponse" type="tns:ContractOperationResponse"/>
+  <xs:element name="chargingContractFindRequest" type="tns:FindChargingContractRequest"/>
+  <xs:element name="chargingContractFindResponse" type="tns:FindChargingContractResponse"/>
+  <xs:element name="chargingContractMaintainBundleRequest" type="tns:ChargingContractMaintainBundleRequest"/>
+  <xs:element name="chargingContractMaintainBundleResponse" type="tns:ChargingContractMaintainBundleResponse"/>
+  <xs:element name="chargingContractMaintainMassRequest" type="tns:ChargingContractMaintainMassRequest"/>
+  <xs:element name="chargingContractMaintainMassResponse" type="tns:ChargingContractMaintainMassResponse"/>
+  <xs:complexType name="ContractOperationResponse">
+    <xs:complexContent>
+      <xs:extension base="core:Response">
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="0" name="id" type="core:String256"/>
+          <xs:element maxOccurs="1" minOccurs="0" name="reference" type="core:String256"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="MaintainChargingContractRequest">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="date" type="core:Date"/>
+      <xs:element name="chargingContractRevision" type="contract:ChargingContractRevision"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CancelChargingContractRequest">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="id" type="core:String256"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FindChargingContractRequest">
+    <xs:sequence>
+      <xs:element name="chargingContractSearchFilter" type="tns:ChargingContractSearchFilter"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChargingContractSearchFilter">
+    <xs:complexContent>
+      <xs:extension base="core:SearchFilter">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="core:StringAttributeDescription"/>
+          <xs:element minOccurs="0" name="subscriberAccountId" type="core:StringAttributeDescription"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="additionalInfo" type="core:AdditionalAttributeDescription"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="subscriberAccountAdditionalInfo" type="core:AdditionalAttributeDescription"/>
+          <xs:element minOccurs="0" name="rootChargingContractId" type="core:StringAttributeDescription"/>
+          <xs:element minOccurs="0" name="operationalStatus" type="operationalstatus:OperationalStatus"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FindChargingContractResponse">
+    <xs:complexContent>
+      <xs:extension base="core:SearchResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="chargingContract" type="contract:ChargingContract"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!--CHARGING CONTRACT MAINTAIN MASS-->
+  <xs:complexType name="ChargingContractMaintainMassRequest">
+    <xs:sequence>
+      <xs:element maxOccurs="1000" minOccurs="1" ref="tns:chargingContractMaintainRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChargingContractMaintainMassResponse">
+    <xs:complexContent>
+      <xs:extension base="core:MassResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="1000" minOccurs="0" ref="tns:chargingContractMaintainResponse"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!--CHARGING CONTRACT MAINTAIN BUNDLE-->
+  <xs:complexType name="ChargingContractMaintainBundleRequest">
+    <xs:sequence>
+      <xs:element maxOccurs="1000" minOccurs="1" ref="tns:chargingContractMaintainRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChargingContractMaintainBundleResponse">
+    <xs:complexContent>
+      <xs:extension base="core:Response">
+        <xs:sequence>
+          <xs:element maxOccurs="1000" minOccurs="0" ref="tns:chargingContractMaintainResponse"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>]]></string>
+               <string name="filePathSequence" value="rating_1_2.xsd"/>
+            </storable>
+            <storable name="2" storable-id="dr.WSDLIncludeFileStoreable" ver="2.1">
+               <string name="fileContent" quoted="true"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>\u000d
+<xs:schema targetNamespace="http://contract.ws.highdeal.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://contract.ws.highdeal.com/" xmlns:suac="http://suac.ws.highdeal.com/" xmlns:core="http://schema.ws.highdeal.com/">
+  <xs:import namespace="http://schema.ws.highdeal.com/" schemaLocation="rating_1.xsd"/>
+  <xs:import namespace="http://suac.ws.highdeal.com/" schemaLocation="rating_1_2_3_4.xsd"/>
+  <xs:complexType name="ChargingContractRevision">
+    <xs:sequence>
+      <xs:element name="id" type="core:String256"/>
+      <xs:choice>
+        <xs:element name="subscriberAccountId" type="core:String256">
+          <xs:annotation>
+            <xs:documentation>The identifier of the subscriber account that the contract relates to</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="rootChargingContractId" type="core:String256">
+          <xs:annotation>
+            <xs:documentation>The ID of the parent contract. A linked contract relates to the subscriber account of its parent contract.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:choice>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="additionalInfo" type="core:AdditionalInfo"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="chargingContractItemRevision" type="tns:ChargingContractItemRevision"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChargingContractItemRevision">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="chargePlanClassId" type="core:String256"/>
+        <xs:element name="refillPlanClassId" type="core:String256"/>
+      </xs:choice>
+      <xs:element name="id" type="core:String256"/>
+      <xs:element minOccurs="0" name="externalId" type="core:String256"/>
+      <xs:element minOccurs="0" name="end" type="core:Date"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="sharedCounter" type="tns:ChargingContractItemSharedCounter"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="pooledCounter" type="tns:ChargingContractItemPooledCounter">
+        <xs:annotation>
+          <xs:documentation>The pool of counters shared by a parent contract with its linked contracts</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="parameter" type="tns:ChargingContractItemParameter"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="userTechnicalIdentifier" type="tns:ChargingContractItemUserTechnicalIdentifier"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="accountAssignment" type="tns:ChargingContractItemRevisionAccountAssignment"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChargingContract">
+    <xs:sequence>
+      <xs:element name="id" type="core:String256"/>
+      <xs:element name="subscriberAccountId" type="core:String256">
+        <xs:annotation>
+          <xs:documentation>The identifier of the subscriber account that the contract relates to</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="rootChargingContractId" type="core:String256">
+        <xs:annotation>
+          <xs:documentation>The ID of the parent contract. A linked contract relates to the subscriber account of its parent contract.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="additionalInfo" type="core:AdditionalInfo"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="chargingContractItem" type="tns:ChargingContractItem"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChargingContractItem">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="chargePlanClassId" type="core:String256"/>
+        <xs:element name="refillPlanClassId" type="core:String256"/>
+      </xs:choice>
+      <xs:element name="id" type="core:String256"/>
+      <xs:element minOccurs="0" name="externalId" type="core:String256"/>
+      <xs:element maxOccurs="unbounded" minOccurs="1" name="period" type="tns:ChargingContractItemPeriod"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChargingContractItemPeriod">
+    <xs:sequence>
+      <xs:element name="start" type="core:Date"/>
+      <xs:element minOccurs="0" name="end" type="core:Date"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="parameter" type="tns:ChargingContractItemParameter"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="sharedCounter" type="tns:ChargingContractItemSharedCounter"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="pooledCounter" type="tns:ChargingContractItemPooledCounter">
+        <xs:annotation>
+          <xs:documentation>The pool of counters shared by a parent contract with its linked contracts</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="userTechnicalIdentifier" type="tns:ChargingContractItemUserTechnicalIdentifier"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="accountAssignment" type="tns:ChargingContractItemAccountAssignment"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChargingContractItemParameter">
+    <xs:sequence>
+      <xs:element name="name" type="core:String256"/>
+      <xs:choice>
+        <xs:element name="string" type="core:String2000"/>
+        <xs:element name="date" type="core:Date"/>
+        <xs:element name="number" type="core:Decimal28_6"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChargingContractItemSharedCounter">
+    <xs:sequence>
+      <xs:element name="name" type="core:String256"/>
+      <xs:element minOccurs="0" name="namespace" type="core:String256"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChargingContractItemPooledCounter">
+    <xs:sequence>
+      <xs:element name="name" type="core:String256"/>
+      <xs:element minOccurs="0" name="namespace" type="core:String256"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChargingContractItemUserTechnicalIdentifier">
+    <xs:sequence>
+      <xs:element name="name" type="core:String256"/>
+      <xs:element name="userServiceId" type="core:String256">
+        <xs:annotation>
+          <xs:documentation>The technical identifier of an end customer who consumes a service</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChargingContractItemRevisionAccountAssignment">
+    <xs:sequence>
+      <xs:element name="name" type="core:String256"/>
+      <xs:element name="accountId" type="core:String256"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChargingContractItemAccountAssignment">
+    <xs:complexContent>
+      <xs:extension base="tns:ChargingContractItemRevisionAccountAssignment">
+        <xs:sequence>
+          <xs:element name="type">
+            <!--Duplicated from catalog WSDL-->
+            <xs:simpleType>
+              <xs:restriction base="core:String256">
+                <xs:enumeration value="postpaid"/>
+                <xs:enumeration value="prepaid"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>]]></string>
+               <string name="filePathSequence" value="rating_1_2_3.xsd"/>
+            </storable>
+            <storable name="3" storable-id="dr.WSDLIncludeFileStoreable" ver="2.1">
+               <string name="fileContent" quoted="true"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>\u000d
+<xs:schema jaxb:version="2.0" targetNamespace="http://schema.rating.ws.highdeal.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schema.rating.ws.highdeal.com/" xmlns:prov="http://schema.provisioning.ws.highdeal.com/" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:core="http://schema.ws.highdeal.com/">
+  <xs:import namespace="http://schema.ws.highdeal.com/" schemaLocation="rating_1.xsd"/>
+  <xs:import namespace="http://schema.provisioning.ws.highdeal.com/" schemaLocation="rating_1_2.xsd"/>
+  <!--REQUEST DEFINITIONS-->
+  <xs:element name="chargingContractBulkActivateRequest" type="tns:ChargingContractBulkActivateRequest"/>
+  <xs:element name="chargingContractBulkActivateResponse" type="tns:JobRecordResponse"/>
+  <xs:element name="subscriptionBulkActivateRequest" type="tns:SubscriptionBulkActivateRequest"/>
+  <xs:element name="subscriptionBulkActivateResponse" type="tns:JobRecordResponse"/>
+  <xs:element name="chargedItemLoadRequest" type="tns:ChargedItemLoadRequest"/>
+  <xs:element name="chargedItemLoadResponse" type="tns:JobRecordResponse"/>
+  <xs:element name="ratingSessionStartRequest" type="tns:RatingSessionStartRequest"/>
+  <xs:element name="ratingSessionStartResponse" type="tns:JobRecordResponse"/>
+  <xs:element name="jobStatusReadRequest" type="tns:JobStatusReadRequest"/>
+  <xs:element name="jobStatusReadResponse" type="tns:JobStatusReadResponse"/>
+  <!--REQUESTS-->
+  <xs:complexType name="ChargingContractBulkActivateRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:BulkActivateRequest">
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="0" name="filter" type="prov:ChargingContractSearchFilter"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SubscriptionBulkActivateRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:BulkActivateRequest">
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="0" name="filter" type="tns:SubscriptionSearchFilter"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="BulkActivateRequest">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="toDate" type="core:Date"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="maxThroughput" type="core:Integer"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChargedItemLoadRequest">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="0" name="customerManagementAreaName" type="core:String256"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RatingSessionStartRequest">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="maxConsumptionDate" type="core:Date"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="batchRatingGroup" type="core:String256"/>
+      <xs:element maxOccurs="1" minOccurs="1" name="ratingMode" type="tns:RatingSessionMode"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="description" type="core:String256"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="JobStatusReadRequest">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="1" name="id" type="core:Long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--RESPONSES-->
+  <xs:complexType name="JobRecordResponse">
+    <xs:complexContent>
+      <xs:extension base="core:Response">
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="0" name="id" type="core:Long"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="JobStatusReadResponse">
+    <xs:complexContent>
+      <xs:extension base="core:Response">
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="0" name="ratingJobStatus" type="tns:RatingJobStatus"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!--COMPLEX TYPE-->
+  <xs:complexType name="SubscriptionSearchFilter">
+    <xs:complexContent>
+      <xs:extension base="core:SearchFilter">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="core:StringAttributeDescription"/>
+          <xs:element minOccurs="0" name="offerCode" type="core:StringAttributeDescription"/>
+          <xs:element minOccurs="0" name="offerConditionCode" type="core:StringAttributeDescription"/>
+          <xs:element minOccurs="0" name="type" type="core:NumberAttributeDescription"/>
+          <xs:element minOccurs="0" name="effective_date" type="core:DateAttributeDescription"/>
+          <xs:element minOccurs="0" name="expiration_date" type="core:DateAttributeDescription"/>
+          <xs:element minOccurs="0" name="priceFreeze_effective_date" type="core:DateAttributeDescription"/>
+          <xs:element minOccurs="0" name="priceFreeze_expiration_date" type="core:DateAttributeDescription"/>
+          <xs:element minOccurs="0" name="commitment_expiration_date" type="core:DateAttributeDescription"/>
+          <xs:element minOccurs="0" name="suspension_date" type="core:DateAttributeDescription"/>
+          <xs:element minOccurs="0" name="resumption_date" type="core:DateAttributeDescription"/>
+          <xs:element minOccurs="0" name="cancellation_date" type="core:DateAttributeDescription"/>
+          <xs:element minOccurs="0" name="batchRatingGroupId" type="core:NumberAttributeDescription"/>
+          <xs:element minOccurs="0" name="rerating_lock_code" type="core:StringAttributeDescription"/>
+          <xs:element minOccurs="0" name="rerating_last_status" type="core:NumberAttributeDescription"/>
+          <xs:element minOccurs="0" name="rerating_last_code" type="core:StringAttributeDescription"/>
+          <xs:element minOccurs="0" name="rerating_suggested_date" type="core:DateAttributeDescription"/>
+          <xs:element minOccurs="0" name="partitionID" type="core:NumberAttributeDescription"/>
+          <xs:element minOccurs="0" name="status" type="core:NumberAttributeDescription"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="additionalInfo" type="core:AdditionalAttributeDescription"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="subscriptionSpecificFormula" type="tns:SubscriptionSpecificFormula"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!--SIMPLE TYPE-->
+  <xs:simpleType name="SubscriptionSpecificFormula">
+    <xs:restriction base="core:String256">
+      <xs:enumeration value="mustBeRoot"/>
+      <xs:enumeration value="isOffline"/>
+      <xs:enumeration value="isHybrid"/>
+      <xs:enumeration value="isOnline"/>
+      <xs:enumeration value="isLocked"/>
+      <xs:enumeration value="isNotLocked"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RatingJobStatus">
+    <xs:restriction base="core:String256">
+      <xs:enumeration value="init"/>
+      <xs:enumeration value="running"/>
+      <xs:enumeration value="success"/>
+      <xs:enumeration value="inError"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RatingSessionMode">
+    <xs:restriction base="core:String256">
+      <xs:enumeration value="subscription-firstFail"/>
+      <xs:enumeration value="subscription-most"/>
+      <xs:enumeration value="subscription-try"/>
+      <xs:enumeration value="day-most"/>
+      <xs:enumeration value="day-subscription-firstFail"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>]]></string>
+               <string name="filePathSequence" value="rating.xsd"/>
+            </storable>
+            <storable name="4" storable-id="dr.WSDLIncludeFileStoreable" ver="2.1">
+               <string name="fileContent" quoted="true"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>\u000d
+<xs:schema targetNamespace="http://suac.ws.highdeal.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://suac.ws.highdeal.com/" xmlns:core="http://schema.ws.highdeal.com/">
+  <xs:import namespace="http://schema.ws.highdeal.com/" schemaLocation="rating_1.xsd"/>
+  <xs:complexType name="SubscriberAccountWithAccounts">
+    <xs:complexContent>
+      <xs:extension base="tns:SubscriberAccount">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="externalAccount" type="tns:ExternalAccount"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="prepaidAccount" type="tns:PrepaidAccount"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SubscriberAccount">
+    <xs:sequence>
+      <xs:element name="id" type="core:String256"/>
+      <xs:element name="subscriberId" type="core:String256"/>
+      <xs:element minOccurs="0" name="description" type="core:String2000"/>
+      <xs:choice>
+        <xs:element name="noTax" type="core:Empty"/>
+        <xs:element name="tax" type="tns:TaxInfo"/>
+      </xs:choice>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="additionalInfo" type="core:AdditionalInfo"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ExternalAccount">
+    <xs:sequence>
+      <xs:element name="id" type="core:String256"/>
+      <xs:element name="subscriberAccountId" type="core:String256"/>
+      <xs:element minOccurs="0" name="description" type="core:String2000"/>
+      <xs:element minOccurs="0" name="additionalId" type="core:String256"/>
+      <xs:element minOccurs="0" name="currencyCode" type="core:CurrencyCode"/>
+      <xs:element minOccurs="0" name="externalSystemCode" type="core:String256"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PrepaidAccount">
+    <xs:sequence>
+      <xs:element name="id" type="core:String256"/>
+      <xs:element name="subscriberAccountId" type="core:String256"/>
+      <xs:element minOccurs="0" name="description" type="core:String2000"/>
+      <xs:element name="currencyCode" type="core:CurrencyCode"/>
+      <xs:element default="0" minOccurs="0" name="emptyLimit" type="core:Decimal28_6">
+        <xs:annotation>
+          <xs:documentation>Conditional. If not specified, the empty limit of the prepaid account is set to 0.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="balance" type="core:Decimal28_6">
+        <xs:annotation>
+          <xs:documentation>The balance of the prepaid account is only readable.
+            Do not specify a balance amount for the create or change operation requests.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="currentState" type="tns:PrepaidAccountState"/>
+      <xs:element name="stateSchedule" type="tns:StateSchedule"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="amountAlert" type="tns:AmountAlert"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="stateChangeAlert" type="tns:StateChangeAlert"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AmountAlert">
+    <xs:sequence>
+      <xs:element name="alertCode" type="core:String256"/>
+      <xs:element name="amountThreshold" type="core:Decimal28_6"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StateChangeAlert">
+    <xs:sequence>
+      <xs:element name="alertCode" type="core:String256"/>
+      <xs:element default="0" minOccurs="0" name="dayCount" type="xs:int"/>
+      <xs:element name="toStateCode" type="tns:PrepaidAccountState"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StateSchedule">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:StateScheduleItem"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StateScheduleItem">
+    <xs:sequence>
+      <xs:element name="stateCode" type="tns:PrepaidAccountStateSchedule"/>
+      <xs:element name="fromDate" type="core:Date"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PrepaidAccountStateSchedule">
+    <xs:restriction base="core:String256">
+      <xs:enumeration value="blocked"/>
+      <xs:enumeration value="locked"/>
+      <xs:enumeration value="closed"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PrepaidAccountState">
+    <xs:restriction base="core:String256">
+      <xs:enumeration value="active"/>
+      <xs:enumeration value="blocked"/>
+      <xs:enumeration value="locked"/>
+      <xs:enumeration value="closed"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ExternalAccountReference">
+    <xs:sequence>
+      <xs:element name="subscriberAccountId" type="core:String256"/>
+      <xs:element name="externalAccountId" type="core:String256"/>
+      <xs:element minOccurs="0" name="additionalId" type="core:String256"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PrepaidAccountReference">
+    <xs:sequence>
+      <xs:element name="subscriberAccountId" type="core:String256"/>
+      <xs:element name="prepaidAccountId" type="core:String256"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="AccountTaxationMode">
+    <xs:restriction base="core:String256">
+      <xs:enumeration value="vendorSubjectToPay"/>
+      <xs:enumeration value="buyerSubjectToPay"/>
+      <xs:enumeration value="buyerExempted"/>
+      <xs:enumeration value="noTax"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TaxInfo">
+    <xs:sequence>
+      <xs:element name="mode" type="tns:AccountTaxationMode"/>
+      <xs:choice>
+        <xs:element name="vat" type="tns:TaxInfoVAT"/>
+        <xs:element name="ezTax" type="tns:TaxInfoEZTax"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TaxInfoVAT">
+    <xs:sequence>
+      <xs:element name="taxCode" type="core:String256"/>
+      <xs:element minOccurs="0" name="customerCountryCode" type="core:CountryCode"/>
+      <xs:element minOccurs="0" name="businessCategory" type="tns:VATBusinessCategory"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="VATBusinessCategory">
+    <xs:restriction base="core:String256">
+      <xs:enumeration value="B2B"/>
+      <xs:enumeration value="B2C"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TaxInfoEZTax">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="origination" type="tns:EZTaxString"/>
+      <xs:element minOccurs="0" name="termination" type="tns:EZTaxString"/>
+      <xs:element minOccurs="0" name="serviceAddress" type="tns:EZTaxString"/>
+      <xs:element minOccurs="0" name="customerType" type="tns:EZTaxCustomerType"/>
+      <xs:element minOccurs="0" name="incorporatedCode" type="tns:EZTaxIncorporatedCode"/>
+      <xs:element minOccurs="0" name="clientResale" type="tns:EZTaxClientResale"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="EZTaxString">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="10"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EZTaxCustomerType">
+    <xs:restriction base="core:String256">
+      <xs:enumeration value="business"/>
+      <xs:enumeration value="industrial"/>
+      <xs:enumeration value="residentialCustomer"/>
+      <xs:enumeration value="seniorCitizen"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EZTaxIncorporatedCode">
+    <xs:restriction base="core:String256">
+      <xs:enumeration value="inside"/>
+      <xs:enumeration value="outside"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EZTaxClientResale">
+    <xs:restriction base="core:String256">
+      <xs:enumeration value="resale"/>
+      <xs:enumeration value="sale"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>]]></string>
+               <string name="filePathSequence" value="rating_1_2_3_4.xsd"/>
+            </storable>
+            <storable name="5" storable-id="dr.WSDLIncludeFileStoreable" ver="2.1">
+               <string name="fileContent" quoted="true"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>\u000d
+<xs:schema targetNamespace="http://operationalstatus.ws.highdeal.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://operationalstatus.ws.highdeal.com/" xmlns:core="http://schema.ws.highdeal.com/">
+  <xs:import namespace="http://schema.ws.highdeal.com/" schemaLocation="rating_1.xsd"/>
+  <xs:simpleType name="OperationalStatus">
+    <xs:restriction base="core:String256">
+      <xs:enumeration value="active"/>
+      <xs:enumeration value="locked"/>
+      <xs:enumeration value="closed"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>]]></string>
+               <string name="filePathSequence" value="rating_1_2_3_4_5.xsd"/>
+            </storable>
+         </list>
+         <string name="inputAndOutputTypeName"><![CDATA[ws.MZ1717151637292.WS_CC_BulkLoader.udr.AbstractRatingServicesWSCycle]]></string>
+         <string name="properties"><![CDATA[# Advanced XML binding options can be customized here. If the properties are commented out, default values are used.
+
+#Enable JAXB Simple Binding Mode
+# When true, XSD Schemas of loaded WSDL files are compiled into Java code using the experimental "Simple and better binding mode". This is necessary for some complex types, for instance when duplicate element names are used within the same complex type.
+enable_JAXB_simple_binding false
+
+#Disable JAXWS Wrapper style Mode
+# When true, the cycle UDR will contain request and response parameters that wrap all the arguments in request and response UDRs.
+disable_JAXWS_wrapper_mode false
+
+#Enable Processing Of Implicit Soap Header
+# When true, any SOAP headers defined in the binding section of WSDL files are compiled into Java code. This is necessary in order to manipulate the SOAP headers in outgoing Web Service requests. 
+enable_processing_of_implicit_SOAP_header false
+
+#Disable Underscore Binding Mode
+# When false, underscore binding mode is true, JAXB will not strip underscore from the element names when converting a WSDL file to Java.
+disable_under_score_binding false
+
+#Populate originaldata field
+# When true the OriginalData field in the WSCycleUDR will be populated with the content of the SOAP request
+populate_originaldata_field false
+
+#Max enum members
+# Sets the value for the typesafeEnumMaxMembers jaxb global variable which controls the maximum number of allowed enum members
+max_enum_members 256
+
+#Schema level bindings
+# Sets the jaxb schema level bindings per xsd file. The format is [filename.xsd]:package=[packageSuffix],[transformationType]-prefix=prefix,suffix=suffix;
+schema_level_bindings 
+
+#Global bindings
+# Sets the jaxb global bindings per xsd file. The format is property=value;
+global_bindings localScoping=nested
+
+#Enable fault stack trace in response
+# When true stack trace information will be available in error responses
+fault_stack_trace_enabled false
+
+#Allow HEAD
+# When true HTTP method HEAD is allowed
+allow_head false
+
+#Jetty Accept Queue Size
+# Size of the Jetty ServerConnector request queue, set to 0 to disable queue
+jetty_accept_queue_size 0
+
+#Enable Big Decimal
+# Enable the use of BigDecimal as internal type for decimal
+enable_big_decimal false
+
+]]></string>
+         <boolean name="singleWSDLFile" value="true"/>
+         <string name="transport" value="HTTP"/>
+         <map classname="java.util.HashMap" name="typeNamespaceToPrefixMap" size="1">
+            <string name="key_0" value="http://schema.rating.ws.highdeal.com/"/>
+            <string name="value_0" value="schema"/>
+         </map>
+         <string name="unique_name" value="com.digitalroute.ws.ws1607078539614"/>
+         <string name="wsdlFileContent" quoted="true"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>\u000d
+<definitions name="rating" targetNamespace="http://rating.ws.highdeal.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:tns="http://rating.ws.highdeal.com/" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:schema="http://schema.rating.ws.highdeal.com/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://schema.rating.ws.highdeal.com/" schemaLocation="rating.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="chargedItemLoadRequest">
+    <part element="schema:chargedItemLoadRequest" name="request"/>
+  </message>
+  <message name="ratingSessionStartResponse">
+    <part element="schema:ratingSessionStartResponse" name="response"/>
+  </message>
+  <message name="chargedItemLoadResponse">
+    <part element="schema:chargedItemLoadResponse" name="response"/>
+  </message>
+  <message name="subscriptionBulkActivateResponse">
+    <part element="schema:subscriptionBulkActivateResponse" name="response"/>
+  </message>
+  <message name="jobStatusReadResponse">
+    <part element="schema:jobStatusReadResponse" name="response"/>
+  </message>
+  <message name="subscriptionBulkActivateRequest">
+    <part element="schema:subscriptionBulkActivateRequest" name="request"/>
+  </message>
+  <message name="jobStatusReadRequest">
+    <part element="schema:jobStatusReadRequest" name="request"/>
+  </message>
+  <message name="chargingContractBulkActivateResponse">
+    <part element="schema:chargingContractBulkActivateResponse" name="response"/>
+  </message>
+  <message name="ratingSessionStartRequest">
+    <part element="schema:ratingSessionStartRequest" name="request"/>
+  </message>
+  <message name="chargingContractBulkActivateRequest">
+    <part element="schema:chargingContractBulkActivateRequest" name="request"/>
+  </message>
+  <portType name="RatingServices">
+    <operation name="chargingContractBulkActivate">
+      <input message="tns:chargingContractBulkActivateRequest"/>
+      <output message="tns:chargingContractBulkActivateResponse"/>
+    </operation>
+    <operation name="subscriptionBulkActivate">
+      <input message="tns:subscriptionBulkActivateRequest"/>
+      <output message="tns:subscriptionBulkActivateResponse"/>
+    </operation>
+    <operation name="chargedItemLoad">
+      <input message="tns:chargedItemLoadRequest"/>
+      <output message="tns:chargedItemLoadResponse"/>
+    </operation>
+    <operation name="ratingSessionStart">
+      <input message="tns:ratingSessionStartRequest"/>
+      <output message="tns:ratingSessionStartResponse"/>
+    </operation>
+    <operation name="jobStatusRead">
+      <input message="tns:jobStatusReadRequest"/>
+      <output message="tns:jobStatusReadResponse"/>
+    </operation>
+  </portType>
+  <binding name="RatingServicesPortBinding" type="tns:RatingServices">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="chargingContractBulkActivate">
+      <soap:operation soapAction="chargingContractBulkActivate"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="subscriptionBulkActivate">
+      <soap:operation soapAction="subscriptionBulkActivate"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="chargedItemLoad">
+      <soap:operation soapAction="chargedItemLoad"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="ratingSessionStart">
+      <soap:operation soapAction="ratingSessionStart"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="jobStatusRead">
+      <soap:operation soapAction="jobStatusRead"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="rating">
+    <port binding="tns:RatingServicesPortBinding" name="ratingPort">
+      <soap:address location="http://172.16.16.13:9081/rating"/>
+    </port>
+  </service>
+  <wsp:UsingPolicy required="true"/>
+  <wsp:Policy>
+    <!--Username token-->
+    <sp:SupportingTokens>
+      <wsp:Policy>
+        <sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+          <wsp:Policy>
+            <sp:WssUsernameToken10/>
+          </wsp:Policy>
+        </sp:UsernameToken>
+      </wsp:Policy>
+    </sp:SupportingTokens>
+  </wsp:Policy>
+</definitions>]]></string>
+         <string name="wsdlFileName" value="rating_1.wsdl"/>
+         <string name="wsdl_file" value="D:\wsdl"/>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="CM_AcuitiPort"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="MZ1717151637292"/>
+      <string name="Modified By" value="mzadmin"/>
+      <long name="Modified Date" value="1739906918348"/>
+      <string name="Name" value="WS_CC_BulkLoader"/>
+      <string name="Owner" value="mzadmin"/>
+      <string name="Type" value="WS Profile"/>
+      <int name="Version" value="1"/>
+      <string name="documentation" value=""/>
+   </storable>
+</webservices_profile>

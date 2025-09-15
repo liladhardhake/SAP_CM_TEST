@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Workflow_Table" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <storable name="InstanceTable" storable-id="dr.WorkflowInstanceTableData" ver="10.0">
+      <list classname="java.util.ArrayList" name="Workflow_Table">
+         <storable name="0" storable-id="dr.WorkflowInstanceData" ver="2.0">
+            <list classname="java.util.ArrayList" name="Fields">
+               <storable name="0" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="1807791739"/>
+                  <string name="NodeName" value="CIT_Disk"/>
+                  <string name="QName" value="Disk - Directory"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="UPDATE_PROC_INPUT_PATH"/>
+                  </object>
+               </storable>
+               <storable name="1" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="1843595207"/>
+                  <string name="NodeName" value="AuditDisk"/>
+                  <string name="QName" value="Disk - Directory"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="AUDIT_PATH"/>
+                  </object>
+               </storable>
+            </list>
+            <long name="ID" value="1"/>
+            <string name="Name" value="workflow_1"/>
+            <enum name="Valid Type" storable-id="dr.ValidType" value="VALID"/>
+            <string name="Validation Error" null="true"/>
+         </storable>
+      </list>
+   </storable>
+   <long name="Workflow ID Counter" value="1"/>
+</exportmultiplex>

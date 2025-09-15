@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<shared_table category="Internal">
+   <storable name="shared_table" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Administrator"/>
+         <string name="1" value="Administrator"/>
+         <string name="2" value="Administrator"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.SharedTableProfileData" ver="4.0">
+         <storable name="Database" storable-id="dr.DRConfiguration" ver="2.0">
+            <set name="Dynamic Parameters" null="true"/>
+            <string name="Folder" value="CM_AcuitiPort"/>
+            <string name="Key" value="MZ1659091095625"/>
+            <string name="Name" value="PRF_Database_Profile_PS4"/>
+            <string name="Type" value="Database Profile"/>
+         </storable>
+         <array name="Index Columns" null="true"/>
+         <enum name="Index Strategy" null="true"/>
+         <boolean name="Refresh Enabled" value="true"/>
+         <int name="Refresh Interval" value="10"/>
+         <boolean name="Release Enabled" value="true"/>
+         <int name="Release Timeout" value="3600"/>
+         <string name="SQL Load Statement"><![CDATA[select * from "ACUITIPORT"."TB_MANDATORY_FIELD_VALIDATION"]]></string>
+         <enum classname="com.digitalroute.devkit.hidden.inmemorytable.TableFactory$TableStrategy" name="Table Strategy" value="OBJECT"/>
+         <boolean name="Variable Width" value="false"/>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="CM_AcuitiPort"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="MZ1659087858467"/>
+      <string name="Modified By" value="mzadmin"/>
+      <long name="Modified Date" value="1739959566153"/>
+      <string name="Name" value="PRF_Shared_Table_TB_Mandatory_Fields"/>
+      <string name="Owner" value="mzadmin"/>
+      <string name="Type" value="Shared Table Profile"/>
+      <int name="Version" value="2"/>
+      <string name="documentation" value=""/>
+   </storable>
+</shared_table>

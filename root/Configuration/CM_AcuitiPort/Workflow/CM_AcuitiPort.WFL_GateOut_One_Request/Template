@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Template" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <list classname="java.util.ArrayList" name="Comments"/>
+   <storable name="Execution Config" storable-id="dr.WorkflowExecutionConfig" ver="10.0">
+      <enum name="debugType" storable-id="dr.DebugType" value="FILE"/>
+      <storable name="executionSettings" storable-id="dr.ExecutionSettings" ver="10.0">
+         <storable name="autostart" storable-id="dr.AutoStartSettings" ver="1.0">
+            <enum classname="com.digitalroute.wf.AutoStartSettings$AbortBehaviour" name="abort behaviour" value="ABORT"/>
+            <boolean name="enabled" value="false"/>
+            <int name="instances" value="0"/>
+         </storable>
+         <enum name="dist" storable-id="dr.WorkflowDistType" value="ROUND_ROBIN"/>
+         <boolean name="enabled" value="true"/>
+         <list classname="java.util.LinkedList" name="groupList">
+            <storable name="0" storable-id="dr.PicoGroupEntity" ver="2.0">
+               <string name="GroupName" value="ecsa1"/>
+               <int name="PicoType" value="2"/>
+            </storable>
+         </list>
+      </storable>
+      <int name="noOfFilesToKeep" value="1"/>
+      <string name="throughputMIM" null="true"/>
+      <string name="txnHandler" value="Default Handler"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Field Types"/>
+   <list classname="java.util.ArrayList" name="Logged error MIM"/>
+   <list classname="java.util.ArrayList" name="Nodes">
+      <storable name="0" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.mz.rest_server.agent.RestServerCollectorAgentInspRT]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.mz.rest_server.agent.RestServerCollectorAgentInspRT]]></string>
+               <storable name="Data" storable-id="dr.RestServerData" ver="30.0">
+                  <string name="advancedProperties"><![CDATA[# Properties controlling REST Server collector can be customized here.
+# Please read the user documentation before changing these properties.
+
+# If true, REST server will send authentication error directly to client without
+# routing REST Cycle UDR to output.
+auto.auth.error.response.enabled=true
+
+# If true, REST server will send endpoint URI not found error directly to client without
+# routing REST Cycle UDR to output.
+auto.endpoint.uri.not.found.response.enabled=true
+]]></string>
+                  <boolean name="autoAuthErrorResponseEnabled" value="true"/>
+                  <boolean name="autoEndpointURINotFoundResponseEnabled" value="true"/>
+                  <boolean name="certificateValidation" value="false"/>
+                  <boolean name="certificateValidationActive" value="false"/>
+                  <string name="crl" value=""/>
+                  <boolean name="crldp" value="false"/>
+                  <list classname="java.util.ArrayList" name="endpointURIs">
+                     <string name="0" value="/portal/"/>
+                  </list>
+                  <string name="host" value="172.16.16.33"/>
+                  <boolean name="isTwoWayAuth" value="false"/>
+                  <string name="jwtPublicKeyAlias" null="true"/>
+                  <boolean name="jwtPublicKeyAliasActive" value="false"/>
+                  <int name="maxProcessingTime" value="50"/>
+                  <int name="maxQueuedThreadPool" value="64"/>
+                  <int name="minQueuedThreadPool" value="8"/>
+                  <string name="oauthTruststore" null="true"/>
+                  <boolean name="oauthTruststoreActive" value="false"/>
+                  <password name="oauthTsPassphrase" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+                  <boolean name="oauthTsPassphraseActive" value="false"/>
+                  <int name="port" value="8099"/>
+                  <storable name="restServerProfile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="CM_AcuitiPort"/>
+                     <string name="Key" value="MZ1716300614207"/>
+                     <string name="Name" value="PRF_REST_Portal"/>
+                     <string name="Type" value="REST Server Profile"/>
+                  </storable>
+                  <storable name="securityProfile" null="true"/>
+                  <string name="tlsKeystore" value=""/>
+                  <boolean name="tlsKeystoreActive" value="false"/>
+                  <password name="tlsKsPassphrase" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+                  <string name="twoWayTruststore" value=""/>
+                  <boolean name="twoWayTruststoreActive" value="false"/>
+                  <password name="twoWayTsPassphrase" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+                  <boolean name="twoWayTsPassphraseActive" value="false"/>
+                  <storable name="udrType" null="true"/>
+                  <boolean name="useOAuth_2_0" value="false"/>
+                  <boolean name="useSecurityProfile" value="false"/>
+                  <boolean name="useTLS" value="false"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="REST_Server"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+               <storable name="Data" storable-id="rfc.agent.contract" ver="10.0">
+                  <int name="cacheExpiry" value="120"/>
+                  <int name="cacheSize" value="1000"/>
+                  <boolean name="enableConnectionPool" value="false"/>
+                  <boolean name="enableImmediateStop" value="false"/>
+                  <int name="executorSize" value="5"/>
+                  <int name="jCoPeakLimit" value="2"/>
+                  <int name="jCoPoolCapacity" value="2"/>
+                  <int name="queueSize" value="1000"/>
+                  <storable name="rfcProfile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="CM_AcuitiPort"/>
+                     <string name="Key" value="MZ1716446356931"/>
+                     <string name="Name" value="PRF_Portal_Common"/>
+                     <string name="Type" value="SAP RFC Profile"/>
+                  </storable>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="SAP_RFC_Processor"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.SAP_RFC.CM_AcuitiPort.PRF_Portal_Common;
+import ultra.SAP_RFC.CM_AcuitiPort.PRF_Portal_Common.subUdr;
+import ultra.CM_AcuitiPort.ULF_AcuitiPort_Portal;
+import apl.CM_AcuitiPort.APL_Dependent_Event;
+import ultra.CM_AcuitiPort.ULF_AcuitiPort;
+import apl.CM_AcuitiPort.APL_AcuitiPort_Validation;
+import apl.CM_AcuitiPort.APL_AcuitiPort_Portal;
+import apl.CM_AcuitiPort.APL_Company_Maps;
+import ultra.CM_AcuitiPort.ULF_Company_Maps;
+import ultra.json;
+import ultra.REST;
+import ultra.sapcc;
+
+map < string, int > MapCountCIC = mapCreateSync(string, int);
+
+table dpndntMapSharedTable = tableCreateShared("CM_AcuitiPort.PRF_Shared_Table_TB_DEPENDENT_TABLE");
+table compMapSharedTable = tableCreateShared("CM_AcuitiPort.PRF_Shared_Table_TB_COMPANY_MAPS");
+
+consume {
+  if (instanceOf(input, Cycle)) {
+    debug("The value of input = " + (input));
+    Cycle RestUDRCr = (Cycle) input;
+
+    bytearray requestBody = (RestUDRCr.request.body);
+    string jsonString = (baToStr(requestBody));
+    debug("The value of jsonString = " + (jsonString));
+
+    GetEventDetails decodedUDR = udrCreate(GetEventDetails);
+    jsonDecodeUdr(jsonString, decodedUDR, false);
+    debug("The value of decodedUDR = " + (decodedUDR));
+
+    if (decodedUDR.RequestType == "CalculateDetails") {
+      ZAP_RETREIVE_CIT_UDR rfcUDR = udrCreate(ZAP_RETREIVE_CIT_UDR);
+      rfcUDR.importParams = udrCreate(importParams_ZAP_RETREIVE_CIT);
+      rfcUDR.importParams.IM_REQUEST_TYPE = "GOUT";
+      rfcUDR.context = decodedUDR;
+      list < string > contList = listCreate(string);
+      list < ZBS_S_RETREIVE_CIT_TT > retCITContList = listCreate(ZBS_S_RETREIVE_CIT_TT);
+
+      for (EventCalVal getConValues: decodedUDR.EventsForCalculation) {
+
+        if (listSize(contList) > 0) {
+          debug("The value of contList = " + (contList));
+          boolean isContPresent = false;
+          for (string compCont: contList) {
+            if (compCont == getConValues.RequestedValue) {
+              isContPresent = true;
+            }
+
+          }
+          if (isContPresent == false) {
+            ZBS_S_RETREIVE_CIT_TT createReqval = udrCreate(ZBS_S_RETREIVE_CIT_TT);
+            if (decodedUDR.RequestedFor == "ContainerNumber") {
+              createReqval.FIELD_NAME = "ZZCONTAINER_ID";
+            } else if (decodedUDR.RequestedFor == "BLNumber") {
+              createReqval.FIELD_NAME = "BLNumber";
+            } else {
+              createReqval.FIELD_NAME = "BookingNumber";
+            }
+            createReqval.VALUE = getConValues.RequestedValue;
+            listAdd(retCITContList, createReqval);
+            listAdd(contList, getConValues.RequestedValue);
+          }
+        } else {
+          ZBS_S_RETREIVE_CIT_TT createReqval = udrCreate(ZBS_S_RETREIVE_CIT_TT);
+          if (decodedUDR.RequestedFor == "ContainerNumber") {
+            createReqval.FIELD_NAME = "ZZCONTAINER_ID";
+          } else if (decodedUDR.RequestedFor == "BLNumber") {
+            createReqval.FIELD_NAME = "BLNumber";
+          } else {
+            createReqval.FIELD_NAME = "BookingNumber";
+          }
+          createReqval.VALUE = getConValues.RequestedValue;
+          listAdd(retCITContList, createReqval);
+          listAdd(contList, getConValues.RequestedValue);
+        }
+
+      }
+      rfcUDR.importParams.IM_DATA = retCITContList;
+      rfcUDR.context = input;
+      debug("The value of rfcUDR  incase of retreiveCITS call= " + (rfcUDR));
+      udrRoute(rfcUDR, "toRFC");
+    }
+  }
+
+  if (instanceOf(input, ZAP_RETREIVE_CIT_UDR)) {
+    GetEventDetails decodedUDR = udrCreate(GetEventDetails);
+    ZAP_RETREIVE_CIT_UDR retrieveRespUDR = udrCreate(ZAP_RETREIVE_CIT_UDR);
+    retrieveRespUDR = (ZAP_RETREIVE_CIT_UDR) input;
+    debug("The value of rfc response for portalRefID" + decodedUDR.PortalRefID + " is " + (retrieveRespUDR));
+
+    REST.Cycle RestUDRCr = udrCreate(REST.Cycle);
+    RestUDRCr = (REST.Cycle) retrieveRespUDR.context;
+    //debug("The value of restUDR in retreive CIT response = " + (RestUDRCr));
+    bytearray requestBody = (RestUDRCr.request.body);
+    string jsonString = (baToStr(requestBody));
+    string sIsReal = strTrim(strREReplaceAll(jsonString, "\r", ""));
+    jsonDecodeUdr(jsonString, decodedUDR, false);
+    //debug("The value of decodedUDR = " + (decodedUDR));
+
+    exportParams_ZAP_RETREIVE_CIT exportParamUDR = retrieveRespUDR.exportParams;
+    tableParams_ZAP_RETREIVE_CIT tableParamUDR = retrieveRespUDR.tableParams;
+    list < BAPIRET2 > lBAPIRETURN2List = listCreate(BAPIRET2);
+    lBAPIRETURN2List = tableParamUDR.RETURN;
+    int iETReurnSize = listSize(lBAPIRETURN2List);
+    if (iETReurnSize > 0) {
+      BAPIRET2 bapiRetUDR = listGet(lBAPIRETURN2List, 0);
+      string sErrMessage = bapiRetUDR.MESSAGE;
+      RestUDRCr.response = (udrCreate(Response));
+
+      bytearray portalRestResponse;
+      portalResp respForPortal = udrCreate(portalResp);
+      respForPortal.data = "";
+      respForPortal.status = sErrMessage;
+      string sResponse = jsonEncodeUdr(respForPortal);
+      strToBA(portalRestResponse, sResponse);
+      RestUDRCr.response.body = portalRestResponse;
+      RestUDRCr.response.httpResponseCode = 400;
+      //setRestResponse(RestUDRCr, sErrMessage);
+      debug("The value of RestUDRCr sent to TPS = " + (RestUDRCr));
+      udrRoute(RestUDRCr, "toTPS");
+      return;
+    } else {
+
+      list < FKKBIXCIT_ALL_TAB > lBits = listCreate(FKKBIXCIT_ALL_TAB);
+      lBits = exportParamUDR.EX_CITS;
+      debug("The value of lBits = " + (lBits));
+      //routeRestResp createRouteUDR = udrCreate(routeRestResp);
+      //mapSet(MapCountCIC, decodedUDR.PortalRefID, listSize(decodedUDR.EventsForCalculation));
+      list < string > listCont = listCreate(string);
+      for (EventCalVal valInp: decodedUDR.EventsForCalculation) {
+        if (listSize(listCont) == 0) {
+          listAdd(listCont, valInp.RequestedValue);
+        } else {
+          boolean getVal = false;
+
+          for (string cont: listCont) {
+            if (cont == valInp.RequestedValue) {
+              getVal = true;
+            }
+          }
+          if (getVal == false) {
+            listAdd(listCont, valInp.RequestedValue);
+          }
+        }
+      }
+      debug("The value of listCont = " + (listCont));
+      if (listSize(listCont) == 1) {
+        string contVal = (string) listGet(listCont, 0);
+        for (FKKBIXCIT_ALL_TAB sBit: lBits) {
+          if (sBit.ZZEVENT_NAME == "UNIT_STORAGE" && contVal == sBit.ZZCONTAINER_ID) {
+            date exitdate, deliveryDate;
+            debug("#####Only one unit present in the request#####");
+            debug("The value of decodedUDR.ExitDate = " + (decodedUDR.ExitDate));
+            debug("The value of sBit.ZZDELIVERY_DTTM = " + (sBit.ZZDELIVERY_DTTM));
+            string lastCharged;
+            date dLastCharged, dCCLastCharged;
+            dLastCharged = strToDateCheck(sBit.ZZDELIVERY_DTTM, "yyyyMMddHHmmss");
+            lastCharged = dateToStringCheck(dLastCharged, "yyyyMMdd'T'HHmmss");
+            dCCLastCharged = strToDateCheck(lastCharged, "yyyyMMdd'T'HHmmss");
+            debug("The value of dCCLastCharged = " + (dCCLastCharged));
+            strToDate(exitdate, decodedUDR.ExitDate);
+            debug("The value of exitdate = " + (exitdate));
+            debug("The value of dateDiff(exitdate,deliveryDate)= " + (dateDiff(exitdate, dCCLastCharged)));
+            if (dateDiff(dCCLastCharged, exitdate) < 0) {
+              string errorMessage = "Already calculated till this date. Please try again with some other date";
+              debug("The value of errorMessage = " + (errorMessage));
+              //Route Response back to Postman
+              RestUDRCr.response = (udrCreate(Response));
+              bytearray portalRestResponse;
+              portalResp respForPortal = udrCreate(portalResp);
+              respForPortal.data = "";
+              respForPortal.status = errorMessage;
+              string sResponse = jsonEncodeUdr(respForPortal);
+              strToBA(portalRestResponse, sResponse);
+              RestUDRCr.response.body = portalRestResponse;
+              RestUDRCr.response.httpResponseCode = 400;
+              //setRestResponse(RestUDRCr, errorMessage);
+              debug("The value of RestUDRCr sent to TPS = " + (RestUDRCr));
+              udrRoute(RestUDRCr, "toTPS");
+              return;
+            }
+          }
+        }
+      }
+      int newSize;
+      for (EventCalVal valInp: decodedUDR.EventsForCalculation) {
+        for (FKKBIXCIT_ALL_TAB sBit: lBits) {
+          if (sBit.ZZEVENT_NAME == "UNIT_STORAGE" && valInp.RequestedValue == sBit.ZZCONTAINER_ID) {
+            date exitdate, deliveryDate;
+            debug("Calculating for event = " + valInp.EventName + "of unit " + valInp.RequestedValue);
+            debug("The value of decodedUDR.ExitDate = " + (decodedUDR.ExitDate));
+            debug("The value of sBit.ZZDELIVERY_DTTM = " + (sBit.ZZDELIVERY_DTTM));
+            string lastCharged;
+            date dLastCharged, dCCLastCharged;
+            dLastCharged = strToDateCheck(sBit.ZZDELIVERY_DTTM, "yyyyMMddHHmmss");
+            lastCharged = dateToStringCheck(dLastCharged, "yyyyMMdd'T'HHmmss");
+            dCCLastCharged = strToDateCheck(lastCharged, "yyyyMMdd'T'HHmmss");
+            //SAPCC_Date(cPropList,"ZZLASTCHARGEDTIME" ,dCCLastCharged);
+            debug("The value of dCCLastCharged = " + (dCCLastCharged));
+            strToDate(exitdate, decodedUDR.ExitDate);
+            //strToDate(deliveryDate, sBit.ZZDELIVERY_DTTM);
+            debug("The value of exitdate = " + (exitdate));
+
+            debug("The value of dateDiff(exitdate,deliveryDate)= " + (dateDiff(exitdate, dCCLastCharged)));
+
+            if (dateDiff(exitdate, dCCLastCharged) < 0) {
+              debug("Skip the unit " + valInp.RequestedValue);
+              /*
+              string errorMessage = "Already calculated till this date. Please try again with some other date";
+              debug("The value of errorMessage = " + (errorMessage));
+              //Route Response back to Postman
+              RestUDRCr.response = (udrCreate(Response));
+              bytearray portalRestResponse;
+              portalResp respForPortal = udrCreate(portalResp);
+              respForPortal.data = "";
+              respForPortal.status = errorMessage;
+              string sResponse = jsonEncodeUdr(respForPortal);
+              strToBA(portalRestResponse, sResponse);
+              RestUDRCr.response.body = portalRestResponse;
+              RestUDRCr.response.httpResponseCode = 400;
+              //setRestResponse(RestUDRCr, errorMessage);
+              debug("The value of RestUDRCr sent to TPS = " + (RestUDRCr));
+              udrRoute(RestUDRCr, "toTPS");
+              return;*/
+
+            } else {
+              PortalFileData portalOutUDR = udrCreate(PortalFileData);
+              debug("Before createCITRecordForPortal");
+              portalOutUDR = createCITRecordForPortal(sBit, valInp.Quantity, valInp.QuantityUnit, decodedUDR.PortalRefID, valInp.RequestedValue, valInp.EventName, decodedUDR.ExitDate);
+              debug("The value of portalOutUDR = " + (portalOutUDR));
+
+              string query = "SELECT * FROM TB_GATEOUT WHERE CONTAINER_NO = '" + portalOutUDR.ZZCONTAINER_ID + "' and EVENT_NAME = '" + portalOutUDR.ZZEVENT_NAME + "' ";
+              //string query = "insert into TB_GATEOUT values('" + portalOutUDR.ZZPORTAL_REFID +"', '" + portalOutUDR.ZZEVENT_NAME + "', '" + portalOutUDR.ZZCONTAINER_ID + "', '" + portalOutUDR.ZZDELIVERY_DTTM + "')";
+              debug("The value of query = " + (query));
+              table checkifcal = tableCreate("CM_AcuitiPort.PRF_Database_Profile_PS4", query);
+              debug("Before Query");
+              debug("The value of portalOutUDR.ZZLASTCHARGEDTIME = " + (portalOutUDR.ZZLASTCHARGEDTIME));
+              if ((tableRowCount(checkifcal) == 0) || portalOutUDR.ZZEVENT_NAME == "UNIT_STORAGE") {
+                debug("The value of portalOutUDR.ZZDELIVERY_DTTM = " + (portalOutUDR.ZZDELIVERY_DTTM));
+                //string defaultDate = "1970-01-01 00:00:00" ;
+                // date dDate;
+                debug("The value of dateCreate(1970,01,01,00,00,00) = " + (dateCreate(1970, 01, 01, 00, 00, 00)));
+                date endDate;
+                strToDate(endDate, decodedUDR.ExitDate);
+                debug("The value of endDate = " + (endDate));
+                long dateDiffVal;
+                dateDiffVal =dateDiff(portalOutUDR.ZZDELIVERY_DTTM, dateCreate(1970, 01, 01, 00, 00, 00));
+                debug("The value of dateDiffVal = " + (dateDiffVal));
+                if ((portalOutUDR.ZZEVENT_NAME == "UNIT_STORAGE") && (dateDiffVal != 0 )) {
+                  debug("The value of portalOutUDR.ZZLASTCHARGEDTIME  before= " + (portalOutUDR.ZZLASTCHARGEDTIME));
+                  portalOutUDR.ZZLASTCHARGEDTIME = portalOutUDR.ZZDELIVERY_DTTM;
+                  debug("The value of portalOutUDR.ZZLASTCHARGEDTIME  after = " + (portalOutUDR.ZZLASTCHARGEDTIME));
+                }       
+                 portalOutUDR.ZZDELIVERY_DTTM = endDate;
+                //******For Parent Event*****
+                if (mapContains(MapCountCIC, decodedUDR.PortalRefID)) {
+                  newSize = mapGet(MapCountCIC, decodedUDR.PortalRefID);
+                  newSize = newSize + 1;
+                  mapRemove(MapCountCIC, decodedUDR.PortalRefID);
+                  mapSet(MapCountCIC, decodedUDR.PortalRefID, newSize);
+                } else {
+                  newSize = newSize + 1;
+                  mapSet(MapCountCIC, decodedUDR.PortalRefID, newSize);
+                }
+
+                map < string, string > MapFromCompMap = mapCreate(string, string);
+                MapFromCompMap = getPayeeFromCompanyMaps(portalOutUDR.ZZCATEGORY, portalOutUDR.ZZCONSIGNEE_ID, portalOutUDR.ZZEVENT_NAME, portalOutUDR.ZZFREIGHT_KIND, portalOutUDR.ZZLINE_ID, portalOutUDR.ZZSHIPPER_ID, portalOutUDR.ZZSPCL_STOW, portalOutUDR.ZZVESSEL_LINE, portalOutUDR.ZZVESSEL_SERVICE, compMapSharedTable);
+                debug("The value of MapFromCompMap = " + (MapFromCompMap));
+                if (MapFromCompMap != null && mapSize(MapFromCompMap) > 0) {
+                  routeRestResp createRouteUDR = udrCreate(routeRestResp);
+                  createRouteUDR.anyUDR = portalOutUDR;
+                  createRouteUDR.restUDR = RestUDRCr;
+                  ZSOM_TECHID_ACUITIPORT_GET_UDR rfcCIUdr = udrCreate(ZSOM_TECHID_ACUITIPORT_GET_UDR);
+                  rfcCIUdr = returnTECHIDUDR(MapFromCompMap, portalOutUDR, createRouteUDR);
+                  if (rfcCIUdr != null) {
+                    debug("The value of rfcCIUdr  for TECHID= " + (rfcCIUdr));
+                    udrRoute(rfcCIUdr, "toRFC");
+                  }
+
+                  //*****For Dependent Event*****
+
+                  list < string > dpndntEvntLi = listCreate(string);
+                  dpndntEvntLi = returnDependentEvents(portalOutUDR.ZZEVENT_NAME, portalOutUDR.ZZLINE_ID, portalOutUDR.ZZCATEGORY, portalOutUDR.ZZFREIGHT_KIND, portalOutUDR.ZZSPCL_STOW, portalOutUDR.ZZIS_REEFER, dpndntMapSharedTable);
+                  debug("The value of dpndntEvntLi for event" + portalOutUDR.ZZEVENT_NAME + "is = " + (dpndntEvntLi));
+                  if (listSize(dpndntEvntLi) > 0) {
+                    newSize = mapGet(MapCountCIC, decodedUDR.PortalRefID);
+                    newSize = newSize + listSize(dpndntEvntLi);
+                    mapRemove(MapCountCIC, decodedUDR.PortalRefID);
+                    mapSet(MapCountCIC, decodedUDR.PortalRefID, newSize);
+                  }
+                  if (listSize(dpndntEvntLi) > 0) {
+                    for (string dpndntEvntList: dpndntEvntLi) {
+
+                      PortalFileData PortalFileDataclone = udrClone(portalOutUDR);
+                      PortalFileDataclone.ZZEVENT_NAME = dpndntEvntList;
+                      PortalFileDataclone.ZZGKEY_TYPE = "D";
+                      PortalFileDataclone.ZZSUBCON_ID = "";
+
+                      MapFromCompMap = getPayeeFromCompanyMaps(PortalFileDataclone.ZZCATEGORY, PortalFileDataclone.ZZCONSIGNEE_ID, PortalFileDataclone.ZZEVENT_NAME, PortalFileDataclone.ZZFREIGHT_KIND, PortalFileDataclone.ZZLINE_ID, PortalFileDataclone.ZZSHIPPER_ID, PortalFileDataclone.ZZSPCL_STOW, PortalFileDataclone.ZZVESSEL_LINE, PortalFileDataclone.ZZVESSEL_SERVICE, compMapSharedTable);
+                      debug("The value of MapFromCompMap = " + (MapFromCompMap));
+                      if (MapFromCompMap != null) {
+                        routeRestResp createRouteUDRDep = udrCreate(routeRestResp);
+                        createRouteUDRDep.anyUDR = PortalFileDataclone;
+                        createRouteUDRDep.restUDR = RestUDRCr;
+                        ZSOM_TECHID_ACUITIPORT_GET_UDR rfcCIUdrDep = udrCreate(ZSOM_TECHID_ACUITIPORT_GET_UDR);
+                        rfcCIUdrDep = returnTECHIDUDR(MapFromCompMap, PortalFileDataclone, createRouteUDRDep);
+                        if (rfcCIUdrDep != null) {
+                          //rfcCIUdrDep.context = createRouteUDR;
+
+                          udrRoute(rfcCIUdrDep, "toRFC");
+                        }
+                      } else {
+                        string errorMessage = "Payer Not found from the company Map for dependent event " + PortalFileDataclone.ZZEVENT_NAME + " of unit " + PortalFileDataclone.ZZCONTAINER_ID;
+                        debug("The value of errorMessage = " + (errorMessage));
+                        //Route Response back to Postman
+                        RestUDRCr.response = (udrCreate(Response));
+                        bytearray portalRestResponse;
+                        portalResp respForPortal = udrCreate(portalResp);
+                        respForPortal.data = "";
+                        respForPortal.status = errorMessage;
+                        string sResponse = jsonEncodeUdr(respForPortal);
+                        strToBA(portalRestResponse, sResponse);
+                        RestUDRCr.response.body = portalRestResponse;
+                        RestUDRCr.response.httpResponseCode = 400;
+                        //setRestResponse(RestUDRCr, errorMessage);
+                        debug("The value of RestUDRCr sent to TPS = " + (RestUDRCr));
+                        udrRoute(RestUDRCr, "toTPS");
+                        return;
+                      }
+                    }
+                  } else {
+                    debug("Dependent events not found for parent event : " + portalOutUDR.ZZEVENT_NAME);
+                  }
+
+                } else {
+                  string errorMessage = "Payer not found from the company Map for event " + portalOutUDR.ZZEVENT_NAME + " of unit " + portalOutUDR.ZZCONTAINER_ID;
+                  debug("No row qualified from the company Map for event" + portalOutUDR.ZZEVENT_NAME + " of unit " + portalOutUDR.ZZCONTAINER_ID);
+                  debug("The value of errorMessage = " + (errorMessage));
+                  //Route Response back to Postman
+                  RestUDRCr.response = (udrCreate(Response));
+                  bytearray portalRestResponse;
+                  portalResp respForPortal = udrCreate(portalResp);
+                  respForPortal.data = "";
+                  respForPortal.status = errorMessage;
+                  string sResponse = jsonEncodeUdr(respForPortal);
+                  strToBA(portalRestResponse, sResponse);
+                  RestUDRCr.response.body = portalRestResponse;
+                  RestUDRCr.response.httpResponseCode = 400;
+                  debug("The value of RestUDRCr sent to TPS = " + (RestUDRCr));
+                  udrRoute(RestUDRCr, "toTPS");
+                  return;
+                }
+              } else {
+                debug("Already calculated event " + portalOutUDR.ZZEVENT_NAME);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  if (instanceOf(input, ZSOM_TECHID_ACUITIPORT_GET_UDR)) {
+    ZSOM_TECHID_ACUITIPORT_GET_UDR rfcUDR = (ZSOM_TECHID_ACUITIPORT_GET_UDR) input;
+    string sTechnicalId, sBP, sCA;
+    exportParams_ZSOM_TECHID_ACUITIPORT_GET exportParams = (exportParams_ZSOM_TECHID_ACUITIPORT_GET) rfcUDR.exportParams;
+    routeRestResp createRouteUDR = udrCreate(routeRestResp);
+    createRouteUDR = (routeRestResp) rfcUDR.context;
+    REST.Cycle RestUDRCr = udrCreate(REST.Cycle);
+    RestUDRCr = (REST.Cycle) createRouteUDR.restUDR;
+
+    PortalFileData portalOutUDR = (PortalFileData) createRouteUDR.anyUDR;
+    debug("Technical Identifier response for GKEY = " + portalOutUDR.ZZEVENT_GKEY + " is = " + input);
+    debug("The value of createRouteUDR after techid response = " + (createRouteUDR));
+
+    double gr_ton, tu, ct_qty;
+    if (udrIsPresent(exportParams.EX_OUTPUT) && listSize(exportParams.EX_OUTPUT) > 0) {
+      list < ZAP_T_TECHID_OUTPUT > outLi = listCreate(ZAP_T_TECHID_OUTPUT);
+      outLi = exportParams.EX_OUTPUT;
+      for (ZAP_T_TECHID_OUTPUT outList: outLi) {
+        debug("outList.BP strTrim() :: " + strTrim(outList.SOLD_TO_PARTY));
+        debug("outList.TECH_ID strTrim() :: " + strTrim(outList.TECH_ID));
+        debug("outList.CA strTrim() :: " + strTrim(outList.VKONT));
+        sBP = outList.SOLD_TO_PARTY;
+        sTechnicalId = outList.TECH_ID;
+        sCA = outList.VKONT;
+      }
+      debug("BusinessPartner: " + sBP + " TechnicalID: " + sTechnicalId + " sCA: " + sCA);
+
+      if (sTechnicalId != null) {
+        string errorMessage = " TECHID Found  for event " + portalOutUDR.ZZEVENT_NAME + " of unit " + portalOutUDR.ZZCONTAINER_ID;
+        debug("No row qualified from the company Map for event" + portalOutUDR.ZZEVENT_NAME + " of unit " + portalOutUDR.ZZCONTAINER_ID);
+        debug("The value of errorMessage = " + (errorMessage));
+        //Route Response back to Postman
+        //RestUDRCr.response = (udrCreate(Response));
+        //setRestResponse(RestUDRCr, errorMessage);
+        //udrRoute(RestUDRCr, "toTPS");
+        CCCycleUDR ccUDR = udrCreate(CCCycleUDR);
+        ChargeUDR chargeUDR = udrCreate(ChargeUDR);
+        chargeUDR.chargeExecutionContext = udrCreate(ChargeExecutionContextUDR);
+
+        gr_ton = (double) portalOutUDR.ZZGROSS_TON;
+        tu = (double) portalOutUDR.ZZTEU;
+        ct_qty = (double) portalOutUDR.CIT_QUANTITY;
+        portalOutUDR.ZZPAYEE_ID = sTechnicalId;
+        debug("The Length of IS_REEFER before checkcharge " + strLength(portalOutUDR.ZZIS_REEFER), "for the EVENT_GKEY" + portalOutUDR.ZZEVENT_GKEY);
+        chargeUDR = sendContainerCICV1ForPortal(portalOutUDR);
+        string query = "insert into TB_GATEOUT values('" + portalOutUDR.ZZPORTAL_REFID + "', '" + portalOutUDR.ZZEVENT_NAME + "', '" + portalOutUDR.ZZCONTAINER_ID + "', '" + portalOutUDR.ZZDELIVERY_DTTM + "')";
+        debug("The value of query = " + (query));
+        sqlExec("CM_AcuitiPort.PRF_Database_Profile_PS4", query);
+        chargeUDR.chargeExecutionContext.resultNotificationReturned = true;
+        chargeUDR.chargeExecutionContext.resultResponseItemReturned = true;
+        chargeUDR.chargeExecutionContext.resultChargedItemReturned = true;
+        ccUDR.request = chargeUDR;
+        ccUDR.freeField = createRouteUDR;
+        debug("The value of chargeUDR = " + (chargeUDR));
+        udrRoute(ccUDR, "toCC");
+
+      } else {
+        string errorMessage = "No TECHID Found  for event " + portalOutUDR.ZZEVENT_NAME + " of unit " + portalOutUDR.ZZCONTAINER_ID;
+        debug("No row qualified from the company Map for event" + portalOutUDR.ZZEVENT_NAME + " of unit " + portalOutUDR.ZZCONTAINER_ID);
+        debug("The value of errorMessage = " + (errorMessage));
+        //Route Response back to Postman
+        RestUDRCr.response = (udrCreate(Response));
+        bytearray portalRestResponse;
+        portalResp respForPortal = udrCreate(portalResp);
+        respForPortal.data = "";
+        respForPortal.status = errorMessage;
+        string sResponse = jsonEncodeUdr(respForPortal);
+        strToBA(portalRestResponse, sResponse);
+        RestUDRCr.response.body = portalRestResponse;
+        RestUDRCr.response.httpResponseCode = 400;
+        setRestResponse(RestUDRCr, errorMessage);
+        debug("The value of RestUDRCr sent to TPS = " + (RestUDRCr));
+        udrRoute(RestUDRCr, "toTPS");
+        return;
+      }
+    }
+  }
+  if (instanceOf(input, CCCycleUDR)) {
+    debug("Response of CC :: " + input);
+    CCCycleUDR ccCycle = (CCCycleUDR) input;
+    routeRestResp createRouteUDR = udrCreate(routeRestResp);
+    createRouteUDR = (routeRestResp) ccCycle.freeField;
+    REST.Cycle RestUDRCr = udrCreate(REST.Cycle);
+    RestUDRCr = (REST.Cycle) createRouteUDR.restUDR;
+    debug("The value of RestUDRCr = " + (RestUDRCr));
+    bytearray requestBody = (RestUDRCr.request.body);
+    string jsonString = (baToStr(requestBody));
+    debug("The value of jsonString = " + (jsonString));
+
+    GetEventDetails decodedUDR = udrCreate(GetEventDetails);
+    jsonDecodeUdr(jsonString, decodedUDR, false);
+    debug("The value of decodedUDR = " + (decodedUDR));
+
+    RestUDRCr.response = (udrCreate(Response));
+    if (instanceOf(ccCycle.answer, PurchaseOrderUDR) || instanceOf(ccCycle.answer, ChargingResultUDR)) {
+      debug("The value of MapCountCIC in PurchaseOrder= " + (MapCountCIC));
+      int iCount;
+      if (mapContains(MapCountCIC, decodedUDR.PortalRefID)) {
+        iCount = decrementCounter(MapCountCIC, decodedUDR.PortalRefID); //Map is not being set before so whats the logic behind this
+        if (iCount == 0) {
+          sleep(3000);
+          setRestResponse(RestUDRCr, "BITS CREATED SUCCESSFULLY");
+          //udrRoute(RestUDRCr, "toTPS");
+          ZAP_BILLING_INVOICING_UDR invoiceUDR = udrCreate(ZAP_BILLING_INVOICING_UDR);
+          invoiceUDR = returnBillingUDR(decodedUDR);
+          invoiceUDR.context = RestUDRCr;
+          udrRoute(invoiceUDR, "toRFC");
+        } else if (iCount == -1) {
+          bytearray portalRestResponse;
+          portalResp respForPortal = udrCreate(portalResp);
+          respForPortal.data = "";
+          respForPortal.status = "PortalId does not exist in map";
+          string sResponse = jsonEncodeUdr(respForPortal);
+          strToBA(portalRestResponse, sResponse);
+          RestUDRCr.response.body = portalRestResponse;
+          RestUDRCr.response.httpResponseCode = 400;
+          //setRestResponse(RestUDRCr, "PortalId does not exist in map");
+          debug("The value of RestUDRCr sent to TPS = " + (RestUDRCr));
+          udrRoute(RestUDRCr, "toTPS");
+          return;
+
+        } else {
+          debug("Do Nothing in CC Response");
+        }
+      }
+    } else if (instanceOf(ccCycle.answer, CCExceptionUDR)) {
+      CCExceptionUDR ccExptionUDR = (CCExceptionUDR) ccCycle.answer;
+      debug("Exception if any is " + ccExptionUDR);
+      bytearray portalRestResponse;
+      portalResp respForPortal = udrCreate(portalResp);
+      respForPortal.data = "";
+      respForPortal.status = ccExptionUDR.message;
+      string sResponse = jsonEncodeUdr(respForPortal);
+      strToBA(portalRestResponse, sResponse);
+      RestUDRCr.response.body = portalRestResponse;
+      RestUDRCr.response.httpResponseCode = 400;
+      //setRestResponse(RestUDRCr, "Response from CC: " + ccExptionUDR.message);
+      debug("The value of RestUDRCr sent to TPS = " + (RestUDRCr));
+      udrRoute(RestUDRCr, "toTPS");
+      return;
+    }
+  }
+  if (instanceOf(input, ZAP_BILLING_INVOICING_UDR)) {
+    ZAP_BILLING_INVOICING_UDR invoiceUDR = (ZAP_BILLING_INVOICING_UDR) input;
+    debug("The value of ZAP_BILLING_INVOICING_UDR = " + (invoiceUDR));
+    REST.Cycle RestUDRCr = udrCreate(REST.Cycle);
+    RestUDRCr = (REST.Cycle) invoiceUDR.context;
+
+    exportParams_ZAP_BILLING_INVOICING exportParamUDR = invoiceUDR.exportParams;
+    list < ZAP_INVDOCNO_TT > lInvoiceDoc = listCreate(ZAP_INVDOCNO_TT);
+    lInvoiceDoc = exportParamUDR.EX_INVDOCNO;
+    if (udrIsPresent(exportParamUDR.EX_RETURN)) {
+      list < BAPIRET2_T > lReturns = listCreate(BAPIRET2_T);
+      lReturns = exportParamUDR.EX_RETURN;
+      boolean IsErrorForBilling = false;
+      for (BAPIRET2_T lreturn: lReturns) {
+        if (lreturn.TYPE == "E") {
+          IsErrorForBilling = true;
+          bytearray portalRestResponse;
+          portalResp respForPortal = udrCreate(portalResp);
+          respForPortal.data = "";
+          respForPortal.status = lreturn.MESSAGE;
+          string sResponse = jsonEncodeUdr(respForPortal);
+          strToBA(portalRestResponse, sResponse);
+          RestUDRCr.response.body = portalRestResponse;
+          RestUDRCr.response.httpResponseCode = 400;
+          //setRestResponse(RestUDRCr, "Billing RFC Response : " + lreturn.MESSAGE);
+          debug("The value of RestUDRCr sent to TPS = " + (RestUDRCr));
+          udrRoute(RestUDRCr, "toTPS");
+
+          return;
+        }
+      }
+      if (IsErrorForBilling == false) {
+        bytearray portalRestResponse;
+        portalResp respForPortal = udrCreate(portalResp);
+        lInvoiceDoc = exportParamUDR.EX_INVDOCNO;
+        string sData = jsonEncodeList(lInvoiceDoc);
+        respForPortal.data = sData;
+        respForPortal.status = "SUCCESS";
+        string sResponse = jsonEncodeUdr(respForPortal);
+        strToBA(portalRestResponse, sResponse);
+        RestUDRCr.response.body = portalRestResponse;
+        RestUDRCr.response.httpResponseCode = 200;
+
+        //setRestResponseForINVDOC(RestUDRCr, lInvoiceDoc);
+        debug("The value of RestUDRCr sent to TPS = " + (RestUDRCr));
+        udrRoute(RestUDRCr, "toTPS");
+      }
+    } else {
+      bytearray portalRestResponse;
+      portalResp respForPortal = udrCreate(portalResp);
+      respForPortal.data = "";
+      respForPortal.status = "Export Params Not Found  in the billing rfc";
+      string sResponse = jsonEncodeUdr(respForPortal);
+      strToBA(portalRestResponse, sResponse);
+      RestUDRCr.response.body = portalRestResponse;
+      RestUDRCr.response.httpResponseCode = 400;
+      //setRestResponse(RestUDRCr, "Export Params Not Found  in the billing rfc");
+      debug("The value of RestUDRCr sent to TPS = " + (RestUDRCr));
+      udrRoute(RestUDRCr, "toTPS");
+    }
+
+  }
+}
+
+void setRestResponse(REST.Cycle cycle, string rspMsg) {
+  map < string, any > mapTheStatus = mapCreate(string, any);
+  mapSet(mapTheStatus, "status", rspMsg);
+  strToBA(cycle.response.body, jsonEncodeMap(mapTheStatus));
+}
+void setRestResponseForINVDOC(REST.Cycle cycle, list < ZAP_INVDOCNO_TT > InvDoc) {
+  map < string, list < ZAP_INVDOCNO_TT > > mapTheStatus = mapCreate(string, list < ZAP_INVDOCNO_TT > );
+  mapSet(mapTheStatus, "status", InvDoc);
+  strToBA(cycle.response.body, jsonEncodeMap(mapTheStatus));
+}
+void setRestResponseRetCIT(REST.Cycle cycle, list < sentRespGateOut > InvDoc) {
+  map < string, list < sentRespGateOut > > mapTheStatus = mapCreate(string, list < sentRespGateOut > );
+  mapSet(mapTheStatus, "status", InvDoc);
+  strToBA(cycle.response.body, jsonEncodeMap(mapTheStatus));
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="6">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="sapcc.CCCycleUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="REST.Cycle"/>
+                     </storable>
+                     <storable name="2" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="RfcErrorUDR"/>
+                     </storable>
+                     <storable name="3" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.CM_AcuitiPort.PRF_Portal_Common.ZAP_BILLING_INVOICING_UDR]]></string>
+                     </storable>
+                     <storable name="4" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.CM_AcuitiPort.PRF_Portal_Common.ZAP_RETREIVE_CIT_UDR]]></string>
+                     </storable>
+                     <storable name="5" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.CM_AcuitiPort.PRF_Portal_Common.ZSOM_TECHID_ACUITIPORT_GET_UDR]]></string>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Processing"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.mediationZoneIntegration.agent.online.SAPCCOnlineProcessorInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.mediationZoneIntegration.agent.online.SAPCCOnlineProcessorInsp]]></string>
+               <storable classname="com.digitalroute.mediationZoneIntegration.agent.online.VersionSafeSAPCCOnlineProcessorConfig" name="Data" ver="10.0">
+                  <boolean name="apiAuthentication" value="true"/>
+                  <boolean name="convertStr" value="false"/>
+                  <boolean name="enableDebug" value="true"/>
+                  <boolean name="enableGlobalEvent" value="false"/>
+                  <boolean name="enableRARListener" value="false"/>
+                  <boolean name="enableSecuredConnection" value="false"/>
+                  <boolean name="enableSpendingStatusMonitoring" value="false"/>
+                  <boolean name="enableSpotEvent" value="false"/>
+                  <int name="expectedAvgLatency" value="1"/>
+                  <boolean name="flowControlEnabled" value="false"/>
+                  <int name="frequency" value="1000"/>
+                  <string name="host" null="true"/>
+                  <string name="hosts" value="172.16.16.37:2000"/>
+                  <password name="keystorePassword" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+                  <string name="keystorePath" value=""/>
+                  <boolean name="latencyControllerEnable" value="false"/>
+                  <password name="password" value="DR-4-F35CF3D5EB78FFB4129FE4DBD96D9626"/>
+                  <int name="port" value="0"/>
+                  <int name="queueSize" value="1"/>
+                  <int name="queueSizeToNotify" value="1"/>
+                  <int name="rARListenerId" value="1"/>
+                  <enum classname="com.digitalroute.mediationZoneIntegration.connection.types.ResultType" name="sessionCleanupTransactionSetToReturn" value="noTransaction"/>
+                  <enum classname="com.digitalroute.mediationZoneIntegration.connection.types.ResolutionMode" name="sessionResolution" value="cancel"/>
+                  <long name="sessionTTL" value="300"/>
+                  <int name="spendingStatusMonitoringDefaultListenerId" value="1"/>
+                  <int name="spendingStatusMonitoringListenerId" value="1"/>
+                  <int name="spendingStatusMonitoringSessionDefaultTTL" value="86400"/>
+                  <int name="timeout" value="3000"/>
+                  <enum classname="com.digitalroute.mediationZoneIntegration.connection.types.ResultType" name="transactionSetToReturn" value="noTransaction"/>
+                  <string name="username" value="CC_Webservice"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="SAP_CC_Online"/>
+      </storable>
+   </list>
+   <storable name="Persistent" storable-id="dr.WorkflowPersistentConfig" ver="10.0">
+      <string name="persistentInspector" null="true"/>
+      <storable name="persistentStorageConfig" null="true"/>
+      <string name="persistentTimeoutHandler" null="true"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Routes">
+      <storable name="0" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="rfcResp"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toTPS"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toRFC"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toCC"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="CCResp"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="input"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Service"/>
+   <boolean name="Template Valid" value="true"/>
+   <storable name="Thread data" storable-id="dr.WorkflowExecutionRealtimeConfig" ver="10.0">
+      <int name="countInterval" value="1"/>
+      <int name="queueSize" value="1000"/>
+      <string name="queueStrategy" value="Blocking queue"/>
+      <string name="queueWorkerStrategy" value="RoundRobin"/>
+      <boolean name="standalone" value="true"/>
+      <int name="threads" value="8"/>
+   </storable>
+</exportmultiplex>

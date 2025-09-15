@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<workflow_bridge_profile category="Internal">
+   <storable name="workflow_bridge_profile" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Administrator"/>
+         <string name="1" value="Administrator"/>
+         <string name="2" value="Administrator"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.WorkflowBridgeProfileSettings" ver="14.0">
+         <int name="Bulk size" value="0"/>
+         <int name="Bulk timeout" value="0"/>
+         <map classname="java.util.HashMap" name="ExtRef Map" size="0"/>
+         <string name="ExtRef Profile" null="true"/>
+         <float name="ExtRef Version" value="1.0"/>
+         <boolean name="Force serialization" value="false"/>
+         <map classname="java.util.HashMap" name="Load Balancing Settings" size="0"/>
+         <string name="Load Balancing Strategy" value="Static"/>
+         <int name="Number of Collectors" value="1"/>
+         <boolean name="Reply state" value="false"/>
+         <int name="Response timeout" value="60"/>
+         <enum classname="com.digitalroute.workflowbridge.profile.WorkflowBridgeProfileSettings$TransportType" name="Transport" value="DUMMY"/>
+         <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="Transport UDRs" size="1">
+            <storable name="0" storable-id="dr.UltraClientInfo" ver="1.0">
+               <string name="FormatName" value="CM_AcuitiPort.ULF_AcuitiPort"/>
+               <string name="TypeName" value="CM_AcuitiPort.ULF_AcuitiPort.jsonFieldStruct"/>
+            </storable>
+         </array>
+         <string name="TransportStr" value="TCP"/>
+         <string name="properties"><![CDATA[# If needed for optimizing the performance, properties controlling the Workflow Bridge 
+# can be customized here. If the properties are commented out, default values are used.
+
+# Specifies the high water mark of the write buffer. If the number of bytes queued in the write buffer exceeds this value, the sender cannot send more data.
+writeBufferHighWaterMark 65536
+
+# Specifies the low water mark of the write buffer.  If the number of bytes queued in the write buffer exceeds the high water mark 
+# and then drops below the low water mark, sender can start to send data again.
+writeBufferLowWaterMark 32768
+
+# Specifies the size in bytes of the socket's data receive buffer.
+receiveBufferSize 1048576
+
+# Specifies the size in bytes of the socket's data send buffer.
+sendBufferSize 1048576
+
+# Set this property to "true" to keep the connection alive by sending probes across the network.
+keepAlive true
+
+# Set this property to "true" to disable Nagle's algorithm for this connection.
+tcpNoDelay true
+
+# Set this property to "true" to allow other sockets to bind() to this port, unless there is an active listening socket bound to the port already.
+reuseAddress true
+
+# When an event arrives to the collector, the delivery will, by default, be made on a different thread than the one the message arrived on. 
+# This gives the best overall throughput and scalability, especially on multi-core machines. However, it also introduces some extra latency due to the extra context switch required. 
+# If you want the lowest latency, and can accept the possible reduction in throughput, then you can set direct-deliver to "true".
+direct-deliver true
+
+# Specifies the queue size in number of UDRs for the Forwarding Workflow Bridge Agent. Default size is 1000. 
+# Set the queue size to 0 in order to deactivate the queue.
+forwardingQueueSize 1000
+
+# Specifies the timeout in milliseconds that are allowed to put a message on the queue of forwarding Workflow Bridge Agent.
+forwardingQueueTimeout 0
+
+# Specifies the time interval (in ms) in which the real time Forwarding Workflow Bridge agent will try to reconnect. 
+# Note that the first reconnect attempt will be made when the specified number of milliseconds have passed.
+reconnectInterval 3000
+
+# Specifies the how long time (in ms) that the forwarding queue utilization MIM value will be cached before updated.
+forwardingQueueUtilizationMimTimeout 1000
+
+# When true, a heart beat udr will be sent over the bridge every 2 minutes to make sure that the connection is still up and running
+heartBeat false
+
+]]></string>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="CM_AcuitiPort"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="MZ1659941311127"/>
+      <string name="Modified By" value="mzadmin"/>
+      <long name="Modified Date" value="1739907364179"/>
+      <string name="Name" value="PRF_WFL_Bridge"/>
+      <string name="Owner" value="mzadmin"/>
+      <string name="Type" value="Workflow Bridge Profile"/>
+      <int name="Version" value="1"/>
+      <string name="documentation" value=""/>
+   </storable>
+</workflow_bridge_profile>

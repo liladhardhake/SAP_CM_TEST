@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event_notification category="Internal">
+   <storable name="event_notification" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Administrator"/>
+         <string name="1" value="Administrator"/>
+         <string name="2" value="Administrator"/>
+      </array>
+      <storable name="Auxiliary Data" storable-id="dr.ConfigAuxData" ver="2.0">
+         <map classname="java.util.LinkedHashMap" name="Entries" size="1">
+            <string name="key_0" value="Status"/>
+            <string name="value_0" value="Disabled"/>
+         </map>
+      </storable>
+      <storable name="Data" storable-id="dr.NotificationGroupData" ver="1.0">
+         <boolean name="Active" value="false"/>
+         <array classname="com.digitalroute.notification.NotifierEventData" name="Events" size="1">
+            <storable name="0" storable-id="dr.NotifierEventData" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wf.event.WfStateEvent"/>
+               <array classname="com.digitalroute.devkit.event.DRNotifierEventMap" name="Map" size="4">
+                  <storable name="0" storable-id="dr.DRNotifierEventMap" ver="1.0">
+                     <int name="Assignment type" value="2"/>
+                     <storable name="Event field" storable-id="dr.DRUDRField" ver="1.0">
+                        <string name="FieldName" value="workflowName"/>
+                        <boolean name="IsOptional" value="false"/>
+                        <boolean name="IsReadOnly" value="true"/>
+                        <boolean name="Primitive" value="true"/>
+                        <int name="Type" value="9"/>
+                     </storable>
+                     <storable name="Notifier field" storable-id="dr.DRUDRField" ver="1.0">
+                        <string name="FieldName" value="Message"/>
+                        <boolean name="IsOptional" value="false"/>
+                        <boolean name="IsReadOnly" value="false"/>
+                        <boolean name="Primitive" value="true"/>
+                        <int name="Type" value="9"/>
+                     </storable>
+                     <string name="Variable" value="wf_name"/>
+                  </storable>
+                  <storable name="1" storable-id="dr.DRNotifierEventMap" ver="1.0">
+                     <int name="Assignment type" value="2"/>
+                     <storable name="Event field" storable-id="dr.DRUDRField" ver="1.0">
+                        <string name="FieldName" value="workflowGroupName"/>
+                        <boolean name="IsOptional" value="false"/>
+                        <boolean name="IsReadOnly" value="true"/>
+                        <boolean name="Primitive" value="true"/>
+                        <int name="Type" value="9"/>
+                     </storable>
+                     <storable name="Notifier field" storable-id="dr.DRUDRField" ver="1.0">
+                        <string name="FieldName" value="Message"/>
+                        <boolean name="IsOptional" value="false"/>
+                        <boolean name="IsReadOnly" value="false"/>
+                        <boolean name="Primitive" value="true"/>
+                        <int name="Type" value="9"/>
+                     </storable>
+                     <string name="Variable" value="wfg_name"/>
+                  </storable>
+                  <storable name="2" storable-id="dr.DRNotifierEventMap" ver="1.0">
+                     <int name="Assignment type" value="2"/>
+                     <storable name="Event field" storable-id="dr.DRUDRField" ver="1.0">
+                        <string name="FieldName" value="workflowState"/>
+                        <boolean name="IsOptional" value="false"/>
+                        <boolean name="IsReadOnly" value="true"/>
+                        <boolean name="Primitive" value="true"/>
+                        <int name="Type" value="9"/>
+                     </storable>
+                     <storable name="Notifier field" storable-id="dr.DRUDRField" ver="1.0">
+                        <string name="FieldName" value="Message"/>
+                        <boolean name="IsOptional" value="false"/>
+                        <boolean name="IsReadOnly" value="false"/>
+                        <boolean name="Primitive" value="true"/>
+                        <int name="Type" value="9"/>
+                     </storable>
+                     <string name="Variable" value="wf_state"/>
+                  </storable>
+                  <storable name="3" storable-id="dr.DRNotifierEventMap" ver="1.0">
+                     <int name="Assignment type" value="2"/>
+                     <storable name="Event field" storable-id="dr.DRUDRField" ver="1.0">
+                        <string name="FieldName" value="abortReason"/>
+                        <boolean name="IsOptional" value="false"/>
+                        <boolean name="IsReadOnly" value="true"/>
+                        <boolean name="Primitive" value="true"/>
+                        <int name="Type" value="9"/>
+                     </storable>
+                     <storable name="Notifier field" storable-id="dr.DRUDRField" ver="1.0">
+                        <string name="FieldName" value="Message"/>
+                        <boolean name="IsOptional" value="false"/>
+                        <boolean name="IsReadOnly" value="false"/>
+                        <boolean name="Primitive" value="true"/>
+                        <int name="Type" value="9"/>
+                     </storable>
+                     <string name="Variable" value="reason"/>
+                  </storable>
+               </array>
+               <storable name="Matcher" storable-id="dr.EventMatcherGroup" ver="1.0">
+                  <list classname="java.util.ArrayList" name="Matchers">
+                     <storable name="0" storable-id="dr.EventClassMatcher" ver="1.0">
+                        <string name="Classname" value="com.digitalroute.wf.event.WfStateEvent"/>
+                        <string name="Type name" null="true"/>
+                     </storable>
+                  </list>
+               </storable>
+               <string name="Name" value="Workflow State Event"/>
+            </storable>
+         </array>
+         <storable name="Notifier" storable-id="dr.NotifierData" ver="1.0">
+            <string name="Class name"><![CDATA[com.digitalroute.notification.notifiers.MailNotifier]]></string>
+            <int name="DupWindow" value="0"/>
+            <array classname="com.digitalroute.devkit.event.DRNotifierAssignment" name="Dynamic config" size="4">
+               <storable name="0" storable-id="dr.DRNotifierAssignment" ver="1.0">
+                  <int name="Assignment type" value="0"/>
+                  <storable name="Notifier field" storable-id="dr.DRUDRField" ver="1.0">
+                     <string name="FieldName" value="Sender"/>
+                     <boolean name="IsOptional" value="false"/>
+                     <boolean name="IsReadOnly" value="false"/>
+                     <boolean name="Primitive" value="true"/>
+                     <int name="Type" value="9"/>
+                  </storable>
+                  <string name="Value string" value="sambodhi.u@acuitilabs.com"/>
+               </storable>
+               <storable name="1" storable-id="dr.DRNotifierAssignment" ver="1.0">
+                  <int name="Assignment type" value="0"/>
+                  <storable name="Notifier field" storable-id="dr.DRUDRField" ver="1.0">
+                     <string name="FieldName" value="Recipient"/>
+                     <boolean name="IsOptional" value="false"/>
+                     <boolean name="IsReadOnly" value="false"/>
+                     <boolean name="Primitive" value="true"/>
+                     <int name="Type" value="9"/>
+                  </storable>
+                  <string name="Value string" value="sambodhi.u@acuitilabs.com"/>
+               </storable>
+               <storable name="2" storable-id="dr.DRNotifierAssignment" ver="1.0">
+                  <int name="Assignment type" value="0"/>
+                  <storable name="Notifier field" storable-id="dr.DRUDRField" ver="1.0">
+                     <string name="FieldName" value="Subject"/>
+                     <boolean name="IsOptional" value="false"/>
+                     <boolean name="IsReadOnly" value="false"/>
+                     <boolean name="Primitive" value="true"/>
+                     <int name="Type" value="9"/>
+                  </storable>
+                  <string name="Value string" value="ALERT!! Workflow Aborted"/>
+               </storable>
+               <storable name="3" storable-id="dr.DRNotifierAssignment" ver="1.0">
+                  <int name="Assignment type" value="2"/>
+                  <storable name="Notifier field" storable-id="dr.DRUDRField" ver="1.0">
+                     <string name="FieldName" value="Message"/>
+                     <boolean name="IsOptional" value="false"/>
+                     <boolean name="IsReadOnly" value="false"/>
+                     <boolean name="Primitive" value="true"/>
+                     <int name="Type" value="9"/>
+                  </storable>
+                  <string name="Value string" value="$wf_name;$wfg_name;$wf_state;$reason"/>
+               </storable>
+            </array>
+            <storable name="Static config" null="true"/>
+         </storable>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="CM_AcuitiPort"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="MZ1727765682590"/>
+      <string name="Modified By" value="mzadmin"/>
+      <long name="Modified Date" value="1739907360582"/>
+      <string name="Name" value="PRF_EVT_Notify"/>
+      <string name="Owner" value="mzadmin"/>
+      <string name="Type" value="Event Notification"/>
+      <int name="Version" value="1"/>
+      <string name="documentation" value=""/>
+   </storable>
+</event_notification>

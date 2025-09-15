@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="APL_Source_Code" ref_path="apl_script[Internal]/storable[apl_script]/storable[Data]">
+   <string name="Definition"><![CDATA[import ultra.sapcc;
+
+ChargeUDR sendContainerCICV1(string sagent1, string sbill_lading, string sbooking_number, string scategory, string sconsignee_id, string scontainer_id, string scstmdcdat, string scstmdecno, string senddateflag, string sequiptype, string sevent_cat, string sevent_gkey, string sevent_name, string sfreight_kind, double sgross_ton, string sibvisit_id, string siso_grp, string siso_len, string sis_imdg, string simdgclass, string sis_oog, string slast_port, string sline_id, string sobvisit_id, string spayee_id, string sis_reefer, string sshipper_id, string sspcl_stow, string ssubcon_id, string sterminalid, string sunit_gkey, string svessel_id, string svessel_length, string svessel_line, string svessel_name, string svessel_service, string svessel_type, double steu, string svisit_id, string sgkey_type, string slastchargedtime, string swork_enddttm, string swork_strtdttm, string stime_in, string stime_out, string sshiparr_datetime, string sshipdep_datetime, string sibcarrier_type, string sobcarrier_type, string sphase,string sdelivery_dttm, double scit_quantity, string scit_qty_unit, string scitdate_from, string scitdate_to, string scittype){
+    debug("INSIDE CREATE CIC");
+    ChargeUDR chargeUDR = udrCreate(ChargeUDR);
+    date citDate;
+    citDate= dateCreateNow();     
+    //acquisitionParamUdr.consumptionDate=citDate;
+    chargeUDR.consumptionDate = convertDate(scitdate_from); //Updated as per defect identified in NEOM Demo preparation on 13th May 2025 - Liladhar
+    /*
+    if(sevent_name == "UNIT_STORAGE" || sevent_name == "UNIT_ELECTRICITY")
+    {
+        acquisitionParamUdr.serviceId = "STRG_SERV";
+    }
+    else
+    {
+        acquisitionParamUdr.serviceId = "CONT_SERV";
+    }
+    
+    //acquisitionParamUdr.serviceId = "VSL_STUS";
+    if(sevent_name == "HATCH_COVER_CLOSE")
+    {
+     acquisitionParamUdr.serviceId = "VSL_SERV";   
+    }
+    if(sevent_name == "DEPARTED")
+    {
+     acquisitionParamUdr.serviceId = "VSL_STUS";   
+    } */
+    list<string> vesselServiceList = listCreate(string);
+    vesselServiceList = strSplit(externalReferenceGet("CM_AcuitiPort.PRF_ExtRef_AcuitiPort", "VESSEL_SERVICE_EVENTS"),",");
+    boolean flag=false;
+    for(string compareEvent:vesselServiceList)
+    {
+	   if(compareEvent==sevent_name)
+	   {
+		  flag=true;
+	   }  
+    }
+    
+   // if(sevent_name == (string) listGet(vesselServiceList,0) || sevent_name == (string) listGet(vesselServiceList,1) || sevent_name == (string) listGet(vesselServiceList,2) || sevent_name == (string) listGet(vesselServiceList,3) || sevent_name == (string) listGet(vesselServiceList,4) || sevent_name == (string) listGet(vesselServiceList,5) || sevent_name == (string) listGet(vesselServiceList,6) || sevent_name == (string) listGet(vesselServiceList,7) || sevent_name == (string) listGet(vesselServiceList,8) || sevent_name == (string) listGet(vesselServiceList,9) || sevent_name == (string) listGet(vesselServiceList,10) || sevent_name == (string) listGet(vesselServiceList,11) || sevent_name == (string) listGet(vesselServiceList,13))
+    if(flag)
+    {
+    if ( sphase== "ARRIVED" || sphase == "DEPARTED")
+	{
+	   chargeUDR.serviceId = "VSL_STUS";
+	}
+	else
+	{
+	 chargeUDR.serviceId = "VSL_SERV"; 
+	}
+
+    }	
+   else if(sevent_name == "UNIT_STORAGE" || sevent_name == "UNIT_ELECTRICITY")
+    {
+        chargeUDR.serviceId = "STRG_SERV";
+    }
+    else
+    {
+        chargeUDR.serviceId = "CONT_SERV";
+    }	
+    chargeUDR.userId=spayee_id;    
+    list < PropertyUDR > cPropList = listCreate(PropertyUDR); 
+    
+    chargeUDR.chargeableItemName = "APCS"; 
+    SAPCC_String(cPropList,"ZZPORTAL_REFID" , "");   
+	SAPCC_String(cPropList,"ZZAGENT1" ,sagent1);
+	SAPCC_String(cPropList,"ZZBILL_LADING" ,sbill_lading);
+	SAPCC_String(cPropList,"ZZBOOKING_NUMBER" ,sbooking_number);
+	SAPCC_String(cPropList,"ZZCATEGORY" ,scategory);
+	SAPCC_String(cPropList,"ZZCONSIGNEE_ID" ,sconsignee_id);
+	SAPCC_String(cPropList,"ZZCONTAINER_ID" ,scontainer_id);
+	SAPCC_Date(cPropList,"ZZCSTMDCDAT" ,convertDate(scstmdcdat));
+	SAPCC_String(cPropList,"ZZCSTMDECNO" ,scstmdecno);
+	SAPCC_String(cPropList,"ZZENDDATEFLAG" ,senddateflag);
+	SAPCC_String(cPropList,"ZZEQUIPTYPE" ,sequiptype);
+	SAPCC_String(cPropList,"ZZEVENT_CAT" ,sevent_cat);
+	SAPCC_String(cPropList,"ZZEVENT_GKEY" ,sevent_gkey);
+	SAPCC_String(cPropList,"ZZEVENT_NAME" ,sevent_name);
+	SAPCC_String(cPropList,"ZZFREIGHT_KIND" ,sfreight_kind);
+	SAPCC_Decimal(cPropList,"ZZGROSS_TON" ,sgross_ton);
+	SAPCC_String(cPropList,"ZZIBVISIT_ID" ,sibvisit_id);
+	SAPCC_String(cPropList,"ZZISO_GRP" ,siso_grp);
+	SAPCC_String(cPropList,"ZZISO_LEN" ,siso_len);
+	SAPCC_String(cPropList,"ZZIS_IMDG" ,sis_imdg);
+	SAPCC_String(cPropList,"ZZIMDGCLASS" ,simdgclass);
+	SAPCC_String(cPropList,"ZZOOG" ,sis_oog);
+	SAPCC_String(cPropList,"ZZLAST_PORT" ,slast_port);
+	SAPCC_String(cPropList,"ZZLINE_ID" ,sline_id);
+	SAPCC_String(cPropList,"ZZOBVISIT_ID" ,sobvisit_id);
+	SAPCC_String(cPropList,"ZZPAYEE_ID" ,spayee_id);
+	SAPCC_String(cPropList,"ZZIS_REEFER" ,sis_reefer);
+	SAPCC_String(cPropList,"ZZSHIPPER_ID" ,sshipper_id);
+	SAPCC_String(cPropList,"ZZSPCL_STOW" ,sspcl_stow);
+	SAPCC_String(cPropList,"ZZSUBCON_ID" ,ssubcon_id);
+	SAPCC_String(cPropList,"ZZTERMINALID" ,sterminalid);
+	SAPCC_String(cPropList,"ZZUNIT_GKEY" ,sunit_gkey);
+	SAPCC_String(cPropList,"ZZVESSEL_ID" ,svessel_id);
+	SAPCC_String(cPropList,"ZZVESSEL_LENGTH" ,svessel_length);
+	SAPCC_String(cPropList,"ZZVESSEL_LINE" ,svessel_line);
+	SAPCC_String(cPropList,"ZZVESSEL_NAME" ,svessel_name);
+	SAPCC_String(cPropList,"ZZVESSEL_SERVICE" ,svessel_service);
+	SAPCC_String(cPropList,"ZZVESSEL_TYPE" ,svessel_type);
+	SAPCC_Decimal(cPropList,"ZZTEU" ,steu);
+	SAPCC_String(cPropList,"ZZVISIT_ID" ,svisit_id);
+	SAPCC_String(cPropList,"ZZGKEY_TYPE" ,sgkey_type);
+	SAPCC_Date(cPropList,"ZZLASTCHARGEDTIME" ,convertDate(slastchargedtime));
+	SAPCC_Date(cPropList,"ZZWORK_ENDDTTM" ,convertDate(swork_enddttm));
+	SAPCC_Date(cPropList,"ZZWORK_STRTDTTM" ,convertDate(swork_strtdttm));
+	SAPCC_Date(cPropList,"ZZTIME_IN" ,convertDate(stime_in));
+	SAPCC_Date(cPropList,"ZZTIME_OUT" ,convertDate(stime_out));
+	SAPCC_Date(cPropList,"ZZSHIPARR_DATETIME" ,convertDate(sshiparr_datetime));
+	SAPCC_Date(cPropList,"ZZSHIPDEP_DATETIME" ,convertDate(sshipdep_datetime));
+	SAPCC_String(cPropList,"ZZIBCARRIER_TYPE" ,sibcarrier_type);
+	SAPCC_String(cPropList,"ZZOBCARRIER_TYPE" ,sobcarrier_type);
+    SAPCC_String(cPropList,"ZZPROCESS" ,"");
+    SAPCC_String(cPropList,"ZZPHASE" ,sphase);
+    SAPCC_Date(cPropList,"ZZDELIVERY_DTTM" ,convertDate(sdelivery_dttm));
+	SAPCC_Decimal(cPropList,"CIT_QUANTITY" ,scit_quantity);
+	SAPCC_String(cPropList,"CIT_QTY_UNIT" ,scit_qty_unit);
+    
+    SAPCC_Date(cPropList,"CITDATE_FROM" ,convertDate(scitdate_from));
+	SAPCC_Date(cPropList,"CITDATE_TO" ,convertDate(scitdate_to));
+    
+     string stime_to,stime_from;
+    dateToString(stime_to,getTimeValue(convertDate(scitdate_to)));
+    dateToString(stime_from,getTimeValue(convertDate(scitdate_from)));
+    debug("The value of stime_to = " + (stime_to));
+    debug("The value of stime_from = " + (stime_from));
+	//SAPCC_Date("CITDATE_FROM" ,getDateValue(convertDate(scitdate_from)));
+	//SAPCC_Date("CITDATE_TO" ,getDateValue(convertDate(scitdate_to)));
+    //chargeableItemPropString("CITTIME_FROM" ,getTimeValue(convertDate(scitdate_from)));
+	//chargeableItemPropString("CITTIME_TO" ,getTimeValue(convertDate(scitdate_to)));
+    SAPCC_String(cPropList,"CITTIME_FROM" ,strREReplaceAll(stime_from ,":" ,""));
+    SAPCC_String(cPropList,"CITTIME_TO" ,strREReplaceAll(stime_to,":" ,""));
+    //SAPCC_String("CITTIME_FROM" ,stime_from);
+    //SAPCC_String("CITTIME_TO" ,stime_to);
+    
+    if(scittype == "AC01")
+    {
+	   SAPCC_String(cPropList,"CITTYPE" ,scittype);
+    }
+    
+    //debug("sendContainerCIC ::: The value of acquireUdr1 = " + (acquireUdr1));
+    chargeUDR.ciPropertyList = cPropList; 
+    return chargeUDR;
+    
+}
+void SAPCC_Date(list<PropertyUDR> propList, string name, date value){
+    PropertyUDR chargeUDRProp = udrCreate(PropertyUDR);
+    chargeUDRProp.name = name;
+    chargeUDRProp.value = value;
+    listAdd(propList, chargeUDRProp);
+}
+
+void SAPCC_Decimal(list<PropertyUDR> propList, string name, double value){
+    PropertyUDR chargeUDRProp = udrCreate(PropertyUDR);
+    chargeUDRProp.name = name;
+    chargeUDRProp.value = value;
+    listAdd(propList, chargeUDRProp);
+}
+    
+void SAPCC_Number(list<PropertyUDR> propList, string name, int value){
+    PropertyUDR chargeUDRProp = udrCreate(PropertyUDR);
+    chargeUDRProp.name = name;
+    chargeUDRProp.value = value;
+    listAdd(propList, chargeUDRProp);
+}
+
+void SAPCC_String (list<PropertyUDR> cProp,string name, string value){
+    PropertyUDR chargeUDRProp = udrCreate(PropertyUDR);
+    chargeUDRProp.name = name;
+    chargeUDRProp.value = value;
+    listAdd(cProp, chargeUDRProp);
+}
+
+date convertDate(string sInDate){	
+	date dInDate = strToDateCheck(sInDate,"dd/MM/yyyy HH:mm:ss");
+    string sOutDate = dateToStringCheck(dInDate,"yyyy-MM-dd'T'HH:mm:ss");
+    date dOutDate = strToDateCheck(sOutDate,"yyyy-MM-dd'T'HH:mm:ss");
+    return dOutDate;
+};
+
+string dateToStringCheck(date dEndWOrk, string dateFormat){
+    string outString;
+    if(dEndWOrk != null){
+        if(!dateToString(outString,dEndWOrk,dateFormat))
+            debug("Invalid input date format."+dEndWOrk);
+    }
+    else{
+        debug("Input date is null");
+    } 
+    return outString;
+};
+
+date strToDateCheck(string inDate, string dateFormat){
+	date outDate;
+	if(inDate != null){
+		if(!strToDate(outDate,inDate,dateFormat))
+			debug("Invalid input string format: " +inDate);
+	}
+	else{
+        debug("Input is null");
+	}
+	return outDate;
+};
+
+date getTimeValue(date dInDate)
+{
+    debug("The value of dInDate = " + (dInDate));
+    date dOutTime;
+    string sInDate = dateToStringCheck(dInDate,"yyyy-MM-dd'T'HH:mm:ss");
+    debug("The value of sInDate = " + (sInDate));
+    string sOutTime = strSubstring(sInDate,11,19);
+    debug("The value of sOutTime = " + (sOutTime));
+    dOutTime = strToDateCheck(sOutTime,"HH:mm:ss");
+    return dOutTime;
+}
+]]></string>
+</exportmultiplex>

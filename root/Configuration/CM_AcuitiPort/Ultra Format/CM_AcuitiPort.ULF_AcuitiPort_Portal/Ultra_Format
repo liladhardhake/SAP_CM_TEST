@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Ultra_Format" ref_path="ultra_format[Internal]/storable[ultra_format]/storable[Data]">
+   <string name="Definition"><![CDATA[internal GetEventDetails{
+        string PortalRefID;
+        string OperationType;
+        string RequestType;
+		string CustomerID;
+		string PortalUsername; 
+		string TerminalId; 
+		string CountryName;
+        string ExitType;
+        string ExitDate;
+        string RequestedFor;
+		list<EventCalVal> EventsForCalculation;
+
+};
+
+internal EventCalVal{
+    
+        string RequestedValue; 
+        string EventName;
+        string Quantity;
+        string QuantityUnit;
+        
+};
+
+
+
+internal PortalFileData{
+	string ZZAGENT1            ;
+    string ZZBILL_LADING       ;
+    string ZZBOOKING_NUMBER    ;
+    string ZZCATEGORY          ;
+    string ZZCONSIGNEE_ID      ;
+    string ZZCONTAINER_ID      ;
+    date   ZZCSTMDCDAT         ;
+    string ZZCSTMDECNO         ;
+	string ZZENDDATEFLAG       ;
+    string ZZEQUIPTYPE         ;
+	string ZZEVENT_CAT         ;
+    string ZZEVENT_GKEY        ;
+    string ZZEVENT_NAME        ;
+    string ZZFREIGHT_KIND      ;
+    double ZZGROSS_TON         ;
+    string ZZIBVISIT_ID        ;
+	string ZZISO_GRP           ;
+	string ZZISO_LEN           ;
+    string ZZIS_IMDG           ;
+    string ZZIMDGCLASS         ;
+    string ZZOOG               ;
+    string ZZLAST_PORT         ;
+    string ZZLINE_ID           ;
+    string ZZOBVISIT_ID        ;
+	string ZZPAYEE_ID          ;
+	string ZZIS_REEFER         ;
+	string ZZSHIPPER_ID        ;
+    string ZZSPCL_STOW         ;
+    string ZZSUBCON_ID         ;
+    string ZZTERMINALID        ;
+    string ZZUNIT_GKEY         ;
+    string ZZVESSEL_ID         ;
+    string ZZVESSEL_LENGTH     ;
+    string ZZVESSEL_LINE       ;
+    string ZZVESSEL_NAME       ;
+    string ZZVESSEL_SERVICE    ;
+    string ZZVESSEL_TYPE       ;
+	double ZZTEU               ;
+	string ZZVISIT_ID          ;
+	string ZZGKEY_TYPE         ;
+	date ZZLASTCHARGEDTIME   ;
+	string ZZWORK_ENDDTTM      ;
+	string ZZWORK_STRTDTTM     ;
+    string ZZTIME_IN           ;
+    string ZZTIME_OUT          ;
+    string ZZSHIPARR_DATETIME  ;
+    string ZZSHIPDEP_DATETIME  ;
+    string ZZIBCARRIER_TYPE    ;
+    string ZZOBCARRIER_TYPE    ;
+    string ZZPHASE             ;
+    date ZZDELIVERY_DTTM     ;
+    double CIT_QUANTITY        ;
+    string CIT_QTY_UNIT        ;
+    date CITDATE_FROM        ;
+	date CITDATE_TO          ;
+	string CITTYPE             ;
+    string ZZPORTAL_REFID;
+};
+
+internal routeRestResp{
+    any restUDR;
+    any anyUDR;
+};
+
+internal sentRespGateOut{
+    string ContNo;
+    list <string> EventNames;
+};
+
+internal portalResp{
+    string status;
+    string data;
+};
+]]></string>
+</exportmultiplex>

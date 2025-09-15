@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Template" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <storable name="Audit Profile" null="true"/>
+   <int name="Cancel batch count" value="0"/>
+   <int name="Cancel batch type" value="0"/>
+   <list classname="java.util.ArrayList" name="Comments"/>
+   <storable name="Data Veracity Profile" null="true"/>
+   <storable name="Error UDR type name" null="true"/>
+   <boolean name="Error batch type" value="false"/>
+   <string name="Error code" null="true"/>
+   <map name="Error map" null="true"/>
+   <storable name="Execution Config" storable-id="dr.WorkflowExecutionConfig" ver="10.0">
+      <enum name="debugType" storable-id="dr.DebugType" value="EVENT"/>
+      <storable name="executionSettings" storable-id="dr.ExecutionSettings" ver="10.0">
+         <boolean name="enabled" value="false"/>
+      </storable>
+      <int name="noOfFilesToKeep" value="0"/>
+      <string name="throughputMIM" null="true"/>
+      <string name="txnHandler" value="Default Handler"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Field Types"/>
+   <boolean name="Log On CB" value="false"/>
+   <list classname="java.util.ArrayList" name="Logged error MIM"/>
+   <list classname="java.util.ArrayList" name="Nodes">
+      <storable name="0" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.diskinput.DiskAdvInputInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="3">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.diskinput.DiskAdvInputInsp"/>
+               <storable name="Data" storable-id="dr.DiskAdvInputData" ver="10.0">
+                  <string name="collectionStrategyName" null="true"/>
+                  <boolean name="routeFileRef" value="false"/>
+                  <array classname="java.lang.String" name="strategyClasses" size="2">
+                     <string name="0" value="com.digitalroute.misc.advcoll.impl.DefaultFileInfo"/>
+                     <string name="1"><![CDATA[com.digitalroute.misc.advcoll.impl.DefaultSourceFileHandling]]></string>
+                  </array>
+                  <string name="strategyCombinationClass"><![CDATA[com.digitalroute.misc.advcoll.impl.DefaultCollectionStrategy]]></string>
+                  <array classname="com.digitalroute.devkit.storable.DRStorable" name="strategyConfigs" size="2">
+                     <storable name="0" storable-id="dr.DefaultFileInfoConfig" ver="10.0">
+                        <string name="baseDir" value="/opt/mz/AcuitiPort/collection_Output"/>
+                        <enum name="compType" storable-id="dr.CompressionType" value="NONE"/>
+                        <string name="fileRegExp" value=".*csv"/>
+                        <boolean name="subfolders" value="false"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DefaultSourceFileHandlingConfig" ver="10.0">
+                        <int name="idleTime" value="0"/>
+                        <boolean name="moveBeforeRetrieval" value="false"/>
+                        <string name="moveSuffix" value=""/>
+                        <string name="rbDirectory" value=""/>
+                        <int name="rbKeepInterval" value="-1"/>
+                        <string name="rbRenamePrefix" value=""/>
+                        <string name="rbRenameSuffix" value=""/>
+                        <string name="rbReplace" value=""/>
+                        <string name="rbSearch" value=""/>
+                        <enum name="rbType" storable-id="dr.RetrievalType" value="REMOVE"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+            <storable name="1" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.devkit.wf.DRFNSServiceInsp"/>
+               <storable name="Data" storable-id="dr.DRFNSServiceConfigExtension" ver="10.0">
+                  <boolean name="enabled" value="false"/>
+                  <storable name="nextSeqNo" storable-id="dr.SequenceNumberFieldValue" ver="2.0">
+                     <long name="SeqNo" value="-1"/>
+                     <long name="SeqNoUpdate" value="0"/>
+                  </storable>
+                  <long name="nextSeqNoValue" value="-1"/>
+                  <long name="seqNoChk" value="0"/>
+                  <int name="seqNoLen" value="-1"/>
+                  <boolean name="shallWarnOnOutOfSequence" value="false"/>
+                  <int name="startPos" value="-1"/>
+                  <long name="wrapOnSeqNo" value="-1"/>
+                  <long name="wrapToSeqNo" value="0"/>
+               </storable>
+            </storable>
+            <storable name="2" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.devkit.wf.DRFileInfoSortOrderServiceInsp]]></string>
+               <storable name="Data" storable-id="dr.DRFileInfoSortOrderServiceConfig" ver="10.0">
+                  <boolean name="enabled" value="false"/>
+                  <boolean name="ignoreCase" value="false"/>
+                  <int name="length" value="0"/>
+                  <enum name="orderType" storable-id="dr.DRFileOrderType" value="FILENAME_VALUE"/>
+                  <enum name="patternType" storable-id="dr.DRFilenamePatternSelection" value="POSITION"/>
+                  <string name="regExp" null="true"/>
+                  <enum name="sortOrder" storable-id="dr.DRSortOrder" value="ASCENDING"/>
+                  <enum name="sortType" storable-id="dr.DRFilenameSortType" value="ALPHANUMERIC"/>
+                  <int name="startPos" value="0"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Disk_1"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.ultra.UltraDecoderInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.ultra.UltraDecoderInsp"/>
+               <storable name="Data" storable-id="dr.UltraDecoderData" ver="11.0">
+                  <object name="decoderConfig">
+                     <null name="Object Internal"/>
+                  </object>
+                  <string name="decoderName" value="CM_AcuitiPort.ULF_TEST.InDecoder"/>
+                  <boolean name="doFullDecode" value="false"/>
+                  <int name="errorMode" value="1"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Decoder_1"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.aggregation.AggregationInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="2">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.aggregation.AggregationInsp"/>
+               <storable name="Data" storable-id="dr.AggregationConfig" ver="11.0">
+                  <int name="commitCount" value="-2147483648"/>
+                  <int name="commitTimeout" value="-2147483648"/>
+                  <int name="defaultTimeout" value="-1"/>
+                  <int name="defragAfterNumberOfBatches" value="1"/>
+                  <int name="defragEachBatchTimeLimit" value="5"/>
+                  <int name="defragFileAgeLimit" value="5"/>
+                  <string name="defragFileAgeLimit_TimeUnit" value="MINUTES"/>
+                  <enum name="defragTrigger" storable-id="dr.DefragType" value="NONE"/>
+                  <int name="intervalTimeout" value="-2147483648"/>
+                  <string name="mainScript"><![CDATA[sessionInit{
+    debug("Session Init Called");
+    session.revenue = 0;
+    session.isBicFound = false;
+    InputTI myUDR =(InputTI)input;
+    session.inv = myUDR.class;
+    sessionTimeout(session,300);
+}
+
+consume {
+    debug("Inside Consume");
+    if(instanceOf(input,InputTI)){
+        InputTI myUDR =(InputTI)input;
+        debug("The value of myUDR = " + (myUDR));
+        
+        if ((session.isBicFound == false ) && (myUDR.bicVal != null &&  myUDR.bicVal !=""))
+        {
+            debug("The value of myUDR.bicVal = " + (myUDR.bicVal));
+            session.bicValue = myUDR.bicVal;
+            session.isBicFound = true;
+            debug("The value of session.bicValue = " + (session.bicValue));
+
+        }
+        
+        if((session.isDiscountFound == false) && (myUDR.discount == "FF Contract Charges")){
+            session.discount = true;
+            session.isDiscountFound = true;
+        }
+        session.revenue = session.revenue + myUDR.revenue;
+        
+    }
+
+}]]></string>
+                  <int name="noMatchBehaviour" value="0"/>
+                  <string name="noMatchRouter" null="true"/>
+                  <int name="noStorageBehaviour" value="0"/>
+                  <string name="noStorageRouter" null="true"/>
+                  <int name="nullTimeoutBehaviour" value="1"/>
+                  <storable name="profile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="CM_AcuitiPort"/>
+                     <string name="Key" value="MZ1722248356074"/>
+                     <string name="Name" value="PRF_AGG_TEST"/>
+                     <string name="Type" value="Aggregation Profile"/>
+                  </storable>
+                  <boolean name="readonly" value="false"/>
+                  <boolean name="timeoutDisable" value="false"/>
+               </storable>
+            </storable>
+            <storable name="1" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.devkit.hidden.DRThreadBufferInsp"/>
+               <storable name="Data" storable-id="dr.DRThreadBufferConfig" ver="10.0">
+                  <boolean name="printStats" value="false"/>
+                  <boolean name="useOwnThread" value="false"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Aggregation_1"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Routes">
+      <storable name="0" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="r_1"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="r_2"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Service"/>
+   <boolean name="Template Valid" value="true"/>
+</exportmultiplex>

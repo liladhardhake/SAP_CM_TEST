@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database category="Internal">
+   <storable name="database" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Administrator"/>
+         <string name="1" value="Administrator"/>
+         <string name="2" value="Administrator"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.DRDBProfileExtRef" ver="1.7">
+         <password name="Access Key ID" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+         <string name="Advanced Properties" value=""/>
+         <boolean name="Connection string" value="false"/>
+         <string name="DB Connection Properties" null="true"/>
+         <string name="DB Type Class Name"><![CDATA[com.digitalroute.wfc.db.saphana.SapHanaDatabaseDriver]]></string>
+         <string name="Database name" value=""/>
+         <map classname="java.util.HashMap" name="ExtRef Map" size="5">
+            <string name="key_0" value="dbname"/>
+            <string name="key_1" value="dbport"/>
+            <string name="key_2" value="hostname"/>
+            <string name="key_3" value="password"/>
+            <string name="key_4" value="username"/>
+            <string name="value_0" value="ACUITIPORT_DB_NAME"/>
+            <string name="value_1" value="ACUITIPORT_DB_PORT"/>
+            <string name="value_2" value="ACUITIPORT_DB_HOST"/>
+            <string name="value_3" value="ACUITIPORT_DB_PASSWORD"/>
+            <string name="value_4" value="ACUITIPORT_DB_USERNAME"/>
+         </map>
+         <string name="ExtRef Profile" value="MZ1658906006545"/>
+         <float name="ExtRef Version" value="1.0"/>
+         <boolean name="Generic Connection" value="false"/>
+         <string name="Host" value=""/>
+         <string name="ONS" null="true"/>
+         <password name="Password" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+         <int name="Port" value="-2147483648"/>
+         <storable name="Profile" null="true"/>
+         <password name="Secret Access Key" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+         <string name="Staging Directory" null="true"/>
+         <float name="This Version" value="1.0"/>
+         <int name="Type" value="7"/>
+         <string name="URL" null="true"/>
+         <string name="Username" null="true"/>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="CM_AcuitiPort"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="MZ1659091095625"/>
+      <string name="Modified By" value="mzadmin"/>
+      <long name="Modified Date" value="1739959450473"/>
+      <string name="Name" value="PRF_Database_Profile_PS4"/>
+      <string name="Owner" value="mzadmin"/>
+      <string name="Type" value="Database Profile"/>
+      <int name="Version" value="2"/>
+      <string name="documentation" value=""/>
+   </storable>
+</database>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Template" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <list classname="java.util.ArrayList" name="Comments"/>
+   <storable name="Execution Config" storable-id="dr.WorkflowExecutionConfig" ver="10.0">
+      <enum name="debugType" storable-id="dr.DebugType" value="EVENT"/>
+      <storable name="executionSettings" storable-id="dr.ExecutionSettings" ver="10.0">
+         <storable name="autostart" storable-id="dr.AutoStartSettings" ver="1.0">
+            <enum classname="com.digitalroute.wf.AutoStartSettings$AbortBehaviour" name="abort behaviour" value="ABORT"/>
+            <boolean name="enabled" value="false"/>
+            <int name="instances" value="0"/>
+         </storable>
+         <enum name="dist" storable-id="dr.WorkflowDistType" value="ROUND_ROBIN"/>
+         <boolean name="enabled" value="true"/>
+         <list classname="java.util.LinkedList" name="groupList">
+            <storable name="0" storable-id="dr.PicoGroupEntity" ver="2.0">
+               <string name="GroupName" value="ecsa1"/>
+               <int name="PicoType" value="2"/>
+            </storable>
+         </list>
+      </storable>
+      <int name="noOfFilesToKeep" value="0"/>
+      <string name="throughputMIM" null="true"/>
+      <string name="txnHandler" value="Default Handler"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Field Types"/>
+   <list classname="java.util.ArrayList" name="Logged error MIM"/>
+   <list classname="java.util.ArrayList" name="Nodes">
+      <storable name="0" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.mz.rest_server.agent.RestServerCollectorAgentInspRT]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.mz.rest_server.agent.RestServerCollectorAgentInspRT]]></string>
+               <storable name="Data" storable-id="dr.RestServerData" ver="30.0">
+                  <string name="advancedProperties"><![CDATA[# Properties controlling REST Server collector can be customized here.
+# Please read the user documentation before changing these properties.
+
+# If true, REST server will send authentication error directly to client without
+# routing REST Cycle UDR to output.
+auto.auth.error.response.enabled=true
+
+# If true, REST server will send endpoint URI not found error directly to client without
+# routing REST Cycle UDR to output.
+auto.endpoint.uri.not.found.response.enabled=true
+]]></string>
+                  <boolean name="autoAuthErrorResponseEnabled" value="true"/>
+                  <boolean name="autoEndpointURINotFoundResponseEnabled" value="true"/>
+                  <boolean name="certificateValidation" value="false"/>
+                  <boolean name="certificateValidationActive" value="false"/>
+                  <string name="crl" value=""/>
+                  <boolean name="crldp" value="false"/>
+                  <list classname="java.util.ArrayList" name="endpointURIs">
+                     <string name="0" value="/portal/"/>
+                  </list>
+                  <string name="host" value="172.16.16.33"/>
+                  <boolean name="isTwoWayAuth" value="false"/>
+                  <string name="jwtPublicKeyAlias" null="true"/>
+                  <boolean name="jwtPublicKeyAliasActive" value="false"/>
+                  <int name="maxProcessingTime" value="50"/>
+                  <int name="maxQueuedThreadPool" value="64"/>
+                  <int name="minQueuedThreadPool" value="8"/>
+                  <string name="oauthTruststore" null="true"/>
+                  <boolean name="oauthTruststoreActive" value="false"/>
+                  <password name="oauthTsPassphrase" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+                  <boolean name="oauthTsPassphraseActive" value="false"/>
+                  <int name="port" value="8099"/>
+                  <storable name="restServerProfile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="CM_AcuitiPort"/>
+                     <string name="Key" value="MZ1716300614207"/>
+                     <string name="Name" value="PRF_REST_Portal"/>
+                     <string name="Type" value="REST Server Profile"/>
+                  </storable>
+                  <storable name="securityProfile" null="true"/>
+                  <string name="tlsKeystore" value=""/>
+                  <boolean name="tlsKeystoreActive" value="false"/>
+                  <password name="tlsKsPassphrase" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+                  <string name="twoWayTruststore" value=""/>
+                  <boolean name="twoWayTruststoreActive" value="false"/>
+                  <password name="twoWayTsPassphrase" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+                  <boolean name="twoWayTsPassphraseActive" value="false"/>
+                  <storable name="udrType" null="true"/>
+                  <boolean name="useOAuth_2_0" value="false"/>
+                  <boolean name="useSecurityProfile" value="false"/>
+                  <boolean name="useTLS" value="false"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="REST_Server"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.SAP_RFC.CM_AcuitiPort.PRF_Portal_Common;
+import ultra.SAP_RFC.CM_AcuitiPort.PRF_Portal_Common.subUdr;
+import ultra.CM_AcuitiPort.ULF_AcuitiPort_Portal;
+import apl.CM_AcuitiPort.APL_Dependent_Event;
+import ultra.CM_AcuitiPort.ULF_AcuitiPort;
+import apl.CM_AcuitiPort.APL_AcuitiPort_Validation;
+import apl.CM_AcuitiPort.APL_AcuitiPort_Portal;
+import apl.CM_AcuitiPort.APL_Company_Maps;
+import ultra.CM_AcuitiPort.ULF_Company_Maps;
+import ultra.json;
+import ultra.REST;
+import ultra.sapcc;
+
+//map < string, int > MapCountCIC = mapCreateSync(string, int);
+
+//table dpndntMapSharedTable = tableCreateShared("CM_AcuitiPort.PRF_Shared_Table_TB_DEPENDENT_TABLE");
+//table compMapSharedTable = tableCreateShared("CM_AcuitiPort.PRF_Shared_Table_TB_COMPANY_MAPS");
+
+consume {
+  if (instanceOf(input, Cycle)) {
+    debug("The value of input = " + (input));
+    Cycle RestUDRCr = (Cycle) input;
+
+    bytearray requestBody = (RestUDRCr.request.body);
+    string jsonString = (baToStr(requestBody));
+    debug("The value of jsonString = " + (jsonString));
+
+    GetEventDetails decodedUDR = udrCreate(GetEventDetails);
+    jsonDecodeUdr(jsonString, decodedUDR, false);
+    debug("The value of decodedUDR = " + (decodedUDR));
+    debug("The value of CustomerID = " + (decodedUDR.CustomerID));
+    string ch = "";
+    ch = "" +decodedUDR.CustomerID;
+    debug("The value of ch = " + (ch));
+    double amount;
+    if(!strToDouble(amount,ch)){
+        debug("Invalid");
+    }else{
+        debug("The value of amount = " + (amount));
+        debug("Valid");
+    }
+    
+    
+  }
+  }]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="6">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="sapcc.CCCycleUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="REST.Cycle"/>
+                     </storable>
+                     <storable name="2" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="RfcErrorUDR"/>
+                     </storable>
+                     <storable name="3" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.CM_AcuitiPort.PRF_Portal_Common.ZAP_BILLING_INVOICING_UDR]]></string>
+                     </storable>
+                     <storable name="4" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.CM_AcuitiPort.PRF_Portal_Common.ZAP_RETREIVE_CIT_UDR]]></string>
+                     </storable>
+                     <storable name="5" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.CM_AcuitiPort.PRF_Portal_Common.ZSOM_TECHID_ACUITIPORT_GET_UDR]]></string>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Processing"/>
+      </storable>
+   </list>
+   <storable name="Persistent" storable-id="dr.WorkflowPersistentConfig" ver="10.0">
+      <string name="persistentInspector" null="true"/>
+      <storable name="persistentStorageConfig" null="true"/>
+      <string name="persistentTimeoutHandler" null="true"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Routes">
+      <storable name="0" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="input"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Service"/>
+   <boolean name="Template Valid" value="true"/>
+   <storable name="Thread data" storable-id="dr.WorkflowExecutionRealtimeConfig" ver="10.0">
+      <int name="countInterval" value="1"/>
+      <int name="queueSize" value="1000"/>
+      <string name="queueStrategy" value="Blocking queue"/>
+      <string name="queueWorkerStrategy" value="RoundRobin"/>
+      <boolean name="standalone" value="true"/>
+      <int name="threads" value="8"/>
+   </storable>
+</exportmultiplex>

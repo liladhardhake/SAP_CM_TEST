@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<external_reference category="Internal">
+   <storable name="external_reference" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Administrator"/>
+         <string name="1" value="Administrator"/>
+         <string name="2" value="Administrator"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.ExtRefProfileData" ver="0.0">
+         <string name="External Reference Type" value="Properties File"/>
+         <storable name="Wf Param Profile Type Data" storable-id="dr.ExtRefPropFileTypeData" ver="1.0">
+            <string name="File Location" value="/opt/mz/AcuitiPort/PropFile/extRefAcuitiPort.prop"/>
+            <list classname="java.util.ArrayList" name="Property List">
+               <storable name="0" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="COLL_INPUT_PATH"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="COLL_INPUT_PATH"/>
+               </storable>
+               <storable name="1" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="COLL_ARCHIVED_PATH"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="COLL_ARCHIVED_PATH"/>
+               </storable>
+               <storable name="10" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="PROC_WS_HTTP_ADDRESS"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="PROC_WS_HTTP_ADDRESS"/>
+               </storable>
+               <storable name="11" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="PROC_WS_HTTP_TIMEOUT"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="PROC_WS_HTTP_TIMEOUT"/>
+               </storable>
+               <storable name="12" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="PROC_WS_HTTP_USERNAME"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="PROC_WS_HTTP_USERNAME"/>
+               </storable>
+               <storable name="13" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="PROC_WS_HTTP_PASSWORD"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="PROC_WS_HTTP_PASSWORD"/>
+               </storable>
+               <storable name="14" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="PROC_CCBATCH_HOST"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="PROC_CCBATCH_HOST"/>
+               </storable>
+               <storable name="15" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="PROC_CCBATCH_USERNAME"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="PROC_CCBATCH_USERNAME"/>
+               </storable>
+               <storable name="16" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="PROC_CCBATCH_PASSWORD"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="PROC_CCBATCH_PASSWORD"/>
+               </storable>
+               <storable name="17" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="PROC_CCBATCH_TIMEOUT"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="PROC_CCBATCH_TIMEOUT"/>
+               </storable>
+               <storable name="18" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="ACUITIPORT_DB_HOST"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="ACUITIPORT_DB_HOST"/>
+               </storable>
+               <storable name="19" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="ACUITIPORT_DB_PORT"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="ACUITIPORT_DB_PORT"/>
+               </storable>
+               <storable name="2" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="COLL_INPUT_FILENAME"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="COLL_INPUT_FILENAME"/>
+               </storable>
+               <storable name="20" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="ACUITIPORT_DB_USERNAME"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="ACUITIPORT_DB_USERNAME"/>
+               </storable>
+               <storable name="21" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="ACUITIPORT_DB_PASSWORD"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="ACUITIPORT_DB_PASSWORD"/>
+               </storable>
+               <storable name="22" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="ACUITIPORT_DB_NAME"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="ACUITIPORT_DB_NAME"/>
+               </storable>
+               <storable name="23" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="RFC_USERNAME"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="RFC_USERNAME"/>
+               </storable>
+               <storable name="24" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="RFC_PASSWORD"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="RFC_PASSWORD"/>
+               </storable>
+               <storable name="25" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="RFC_HOST"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="RFC_HOST"/>
+               </storable>
+               <storable name="26" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="RFC_SYSTEM_NUMBER"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="RFC_SYSTEM_NUMBER"/>
+               </storable>
+               <storable name="27" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="RFC_CLIENT_NUMBER"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="RFC_CLIENT_NUMBER"/>
+               </storable>
+               <storable name="28" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="CONTAINER_EQUIPMENT_LENGTH"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="CONTAINER_EQUIPMENT_LENGTH"/>
+               </storable>
+               <storable name="29" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="CONTAINER_INVOICING_PARAM_LIST"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="CONTAINER_INVOICING_PARAM_LIST"/>
+               </storable>
+               <storable name="3" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="COLL_OUTPUT_PATH"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="COLL_OUTPUT_PATH"/>
+               </storable>
+               <storable name="30" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="VESSEL_SERVICE_RERATING_PARAM_LIST"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="VESSEL_SERVICE_RERATING_PARAM_LIST"/>
+               </storable>
+               <storable name="31" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="PROC_INPUT_FILENAME"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="PROC_INPUT_FILENAME"/>
+               </storable>
+               <storable name="32" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="VESSEL_SERVICE_INVOICING_PARAM_LIST"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="VESSEL_SERVICE_INVOICING_PARAM_LIST"/>
+               </storable>
+               <storable name="33" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="VESSEL_STATUS_INVOICING_PARAM_LIST"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="VESSEL_STATUS_INVOICING_PARAM_LIST"/>
+               </storable>
+               <storable name="34" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="VESSEL_STATUS_RERATING_PARAM_LIST"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="VESSEL_STATUS_RERATING_PARAM_LIST"/>
+               </storable>
+               <storable name="35" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="CONTAINER_RERATING_PARAM_LIST"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="CONTAINER_RERATING_PARAM_LIST"/>
+               </storable>
+               <storable name="36" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="VESSEL_SERVICE_EVENTS"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="VESSEL_SERVICE_EVENTS"/>
+               </storable>
+               <storable name="37" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="CONTAINER_STORAGE_EVENTS"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="CONTAINER_STORAGE_EVENTS"/>
+               </storable>
+               <storable name="38" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="UPDATE_PROC_INPUT_PATH"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="UPDATE_PROC_INPUT_PATH"/>
+               </storable>
+               <storable name="39" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="AUDIT_PATH"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="AUDIT_PATH"/>
+               </storable>
+               <storable name="4" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="VAL_INPUT_PATH"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="VAL_INPUT_PATH"/>
+               </storable>
+               <storable name="5" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="VAL_UNDECODED"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="VAL_UNDECODED"/>
+               </storable>
+               <storable name="6" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="VAL_ERROR_DISK"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="VAL_ERROR_DISK"/>
+               </storable>
+               <storable name="7" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="VAL_INPUT_FILENAME"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="VAL_INPUT_FILENAME"/>
+               </storable>
+               <storable name="8" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="VAL_OUTPUT_PATH"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="VAL_OUTPUT_PATH"/>
+               </storable>
+               <storable name="9" storable-id="dr.PropertyFileParameterInfo" ver="2.0">
+                  <string name="Local Key" value="PROC_INPUT_PATH"/>
+                  <object name="Parameter Type">
+                     <enum name="Object Internal" storable-id="dr.ValueParameterType" value="STRING"/>
+                  </object>
+                  <string name="Property File Key" value="PROC_INPUT_PATH"/>
+               </storable>
+            </list>
+         </storable>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="CM_AcuitiPort"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="MZ1658906006545"/>
+      <string name="Modified By" value="mzadmin"/>
+      <long name="Modified Date" value="1739906837365"/>
+      <string name="Name" value="PRF_ExtRef_AcuitiPort"/>
+      <string name="Owner" value="mzadmin"/>
+      <string name="Type" value="External Reference Profile"/>
+      <int name="Version" value="1"/>
+      <string name="documentation" value=""/>
+   </storable>
+</external_reference>

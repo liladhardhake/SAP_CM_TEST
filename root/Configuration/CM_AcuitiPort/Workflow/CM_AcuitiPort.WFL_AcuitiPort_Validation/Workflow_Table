@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Workflow_Table" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <storable name="InstanceTable" storable-id="dr.WorkflowInstanceTableData" ver="10.0">
+      <list classname="java.util.ArrayList" name="Workflow_Table">
+         <storable name="0" storable-id="dr.WorkflowInstanceData" ver="2.0">
+            <list classname="java.util.ArrayList" name="Fields">
+               <storable name="0" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="2108931552"/>
+                  <string name="NodeName" value="From_Collection"/>
+                  <string name="QName" value="Source - Directory"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="VAL_INPUT_PATH"/>
+                  </object>
+               </storable>
+               <storable name="1" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="2108931552"/>
+                  <string name="NodeName" value="From_Collection"/>
+                  <string name="QName" value="Source - Filename"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="VAL_INPUT_FILENAME"/>
+                  </object>
+               </storable>
+               <storable name="2" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="1298438762"/>
+                  <string name="NodeName" value="FilterOut"/>
+                  <string name="QName" value="Disk - Directory"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="VAL_OUTPUT_PATH"/>
+                  </object>
+               </storable>
+               <storable name="3" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="-493548852"/>
+                  <string name="NodeName" value="ErrDisk"/>
+                  <string name="QName" value="Disk - Directory"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="VAL_ERROR_DISK"/>
+                  </object>
+               </storable>
+               <storable name="4" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="-1559366358"/>
+                  <string name="NodeName" value="Undecoded"/>
+                  <string name="QName" value="Disk - Directory"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="VAL_UNDECODED"/>
+                  </object>
+               </storable>
+               <storable name="5" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="-1922701760"/>
+                  <string name="NodeName" value="auditDir"/>
+                  <string name="QName" value="Disk - Directory"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="AUDIT_PATH"/>
+                  </object>
+               </storable>
+            </list>
+            <long name="ID" value="1"/>
+            <string name="Name" value="Validate"/>
+            <enum name="Valid Type" storable-id="dr.ValidType" value="VALID"/>
+            <string name="Validation Error" null="true"/>
+         </storable>
+      </list>
+   </storable>
+   <long name="Workflow ID Counter" value="1"/>
+</exportmultiplex>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Workflow_Table" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <storable name="InstanceTable" storable-id="dr.WorkflowInstanceTableData" ver="10.0">
+      <list classname="java.util.ArrayList" name="Workflow_Table">
+         <storable name="0" storable-id="dr.WorkflowInstanceData" ver="2.0">
+            <list classname="java.util.ArrayList" name="Fields">
+               <storable name="0" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="672577418"/>
+                  <string name="NodeName" value="From_Filter"/>
+                  <string name="QName" value="Source - Directory"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="PROC_INPUT_PATH"/>
+                  </object>
+               </storable>
+               <storable name="1" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="672577418"/>
+                  <string name="NodeName" value="From_Filter"/>
+                  <string name="QName" value="Source - Filename"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="PROC_INPUT_FILENAME"/>
+                  </object>
+               </storable>
+               <storable name="10" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="-279974329"/>
+                  <string name="NodeName" value="auditDir"/>
+                  <string name="QName" value="Disk - Directory"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="AUDIT_PATH"/>
+                  </object>
+               </storable>
+               <storable name="2" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="-322542984"/>
+                  <string name="NodeName" value="Web_Service_Request"/>
+                  <string name="QName" value="Webservices - HTTP Address"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="PROC_WS_HTTP_ADDRESS"/>
+                  </object>
+               </storable>
+               <storable name="3" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="-322542984"/>
+                  <string name="NodeName" value="Web_Service_Request"/>
+                  <string name="QName" value="Webservices - Server Timeout"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="PROC_WS_HTTP_TIMEOUT"/>
+                  </object>
+               </storable>
+               <storable name="4" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="-322542984"/>
+                  <string name="NodeName" value="Web_Service_Request"/>
+                  <string name="QName" value="Webservices - Username"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="PROC_WS_HTTP_USERNAME"/>
+                  </object>
+               </storable>
+               <storable name="5" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="-322542984"/>
+                  <string name="NodeName" value="Web_Service_Request"/>
+                  <string name="QName" value="Webservices - Password"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="PROC_WS_HTTP_PASSWORD"/>
+                  </object>
+               </storable>
+               <storable name="6" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="1089207242"/>
+                  <string name="NodeName" value="SAP_CC_Batch"/>
+                  <string name="QName" value="Connection - Hosts"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="PROC_CCBATCH_HOST"/>
+                  </object>
+               </storable>
+               <storable name="7" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="1089207242"/>
+                  <string name="NodeName" value="SAP_CC_Batch"/>
+                  <string name="QName" value="Connection - User Name"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="PROC_CCBATCH_USERNAME"/>
+                  </object>
+               </storable>
+               <storable name="8" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="1089207242"/>
+                  <string name="NodeName" value="SAP_CC_Batch"/>
+                  <string name="QName" value="Connection - Password"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="PROC_CCBATCH_PASSWORD"/>
+                  </object>
+               </storable>
+               <storable name="9" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="1089207242"/>
+                  <string name="NodeName" value="SAP_CC_Batch"/>
+                  <string name="QName" value="Connection - Timeout"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="PROC_CCBATCH_TIMEOUT"/>
+                  </object>
+               </storable>
+            </list>
+            <long name="ID" value="1"/>
+            <string name="Name" value="workflow_1"/>
+            <enum name="Valid Type" storable-id="dr.ValidType" value="VALID"/>
+            <string name="Validation Error" null="true"/>
+         </storable>
+      </list>
+   </storable>
+   <long name="Workflow ID Counter" value="1"/>
+</exportmultiplex>

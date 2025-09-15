@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Workflow_Table" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <storable name="InstanceTable" storable-id="dr.WorkflowInstanceTableData" ver="10.0">
+      <list classname="java.util.ArrayList" name="Workflow_Table">
+         <storable name="0" storable-id="dr.WorkflowInstanceData" ver="2.0">
+            <list classname="java.util.ArrayList" name="Fields">
+               <storable name="0" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="2108931552"/>
+                  <string name="NodeName" value="Collector"/>
+                  <string name="QName" value="Source - Directory"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="COLL_INPUT_PATH"/>
+                  </object>
+               </storable>
+               <storable name="1" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="2108931552"/>
+                  <string name="NodeName" value="Collector"/>
+                  <string name="QName" value="Source - Filename"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="COLL_INPUT_FILENAME"/>
+                  </object>
+               </storable>
+               <storable name="2" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="-853019564"/>
+                  <string name="NodeName" value="OutDisc"/>
+                  <string name="QName" value="Disk - Directory"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="EXTREF"/>
+                  <object name="Value">
+                     <string name="Object Internal" value="COLL_OUTPUT_PATH"/>
+                  </object>
+               </storable>
+               <storable name="3" storable-id="dr.WfInstanceCell" ver="1.0">
+                  <int name="NodeId" value="1214289454"/>
+                  <string name="NodeName" value="Archiving_Local"/>
+                  <string name="QName" value="ArchivingLocal - Profile"/>
+                  <enum classname="com.digitalroute.wf.FieldValue$Type" name="Type" value="VALUE"/>
+                  <object name="Value">
+                     <storable name="Object Internal" storable-id="dr.DRConfiguration" ver="2.0">
+                        <set name="Dynamic Parameters" null="true"/>
+                        <string name="Folder" value="CM_AcuitiPort"/>
+                        <string name="Key" value="MZ1655099949070"/>
+                        <string name="Name" value="PRF_Input_Archive"/>
+                        <string name="Type" value="Archive Profile"/>
+                     </storable>
+                  </object>
+               </storable>
+            </list>
+            <long name="ID" value="1"/>
+            <string name="Name" value="ContainerService_1"/>
+            <enum name="Valid Type" storable-id="dr.ValidType" value="VALID"/>
+            <string name="Validation Error" null="true"/>
+         </storable>
+      </list>
+   </storable>
+   <long name="Workflow ID Counter" value="1"/>
+</exportmultiplex>

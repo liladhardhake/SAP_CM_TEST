@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="APL_Source_Code" ref_path="apl_script[Internal]/storable[apl_script]/storable[Data]">
+   <string name="Definition"><![CDATA[import ultra.sapcc;
+import ultra.CM_AcuitiPort.ULF_AcuitiPort_Portal;
+import ultra.SAP_RFC.CM_AcuitiPort.PRF_Portal_Common;
+import ultra.SAP_RFC.CM_AcuitiPort.PRF_Portal_Common.subUdr;
+
+/*
+ChargeUDR sendContainerCICV1ForPortal(string sagent1, string sbill_lading, string sbooking_number, string scategory, string sconsignee_id, string scontainer_id, date scstmdcdat, string scstmdecno, string senddateflag, string sequiptype, string sevent_cat, string sevent_gkey, string sevent_name, string sfreight_kind, double sgross_ton, string sibvisit_id, string siso_grp, string siso_len, string sis_imdg, string simdgclass, string sis_oog, string slast_port, string sline_id, string sobvisit_id, string spayee_id, string sis_reefer, string sshipper_id, string sspcl_stow, string ssubcon_id, string sterminalid, string sunit_gkey, string svessel_id, string svessel_length, string svessel_line, string svessel_name, string svessel_service, string svessel_type, double steu, string svisit_id, string sgkey_type, date slastchargedtime, date swork_enddttm, date swork_strtdttm, date stime_in, date stime_out, date sshiparr_datetime, date sshipdep_datetime, string sibcarrier_type, string sobcarrier_type, string sphase,date sdelivery_dttm, double scit_quantity, string scit_qty_unit, date scitdate_from, date scitdate_to, string scittype){
+    debug("INSIDE CREATE CIC");
+*/
+ChargeUDR sendContainerCICV1ForPortal(PortalFileData portalOutUDR){
+    debug("INSIDE CREATE CIC");
+    debug("The value of portalOutUDR = " + (portalOutUDR));
+    ChargeUDR chargeUDR = udrCreate(ChargeUDR);
+
+    chargeUDR.chargeExecutionContext = udrCreate(ChargeExecutionContextUDR);
+    chargeUDR.chargeExecutionContext.resultNotificationReturned = true;
+    chargeUDR.chargeExecutionContext.resultResponseItemReturned = true;
+    chargeUDR.chargeExecutionContext.resultChargedItemReturned = true;
+    date citDate;
+    citDate= dateCreateNow();     
+    //acquisitionParamUdr.consumptionDate=citDate;
+    chargeUDR.consumptionDate = portalOutUDR.CITDATE_FROM; //Updated as per defect identified in NEOM Demo preparation on 13th May 2025 - Liladhar
+    /*
+    if(sevent_name == "UNIT_STORAGE" || sevent_name == "UNIT_ELECTRICITY")
+    {
+        acquisitionParamUdr.serviceId = "STRG_SERV";
+    }
+    else
+    {
+        acquisitionParamUdr.serviceId = "CONT_SERV";
+    }
+    
+    //acquisitionParamUdr.serviceId = "VSL_STUS";
+    if(sevent_name == "HATCH_COVER_CLOSE")
+    {
+     acquisitionParamUdr.serviceId = "VSL_SERV";   
+    }
+    if(sevent_name == "DEPARTED")
+    {
+     acquisitionParamUdr.serviceId = "VSL_STUS";   
+    } */
+    list<string> vesselServiceList = listCreate(string);
+    vesselServiceList = strSplit(externalReferenceGet("CM_AcuitiPort.PRF_ExtRef_AcuitiPort", "VESSEL_SERVICE_EVENTS"),",");
+    boolean flag=false;
+    for(string compareEvent:vesselServiceList)
+    {
+	   if(compareEvent== portalOutUDR.ZZEVENT_NAME)
+	   {
+		  flag=true;
+	   }  
+    }
+    
+   // if(sevent_name == (string) listGet(vesselServiceList,0) || sevent_name == (string) listGet(vesselServiceList,1) || sevent_name == (string) listGet(vesselServiceList,2) || sevent_name == (string) listGet(vesselServiceList,3) || sevent_name == (string) listGet(vesselServiceList,4) || sevent_name == (string) listGet(vesselServiceList,5) || sevent_name == (string) listGet(vesselServiceList,6) || sevent_name == (string) listGet(vesselServiceList,7) || sevent_name == (string) listGet(vesselServiceList,8) || sevent_name == (string) listGet(vesselServiceList,9) || sevent_name == (string) listGet(vesselServiceList,10) || sevent_name == (string) listGet(vesselServiceList,11) || sevent_name == (string) listGet(vesselServiceList,13))
+    if(flag)
+    {
+    if ( portalOutUDR.ZZPHASE== "ARRIVED" || portalOutUDR.ZZPHASE == "DEPARTED")
+	{
+	   chargeUDR.serviceId = "VSL_STUS";
+	}
+	else
+	{
+	 chargeUDR.serviceId = "VSL_SERV"; 
+	}
+
+    }	
+   else if(portalOutUDR.ZZEVENT_NAME == "UNIT_STORAGE" || portalOutUDR.ZZEVENT_NAME == "UNIT_ELECTRICITY")
+    {
+        chargeUDR.serviceId = "STRG_SERV";
+    }
+    else
+    {
+        chargeUDR.serviceId = "CONT_SERV";
+    }	
+    chargeUDR.userId= portalOutUDR.ZZPAYEE_ID;    
+    list < PropertyUDR > cPropList = listCreate(PropertyUDR); 
+    
+    chargeUDR.chargeableItemName = "APCS";    
+    SAPCC_String(cPropList,"ZZPORTAL_REFID" , portalOutUDR.ZZPORTAL_REFID);
+    if(strREContains(portalOutUDR.ZZPORTAL_REFID, "ADSV")){
+    SAPCC_String(cPropList,"ZZPROCESS" ,"Additional");
+    }
+    else{
+        SAPCC_String(cPropList,"ZZPROCESS" ,"Gateout");
+    }
+	SAPCC_String(cPropList,"ZZAGENT1" ,portalOutUDR.ZZAGENT1);
+	SAPCC_String(cPropList,"ZZBILL_LADING" , portalOutUDR.ZZBILL_LADING);
+	SAPCC_String(cPropList,"ZZBOOKING_NUMBER" ,portalOutUDR.ZZBOOKING_NUMBER);
+	SAPCC_String(cPropList,"ZZCATEGORY" ,portalOutUDR.ZZCATEGORY);
+	SAPCC_String(cPropList,"ZZCONSIGNEE_ID" , portalOutUDR.ZZCONSIGNEE_ID);
+	SAPCC_String(cPropList,"ZZCONTAINER_ID" , portalOutUDR.ZZCONTAINER_ID);
+    
+   
+	SAPCC_Date(cPropList,"ZZCSTMDCDAT" , portalOutUDR.ZZCSTMDCDAT);
+	SAPCC_String(cPropList,"ZZCSTMDECNO" , portalOutUDR.ZZCSTMDECNO);
+    if(portalOutUDR.ZZEVENT_NAME == "UNIT_STORAGE"){
+	SAPCC_String(cPropList,"ZZENDDATEFLAG" ,"Y");
+    }
+    else{
+        SAPCC_String(cPropList,"ZZENDDATEFLAG" ,portalOutUDR.ZZENDDATEFLAG);
+    }
+	SAPCC_String(cPropList,"ZZEQUIPTYPE" ,portalOutUDR.ZZEQUIPTYPE);
+	SAPCC_String(cPropList,"ZZEVENT_CAT" ,portalOutUDR.ZZEVENT_CAT);
+	SAPCC_String(cPropList,"ZZEVENT_GKEY" ,portalOutUDR.ZZEVENT_GKEY);
+	SAPCC_String(cPropList,"ZZEVENT_NAME" ,portalOutUDR.ZZEVENT_NAME);
+	SAPCC_String(cPropList,"ZZFREIGHT_KIND" ,portalOutUDR.ZZFREIGHT_KIND);
+	SAPCC_Decimal(cPropList,"ZZGROSS_TON" , portalOutUDR.ZZGROSS_TON);
+	SAPCC_String(cPropList,"ZZIBVISIT_ID" , portalOutUDR.ZZIBVISIT_ID);
+	SAPCC_String(cPropList,"ZZISO_GRP" , portalOutUDR.ZZISO_GRP);
+	SAPCC_String(cPropList,"ZZISO_LEN" , portalOutUDR.ZZISO_LEN);
+	SAPCC_String(cPropList,"ZZIS_IMDG" , portalOutUDR.ZZIS_IMDG);
+	SAPCC_String(cPropList,"ZZIMDGCLASS" , portalOutUDR.ZZIMDGCLASS);
+	SAPCC_String(cPropList,"ZZOOG" ,portalOutUDR.ZZOOG);
+	SAPCC_String(cPropList,"ZZLAST_PORT" ,portalOutUDR.ZZLAST_PORT);
+	SAPCC_String(cPropList,"ZZLINE_ID" ,portalOutUDR.ZZLINE_ID);
+	SAPCC_String(cPropList,"ZZOBVISIT_ID" ,portalOutUDR.ZZOBVISIT_ID);
+	SAPCC_String(cPropList,"ZZPAYEE_ID" ,portalOutUDR.ZZPAYEE_ID);
+	SAPCC_String(cPropList,"ZZIS_REEFER" ,portalOutUDR.ZZIS_REEFER);
+	SAPCC_String(cPropList,"ZZSHIPPER_ID" ,portalOutUDR.ZZSHIPPER_ID);
+	SAPCC_String(cPropList,"ZZSPCL_STOW" ,portalOutUDR.ZZSPCL_STOW);
+	SAPCC_String(cPropList,"ZZSUBCON_ID" ,portalOutUDR.ZZSUBCON_ID);
+	SAPCC_String(cPropList,"ZZTERMINALID" ,portalOutUDR.ZZTERMINALID);
+	SAPCC_String(cPropList,"ZZUNIT_GKEY" ,portalOutUDR.ZZUNIT_GKEY);
+	SAPCC_String(cPropList,"ZZVESSEL_ID" ,portalOutUDR.ZZVESSEL_ID);
+	SAPCC_String(cPropList,"ZZVESSEL_LENGTH" , portalOutUDR.ZZVESSEL_LENGTH);
+	SAPCC_String(cPropList,"ZZVESSEL_LINE" , portalOutUDR.ZZVESSEL_LINE);
+	SAPCC_String(cPropList,"ZZVESSEL_NAME" ,portalOutUDR.ZZVESSEL_NAME);
+	SAPCC_String(cPropList,"ZZVESSEL_SERVICE" , portalOutUDR.ZZVESSEL_SERVICE);
+	SAPCC_String(cPropList,"ZZVESSEL_TYPE" , portalOutUDR.ZZVESSEL_TYPE);
+	SAPCC_Decimal(cPropList,"ZZTEU" ,portalOutUDR.ZZTEU);
+	SAPCC_String(cPropList,"ZZVISIT_ID" ,portalOutUDR.ZZVISIT_ID);
+	SAPCC_String(cPropList,"ZZGKEY_TYPE" ,portalOutUDR.ZZGKEY_TYPE);
+    /*
+    if(portalOutUDR.ZZEVENT_NAME == "UNIT_STORAGE"){
+    date lastChardate;
+    strToDate(lastChardate, portalOutUDR.ZZLASTCHARGEDTIME);
+    SAPCC_Date(cPropList,"ZZLASTCHARGEDTIME" ,lastChardate);
+    }else{
+    debug("The value of portalOutUDR.ZZLASTCHARGEDTIME = " + (portalOutUDR.ZZLASTCHARGEDTIME));
+    string lastCharged;
+    date dLastCharged, dCCLastCharged;
+    dLastCharged = strToDateCheck(portalOutUDR.ZZLASTCHARGEDTIME, "yyyyMMddHHmmss");
+    lastCharged = dateToStringCheck(dLastCharged, "yyyyMMdd'T'HHmmss");
+    dCCLastCharged = strToDateCheck(lastCharged, "yyyyMMdd'T'HHmmss");
+    debug("The value of dCCLastCharged = " + (dCCLastCharged));
+	SAPCC_Date(cPropList,"ZZLASTCHARGEDTIME" ,dCCLastCharged);
+    //}*/
+    debug("The value of portalOutUDR.ZZLASTCHARGEDTIME after assign= " + (portalOutUDR.ZZLASTCHARGEDTIME));
+    SAPCC_Date(cPropList,"ZZLASTCHARGEDTIME" ,portalOutUDR.ZZLASTCHARGEDTIME);
+    string workEnd;
+    date dWorkEnd, dCCWorkEnd;
+    dWorkEnd = strToDateCheck(portalOutUDR.ZZWORK_ENDDTTM, "yyyyMMddHHmmss");
+    workEnd = dateToStringCheck(dWorkEnd, "yyyyMMdd'T'HHmmss");
+    dCCWorkEnd = strToDateCheck(workEnd, "yyyyMMdd'T'HHmmss");
+    
+	SAPCC_Date(cPropList,"ZZWORK_ENDDTTM" , dCCWorkEnd);
+
+    
+    string workStart;
+    date dWorkStart, dCCWorkStart;
+    dWorkStart = strToDateCheck(portalOutUDR.ZZWORK_STRTDTTM, "yyyyMMddHHmmss");
+    workStart = dateToStringCheck(dWorkStart, "yyyyMMdd'T'HHmmss");
+    dCCWorkStart = strToDateCheck(workStart, "yyyyMMdd'T'HHmmss");
+	SAPCC_Date(cPropList,"ZZWORK_STRTDTTM" , dCCWorkStart);
+
+    string timeIn;
+    date dTimeIn, dccTimeIn;
+    dTimeIn = strToDateCheck(portalOutUDR.ZZTIME_IN, "yyyyMMddHHmmss");
+    timeIn = dateToStringCheck(dWorkStart, "yyyyMMdd'T'HHmmss");
+    dccTimeIn = strToDateCheck(timeIn, "yyyyMMdd'T'HHmmss");
+	SAPCC_Date(cPropList,"ZZTIME_IN" ,dccTimeIn);
+
+    string timeOut;
+    date dTimeOut, dccTimeOut;
+    dTimeOut = strToDateCheck(portalOutUDR.ZZTIME_OUT, "yyyyMMddHHmmss");
+    timeOut = dateToStringCheck(dTimeOut, "yyyyMMdd'T'HHmmss");
+    dccTimeOut = strToDateCheck(timeOut, "yyyyMMdd'T'HHmmss");
+	SAPCC_Date(cPropList,"ZZTIME_OUT" ,dccTimeOut);
+
+    string shipArr;
+    date dShipArr, dCCShipArr;
+    dShipArr = strToDateCheck(portalOutUDR.ZZSHIPARR_DATETIME, "yyyyMMddHHmmss");
+    shipArr = dateToStringCheck(dShipArr, "yyyyMMdd'T'HHmmss");
+    dCCShipArr = strToDateCheck(shipArr, "yyyyMMdd'T'HHmmss");
+	SAPCC_Date(cPropList,"ZZSHIPARR_DATETIME" , dCCShipArr);
+
+    string shipDep;
+    date dShipDep, dCCShipDep;
+    dShipDep = strToDateCheck(portalOutUDR.ZZSHIPDEP_DATETIME, "yyyyMMddHHmmss");
+    shipDep = dateToStringCheck(dShipDep, "yyyyMMdd'T'HHmmss");
+    dCCShipDep = strToDateCheck(shipDep, "yyyyMMdd'T'HHmmss");
+	SAPCC_Date(cPropList,"ZZSHIPDEP_DATETIME" ,dCCShipDep);
+
+
+	SAPCC_String(cPropList,"ZZIBCARRIER_TYPE" ,portalOutUDR.ZZIBCARRIER_TYPE);
+	SAPCC_String(cPropList,"ZZOBCARRIER_TYPE" ,portalOutUDR.ZZOBCARRIER_TYPE);
+    SAPCC_String(cPropList,"ZZPHASE" ,portalOutUDR.ZZPHASE);
+    
+    /*string deliveryDDTM;
+    date dDeliveryDDTM, dCCDeliveryDDTM;
+    dDeliveryDDTM = strToDateCheck(portalOutUDR.ZZDELIVERY_DTTM, "yyyyMMddHHmmss");
+    deliveryDDTM = dateToStringCheck(dDeliveryDDTM, "yyyyMMdd'T'HHmmss");
+    dCCDeliveryDDTM = strToDateCheck(deliveryDDTM, "yyyyMMdd'T'HHmmss");*/
+    SAPCC_Date(cPropList,"ZZDELIVERY_DTTM" ,portalOutUDR.ZZDELIVERY_DTTM);
+	SAPCC_Decimal(cPropList,"CIT_QUANTITY" ,portalOutUDR.CIT_QUANTITY);
+	SAPCC_String(cPropList,"CIT_QTY_UNIT" ,portalOutUDR.CIT_QTY_UNIT);
+    
+    SAPCC_Date(cPropList,"CITDATE_FROM" ,portalOutUDR.CITDATE_FROM);
+	SAPCC_Date(cPropList,"CITDATE_TO" ,portalOutUDR.CITDATE_TO);
+    
+     string stime_to,stime_from;
+    dateToString(stime_to,getTimeValue(portalOutUDR.CITDATE_TO));
+    dateToString(stime_from,getTimeValue(portalOutUDR.CITDATE_FROM));
+    debug("The value of stime_to = " + (stime_to));
+    debug("The value of stime_from = " + (stime_from));
+	//SAPCC_Date("CITDATE_FROM" ,getDateValue(convertDate(scitdate_from)));
+	//SAPCC_Date("CITDATE_TO" ,getDateValue(convertDate(scitdate_to)));
+    //chargeableItemPropString("CITTIME_FROM" ,getTimeValue(convertDate(scitdate_from)));
+	//chargeableItemPropString("CITTIME_TO" ,getTimeValue(convertDate(scitdate_to)));
+    SAPCC_String(cPropList,"CITTIME_FROM" ,strREReplaceAll(stime_from ,":" ,""));
+    SAPCC_String(cPropList,"CITTIME_TO" ,strREReplaceAll(stime_to,":" ,""));
+    //SAPCC_String("CITTIME_FROM" ,stime_from);
+    //SAPCC_String("CITTIME_TO" ,stime_to);
+    
+    if(portalOutUDR.CITTYPE == "AC01")
+    {
+	   SAPCC_String(cPropList,"CITTYPE" ,portalOutUDR.CITTYPE);
+    }
+    
+    //debug("sendContainerCIC ::: The value of acquireUdr1 = " + (acquireUdr1));
+    chargeUDR.ciPropertyList = cPropList; 
+    return chargeUDR;
+    
+}
+void SAPCC_Date(list<PropertyUDR> propList, string name, date value){
+    PropertyUDR chargeUDRProp = udrCreate(PropertyUDR);
+    chargeUDRProp.name = name;
+    chargeUDRProp.value = value;
+    listAdd(propList, chargeUDRProp);
+}
+
+void SAPCC_Decimal(list<PropertyUDR> propList, string name, double value){
+    PropertyUDR chargeUDRProp = udrCreate(PropertyUDR);
+    chargeUDRProp.name = name;
+    chargeUDRProp.value = value;
+    listAdd(propList, chargeUDRProp);
+}
+    
+void SAPCC_Number(list<PropertyUDR> propList, string name, int value){
+    PropertyUDR chargeUDRProp = udrCreate(PropertyUDR);
+    chargeUDRProp.name = name;
+    chargeUDRProp.value = value;
+    listAdd(propList, chargeUDRProp);
+}
+
+void SAPCC_String (list<PropertyUDR> cProp,string name, string value){
+    PropertyUDR chargeUDRProp = udrCreate(PropertyUDR);
+    chargeUDRProp.name = name;
+    chargeUDRProp.value = value;
+    listAdd(cProp, chargeUDRProp);
+}
+
+date convertDate(string sInDate){	
+	date dInDate = strToDateCheck(sInDate,"dd/MM/yyyy HH:mm:ss");
+    string sOutDate = dateToStringCheck(dInDate,"yyyy-MM-dd'T'HH:mm:ss");
+    date dOutDate = strToDateCheck(sOutDate,"yyyy-MM-dd'T'HH:mm:ss");
+    return dOutDate;
+};
+
+string dateToStringCheck(date dEndWOrk, string dateFormat){
+    string outString;
+    if(dEndWOrk != null){
+        if(!dateToString(outString,dEndWOrk,dateFormat))
+            debug("Invalid input date format."+dEndWOrk);
+    }
+    else{
+        debug("Input date is null");
+    } 
+    return outString;
+};
+
+date strToDateCheck(string inDate, string dateFormat){
+	date outDate;
+	if(inDate != null){
+		if(!strToDate(outDate,inDate,dateFormat))
+			debug("Invalid input string format: " +inDate);
+	}
+	else{
+        debug("Input is null");
+	}
+	return outDate;
+};
+
+date getTimeValue(date dInDate)
+{
+    debug("The value of dInDate = " + (dInDate));
+    date dOutTime;
+    string sInDate = dateToStringCheck(dInDate,"yyyy-MM-dd'T'HH:mm:ss");
+    debug("The value of sInDate = " + (sInDate));
+    string sOutTime = strSubstring(sInDate,11,19);
+    debug("The value of sOutTime = " + (sOutTime));
+    dOutTime = strToDateCheck(sOutTime,"HH:mm:ss");
+    return dOutTime;
+}
+
+
+PortalFileData createCITRecordForPortal(FKKBIXCIT_ALL_TAB sBit, string quantity, string quantityUnit, string portalRefID, string ContNo, string eventName, string gateOutDate)
+{
+    PortalFileData citFileUdr = udrCreate(PortalFileData);
+    debug("The value of createCITRecordForPortal ");
+	citFileUdr.ZZAGENT1           = sBit.ZZAGENT1                       ;
+    citFileUdr.ZZBILL_LADING      = sBit.ZZBILL_LADING                  ;
+    citFileUdr.ZZBOOKING_NUMBER   = sBit.ZZBOOKING_NUMBER               ;
+    citFileUdr.ZZCATEGORY         = sBit.ZZCATEGORY                     ;
+    citFileUdr.ZZCONSIGNEE_ID     = sBit.ZZCONSIGNEE_ID                 ;
+    citFileUdr.ZZCONTAINER_ID     = ContNo;              ;
+    citFileUdr.ZZCSTMDCDAT        = sBit.ZZCSTMDCDAT                    ;
+    citFileUdr.ZZCSTMDECNO        = sBit.ZZCSTMDECNO                    ;
+	citFileUdr.ZZENDDATEFLAG      = sBit.ZZENDDATEFLAG                  ;
+    citFileUdr.ZZEQUIPTYPE        = sBit.ZZEQUIPTYPE                    ;
+	citFileUdr.ZZEVENT_CAT        = sBit.ZZEVENT_CAT                    ;
+    citFileUdr.ZZEVENT_GKEY       = sBit.ZZEVENT_GKEY                   ;
+    citFileUdr.ZZEVENT_NAME       = eventName            ;
+    citFileUdr.ZZFREIGHT_KIND     = sBit.ZZFREIGHT_KIND                 ;
+    citFileUdr.ZZGROSS_TON        = sBit.ZZGROSS_TON;
+    citFileUdr.ZZIBVISIT_ID       = sBit.ZZIBVISIT_ID                   ;
+	citFileUdr.ZZISO_GRP          = sBit.ZZISO_GRP                      ;
+	citFileUdr.ZZISO_LEN          = sBit.ZZISO_LEN                      ;
+    citFileUdr.ZZIS_IMDG          = sBit.ZZIS_IMDG                      ;
+    citFileUdr.ZZIMDGCLASS        = sBit.ZZIMDGCLASS                    ;
+    citFileUdr.ZZOOG              = sBit.ZZOOG                       ;
+	citFileUdr.ZZLAST_PORT        = sBit.ZZLAST_PORT                    ;
+    citFileUdr.ZZLINE_ID          = sBit.ZZLINE_ID                      ;
+    citFileUdr.ZZOBVISIT_ID       = sBit.ZZOBVISIT_ID                   ;
+	citFileUdr.ZZPAYEE_ID         = sBit.ZZPAYEE_ID                     ;
+	citFileUdr.ZZIS_REEFER        = sBit.ZZIS_REEFER                    ;
+	citFileUdr.ZZSHIPPER_ID       = sBit.ZZSHIPPER_ID                   ;
+    citFileUdr.ZZSPCL_STOW        = sBit.ZZSPCL_STOW                    ;
+    citFileUdr.ZZSUBCON_ID        = sBit.ZZSUBCON_ID                    ;
+    citFileUdr.ZZTERMINALID       = sBit.ZZTERMINALID                   ;
+    citFileUdr.ZZUNIT_GKEY        = sBit.ZZUNIT_GKEY                    ;
+    citFileUdr.ZZVESSEL_ID        = sBit.ZZVESSEL_ID                    ;
+    citFileUdr.ZZVESSEL_LENGTH    = sBit.ZZVESSEL_LENGTH                ;
+    citFileUdr.ZZVESSEL_LINE      = sBit.ZZVESSEL_LINE                  ;
+    citFileUdr.ZZVESSEL_NAME      = sBit.ZZVESSEL_NAME                  ;
+    citFileUdr.ZZVESSEL_SERVICE   = sBit.ZZVESSEL_SERVICE               ;
+    citFileUdr.ZZVESSEL_TYPE      = sBit.ZZVESSEL_TYPE                  ;
+	citFileUdr.ZZTEU              = sBit.ZZTEU;
+	citFileUdr.ZZVISIT_ID         = sBit.ZZVISIT_ID                     ;
+	citFileUdr.ZZGKEY_TYPE        = sBit.ZZGKEY_TYPE                    ;
+
+     string shipDep;
+    date dShipDep, dCCShipDep;
+    dShipDep = strToDateCheck(sBit.ZZLASTCHARGEDTIME, "yyyyMMddHHmmss");
+    shipDep = dateToStringCheck(dShipDep, "yyyyMMdd'T'HHmmss");
+    dCCShipDep = strToDateCheck(shipDep, "yyyyMMdd'T'HHmmss");
+	citFileUdr.ZZLASTCHARGEDTIME  = dCCShipDep          ;
+    
+    debug("The value of gateOutDate = " + (gateOutDate));
+	citFileUdr.ZZWORK_ENDDTTM     = sBit.ZZWORK_ENDDTTM ;
+	citFileUdr.ZZWORK_STRTDTTM    = sBit.ZZWORK_STRTDTTM            ;
+    citFileUdr.ZZTIME_IN          = sBit.ZZTIME_IN                  ;
+    citFileUdr.ZZTIME_OUT         = sBit.ZZTIME_OUT                 ;
+    citFileUdr.ZZSHIPARR_DATETIME = sBit.ZZSHIPARR_DATETIME         ;
+    citFileUdr.ZZSHIPDEP_DATETIME = sBit.ZZSHIPDEP_DATETIME         ;
+    citFileUdr.ZZIBCARRIER_TYPE   = sBit.ZZIBCARRIER_TYPE               ;
+    citFileUdr.ZZOBCARRIER_TYPE   = sBit.ZZOBCARRIER_TYPE               ;
+    citFileUdr.ZZPHASE            = sBit.ZZPHASE                        ;
+    
+    double quantValue;
+    if(quantity != null){
+    strToDouble(quantValue,quantity);
+    citFileUdr.CIT_QUANTITY       = quantValue;
+    }else{
+        citFileUdr.CIT_QUANTITY       = quantValue;
+    }
+    citFileUdr.CIT_QTY_UNIT       = quantityUnit                 ;
+    citFileUdr.CITDATE_FROM       = sBit.CITDATE_FROM             ;
+    date endDate;
+    strToDate(endDate, gateOutDate);
+    debug("The value of endDate = " + (endDate));
+	citFileUdr.CITDATE_TO         = endDate;
+	citFileUdr.CITTYPE            = sBit.CITTYPE                      ;
+    citFileUdr.ZZPORTAL_REFID     = portalRefID;
+    //citFileUdr.ZZDELIVERY_DTTM    = endDate;
+    
+    string deliveryDDTM;
+    date dDeliveryDDTM, dCCDeliveryDDTM;
+    dDeliveryDDTM = strToDateCheck(sBit.ZZDELIVERY_DTTM, "yyyyMMddHHmmss");
+    deliveryDDTM = dateToStringCheck(dDeliveryDDTM, "yyyyMMdd'T'HHmmss");
+    dCCDeliveryDDTM = strToDateCheck(deliveryDDTM, "yyyyMMdd'T'HHmmss");
+    debug("The value of dCCDeliveryDDTM = " + (dCCDeliveryDDTM));
+    
+    citFileUdr.ZZDELIVERY_DTTM = dCCDeliveryDDTM;
+    
+    
+    /*date ddDate;
+    strToDate(ddDate, sBit.ZZDELIVERY_DTTM);
+    citFileUdr.ZZDELIVERY_DTTM  = ddDate ;*/
+	debug("Completed createCITRecordForPortal");
+    return citFileUdr;    
+}
+
+ZSOM_TECHID_ACUITIPORT_GET_UDR getTechIdentifierForPortal(PortalFileData SomUDR,string tempPId, routeRestResp createRouteUDR){
+    ZSOM_TECHID_ACUITIPORT_GET_UDR rfcCIUdr=udrCreate(ZSOM_TECHID_ACUITIPORT_GET_UDR);    
+    rfcCIUdr.importParams=udrCreate(importParams_ZSOM_TECHID_ACUITIPORT_GET);
+    list<ZAP_T_TECHID> somUdrInpLi = listCreate(ZAP_T_TECHID);
+    ZAP_T_TECHID somInp = udrCreate(ZAP_T_TECHID);
+    somInp.INPUT = tempPId;
+    listAdd(somUdrInpLi,somInp);
+    rfcCIUdr.importParams.IM_INPUT = somUdrInpLi;
+    createRouteUDR.anyUDR = SomUDR;
+    rfcCIUdr.context=createRouteUDR;
+    return rfcCIUdr;
+};
+
+
+ZSOM_TECHID_ACUITIPORT_GET_UDR returnTECHIDUDR(map < string, string > MapFromCompMap, PortalFileData portalOutUDR, routeRestResp createRouteUDR){
+    ZSOM_TECHID_ACUITIPORT_GET_UDR rfcCIUdr = udrCreate(ZSOM_TECHID_ACUITIPORT_GET_UDR);
+    if (mapSize(MapFromCompMap) > 0) {
+
+      string sPayee = mapGet(MapFromCompMap, "PAYEE");
+      //debug("The value of payee = " +sPayee);
+      string Alternate_Payee = mapGet(MapFromCompMap, "ALTERNATE_INVOICE_PAYEE");
+      //debug("The value of Alternate_Payee = " + (Alternate_Payee));
+      string additionalCust = mapGet(MapFromCompMap, "ADDITIONAL_CUSTOMER");
+      //debug("The value of additionalCust = " + (additionalCust));
+      if (sPayee != "-") { ////TARIFF_PARTY found from TB_COMPANY_MAPS_UNIT_MARINE
+        Alternate_Payee = Alternate_Payee == "-" ? "" : Alternate_Payee;
+        additionalCust = additionalCust != "-" ? additionalCust : "";
+        rfcCIUdr = getTechIdentifierForPortal(portalOutUDR, sPayee, createRouteUDR);
+        debug("payee ::" + sPayee);
+       
+      } else { //Check in CompanyType for getting the Default payer                        
+        string sCompanyNameType = mapGet(MapFromCompMap, "INVOICE_COMPANY_TYPE");
+        string sPayeeId = sCompanyNameType == "LINE_ID" ? portalOutUDR.ZZLINE_ID : sCompanyNameType == "CONSIGNEE_ID" ? portalOutUDR.ZZCONSIGNEE_ID : sCompanyNameType == "SHIPPER_ID" ? portalOutUDR.ZZSHIPPER_ID : sCompanyNameType == "VESSEL_LINE" ? portalOutUDR.ZZVESSEL_LINE : "";
+        if (sPayeeId != "-") {
+          Alternate_Payee = Alternate_Payee == "-" ? "" : Alternate_Payee;
+          additionalCust = additionalCust == "-" ? "" : additionalCust;
+          rfcCIUdr = getTechIdentifierForPortal(portalOutUDR, sPayeeId, createRouteUDR);
+          debug("payeeId ::" + sPayeeId);
+          
+        }
+      }
+    } 
+    return rfcCIUdr;
+
+}
+
+synchronized int decrementCounter(map < string, int > mapCounter, string portalRefID) {
+    if (mapContains(mapCounter, portalRefID)) {
+        int iCount = 0;
+        iCount = mapGet(mapCounter, portalRefID);
+        debug("COUNTER After reading mapGet " + iCount + " PortalRefId " + portalRefID + " MAP" + mapCounter);
+        iCount = iCount - 1;
+        mapSet(mapCounter, portalRefID, iCount);
+        debug("COUNTER ####Count Found in Loop#### " + iCount + " PortalRefId " + portalRefID + " MAP" + mapCounter);
+        return iCount;
+    } else {
+        debug(" COUNTER Map does not have portal id :" + portalRefID + " in Map " + mapCounter);
+        return -1;
+    }
+}
+
+
+ZAP_BILLING_INVOICING_UDR returnBillingUDR(GetEventDetails decodedUDR) {
+  ZAP_BILLING_INVOICING_UDR invoiceUDR = udrCreate(ZAP_BILLING_INVOICING_UDR);
+  importParams_ZAP_BILLING_INVOICING importParamUDR = udrCreate(importParams_ZAP_BILLING_INVOICING);
+
+  list < ZBS_S_RETREIVE_CIT_TT > createInputList = listCreate(ZBS_S_RETREIVE_CIT_TT);
+  for (EventCalVal getval: decodedUDR.EventsForCalculation) {
+
+    ZBS_S_RETREIVE_CIT_TT UDRinfo = udrCreate(ZBS_S_RETREIVE_CIT_TT);
+    UDRinfo.FIELD_NAME = "ZZCONTAINER_ID";
+    UDRinfo.VALUE = getval.RequestedValue;
+    listAdd(createInputList, UDRinfo);
+
+  }
+  date dCurrentDate = dateCreateNow();
+  string sCurrentDate = dateToStringCheck(dCurrentDate, "dd.MM.yyyy");
+  importParamUDR.IM_DATA = createInputList;
+  importParamUDR.IM_PROC_DATE = strToDateCheck(sCurrentDate, "dd.MM.yyyy");
+  importParamUDR.IM_REFID = decodedUDR.PortalRefID;
+  if (strREContains(decodedUDR.PortalRefID, "ADSV")) {
+    importParamUDR.IM_REQUEST_TYPE = "ADSV";
+  } else {
+    importParamUDR.IM_REQUEST_TYPE = "GOUT";
+  }
+  importParamUDR.IM_TESTRUN = " ";
+  importParamUDR.IM_SIMURUN = " ";
+  invoiceUDR.importParams = importParamUDR;
+
+  return invoiceUDR;
+}
+
+boolean checkIfAlreadyCalculated(PortalFileData portalOutUDR){
+    boolean statusVal = false;
+    string query =  "SELECT * FROM TB_GATEOUT WHERE CONTAINER_NO = '" + portalOutUDR.ZZCONTAINER_ID +"' and EVENT_NAME = '" + portalOutUDR.ZZEVENT_NAME +"' ";
+    //string query = "insert into TB_GATEOUT values('" + portalOutUDR.ZZPORTAL_REFID +"', '" + portalOutUDR.ZZEVENT_NAME + "', '" + portalOutUDR.ZZCONTAINER_ID + "', '" + portalOutUDR.ZZDELIVERY_DTTM + "')";
+	debug("The value of query = " + (query));
+    table checkifcal = tableCreate("CM_AcuitiPort.PRF_Database_Profile_PS4", query);
+    if(tableRowCount(checkifcal) != 0){
+       statusVal = true;
+    }
+    return statusVal;
+    
+}]]></string>
+</exportmultiplex>

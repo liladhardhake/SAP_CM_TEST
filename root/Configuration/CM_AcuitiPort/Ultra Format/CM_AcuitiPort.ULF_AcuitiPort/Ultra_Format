@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Ultra_Format" ref_path="ultra_format[Internal]/storable[ultra_format]/storable[Data]">
+   <string name="Definition"><![CDATA[//Decoder for container file header
+external containerFileHeader : identified_by(AGENT1 == "AGENT1"){
+    ascii AGENT1            : terminated_by(",");
+    ascii BILL_LADING       : terminated_by(",");
+    ascii BOOKING_NUMBER    : terminated_by(",");
+    ascii CATEGORY          : terminated_by(",");
+    ascii CONSIGNEE_ID      : terminated_by(",");
+    ascii CONTAINER_ID      : terminated_by(",");
+    ascii CSTMDCDAT         : terminated_by(",");
+    ascii CSTMDECNO         : terminated_by(",");
+    ascii EQUIPTYPE         : terminated_by(",");
+    ascii EVENT_GKEY        : terminated_by(",");
+    ascii EVENT_NAME        : terminated_by(",");
+    ascii FREIGHT_KIND      : terminated_by(",");
+    ascii GROSS_TON         : terminated_by(",");
+    ascii IBVISIT_ID        : terminated_by(",");
+	ascii ISO_GROUP         : terminated_by(",");
+	ascii ISO_LENGTH        : terminated_by(",");
+    ascii IS_IMDG           : terminated_by(",");
+    ascii IMDGCLASS         : terminated_by(",");
+    ascii IS_OOG            : terminated_by(",");
+    ascii LAST_PORT         : terminated_by(",");
+    ascii LINE_ID           : terminated_by(",");
+    ascii OBVISIT_ID        : terminated_by(",");
+	ascii SHIPPER_ID        : terminated_by(",");
+    ascii SPCL_STOW         : terminated_by(",");
+    ascii SUBCON_ID         : terminated_by(",");
+    ascii TERMINALID        : terminated_by(",");
+    ascii UNIT_GKEY         : terminated_by(",");
+    ascii VESSEL_ID         : terminated_by(",");
+    ascii VESSEL_LENGTH     : terminated_by(",");
+    ascii VES_LINE          : terminated_by(",");
+    ascii VESSEL_NAME       : terminated_by(",");
+    ascii VES_SER           : terminated_by(",");
+    ascii VESSEL_TYPE       : terminated_by(",");
+	ascii VISIT_ID          : terminated_by(",");
+	ascii WORK_STARTTIME    : terminated_by(",");
+    ascii WORK_ENDTIME      : terminated_by(",");
+    ascii TIME_IN           : terminated_by(",");
+    ascii TIME_OUT          : terminated_by(",");
+    ascii SHIPARR_DATETIME  : terminated_by(",");
+    ascii SHIPDEP_DATETIME  : terminated_by(",");
+    ascii EVENT_STARTDTTM   : terminated_by(",");
+    ascii EVENT_ENDDTTM     : terminated_by(",");
+    ascii IBCARRIER_TYPE    : terminated_by(",");
+    ascii OBCARRIER_TYPE    : terminated_by(",");
+    ascii QUANTITY          : terminated_by(",");
+    ascii QUANTITY_UNIT     : terminated_by(",");
+    ascii DELIVERY_DTTM     : terminated_by(",");
+    ascii IS_REEFER         : terminated_by(0xA);
+};
+
+//Decoder for Error Block
+external containerErrBlock : identified_by(ERROR_CODE == "ERR"){
+    ascii ERROR_CODE    : terminated_by(",");
+    ascii ERROR_MESSAGE : terminated_by(",");
+};
+
+external containerFileHeaderWithErrBlock{
+    set{
+        containerErrBlock error : optional;
+    };    
+    containerFileHeader contFileHeaderUdr;
+};
+
+in_map containerFileHeader_InMap : external(containerFileHeaderWithErrBlock), target_internal(ontainerFileHeaderTI), discard_output{automatic;};
+
+decoder containerFileHeader_Decoder : in_map(containerFileHeader_InMap);
+
+//Decoder for file input
+external containerFileData{
+    ascii AGENT1            : terminated_by(",");
+    ascii BILL_LADING       : terminated_by(",");
+    ascii BOOKING_NUMBER    : terminated_by(",");
+    ascii CATEGORY          : terminated_by(",");
+    ascii CONSIGNEE_ID      : terminated_by(",");
+    ascii CONTAINER_ID      : terminated_by(",");
+    ascii CSTMDCDAT         : terminated_by(",");
+    ascii CSTMDECNO         : terminated_by(",");
+    ascii EQUIPTYPE         : terminated_by(",");
+    ascii EVENT_GKEY        : terminated_by(",");
+    ascii EVENT_NAME        : terminated_by(",");
+    ascii FREIGHT_KIND      : terminated_by(",");
+    ascii GROSS_TON         : terminated_by(",");
+    ascii IBVISIT_ID        : terminated_by(",");
+	ascii ISO_GROUP         : terminated_by(",");
+	ascii ISO_LENGTH        : terminated_by(",");
+    ascii IS_IMDG           : terminated_by(",");
+    ascii IMDGCLASS         : terminated_by(",");
+    ascii IS_OOG            : terminated_by(",");
+    ascii LAST_PORT         : terminated_by(",");
+    ascii LINE_ID           : terminated_by(",");
+    ascii OBVISIT_ID        : terminated_by(",");
+	ascii SHIPPER_ID        : terminated_by(",");
+    ascii SPCL_STOW         : terminated_by(",");
+    ascii SUBCON_ID         : terminated_by(",");
+    ascii TERMINALID        : terminated_by(",");
+    ascii UNIT_GKEY         : terminated_by(",");
+    ascii VESSEL_ID         : terminated_by(",");
+    ascii VESSEL_LENGTH     : terminated_by(",");
+    ascii VES_LINE          : terminated_by(",");
+    ascii VESSEL_NAME       : terminated_by(",");
+    ascii VES_SER           : terminated_by(",");
+    ascii VESSEL_TYPE       : terminated_by(",");
+	ascii VISIT_ID          : terminated_by(",");
+	ascii WORK_STARTTIME    : terminated_by(",");
+    ascii WORK_ENDTIME      : terminated_by(",");
+    ascii TIME_IN           : terminated_by(",");
+    ascii TIME_OUT          : terminated_by(",");
+    ascii SHIPARR_DATETIME  : terminated_by(",");
+    ascii SHIPDEP_DATETIME  : terminated_by(",");
+    ascii EVENT_STARTDTTM   : terminated_by(",");
+    ascii EVENT_ENDDTTM     : terminated_by(",");
+    ascii IBCARRIER_TYPE    : terminated_by(",");
+    ascii OBCARRIER_TYPE    : terminated_by(",");
+    ascii QUANTITY          : terminated_by(","),int(base10);
+    ascii QUANTITY_UNIT     : terminated_by(",");
+    ascii DELIVERY_DTTM     : terminated_by(",");
+    ascii IS_REEFER         : terminated_by(0xA);
+};
+
+external containerFileDataWithErrBlock{
+    set{
+        containerErrBlock error : optional;
+    };
+    containerFileData contFileDataUdr;
+};
+
+in_map containerFileData_InMap : external(containerFileDataWithErrBlock), target_internal(containerFileDataTI){automatic : use_external_names;};
+
+decoder containerFileData_Decoder : in_map(containerFileData_InMap);
+
+decoder contFileDec{
+    decoder containerFileHeader_Decoder;
+    decoder containerFileData_Decoder *;
+};
+
+out_map containerFileData_OutMap : internal(containerFileDataTI), external(containerFileDataWithErrBlock){automatic;};
+
+encoder containerFileData_Encoder : out_map(containerFileData_OutMap);
+
+external vesselStatusHeader{
+    ascii VESSELVISIT_ID       : terminated_by(",");
+    ascii SHIPARR_DATETIME     : terminated_by(",");
+    ascii SHIPDEP_DATETIME     : terminated_by(",");
+    ascii WORK_STRTDTTM        : terminated_by(",");
+    ascii WORK_ENDDTTM         : terminated_by(",");
+    ascii PHASE                : terminated_by(",");
+    ascii GROSS_TON            : terminated_by(",");
+    ascii VESSEL_LINE          : terminated_by(",");
+    ascii VESSEL_ID            : terminated_by(",");
+    ascii VESSEL_NAME          : terminated_by(",");
+    ascii VESSEL_TYPE          : terminated_by(",");
+    ascii VESSEL_SERVICE       : terminated_by(",");
+    ascii LAST_PORT            : terminated_by(",");
+    ascii VESSEL_LENGTH        : terminated_by(",");
+    ascii TERMINAL_ID          : terminated_by(",");
+    ascii IBCARRIER_TYPE       : terminated_by(",");
+	ascii OBCARRIER_TYPE       : terminated_by(0xA);
+};
+
+external vesselStatusErrBlock : identified_by(ERROR_CODE == "ERR"){
+    ascii ERROR_CODE     : terminated_by(",");
+    ascii ERROR_MESSAGE  : terminated_by(",");
+};
+
+external vesselStatusHeaderWithErrBlock{
+    set{
+        vesselStatusErrBlock error : optional;
+    };    
+    vesselStatusHeader vessStatusHeaderUdr;
+};
+
+in_map vesselStatusHeader_InMap : external(vesselStatusHeaderWithErrBlock), target_internal(vesselStatusHeaderTI), discard_output{automatic;};
+
+decoder vesselStatusHeader_Decoder : in_map(vesselStatusHeader_InMap);
+
+external vesselStatusData{
+    ascii VESSELVISIT_ID       : terminated_by(",");
+    ascii SHIPARR_DATETIME     : terminated_by(",");
+    ascii SHIPDEP_DATETIME     : terminated_by(",");
+    ascii WORK_STRTDTTM        : terminated_by(",");
+    ascii WORK_ENDDTTM         : terminated_by(",");
+    ascii PHASE                : terminated_by(",");
+    ascii GROSS_TON            : terminated_by(","),float;
+    ascii VESSEL_LINE          : terminated_by(",");
+    ascii VESSEL_ID            : terminated_by(",");
+    ascii VESSEL_NAME          : terminated_by(",");
+    ascii VESSEL_TYPE          : terminated_by(",");
+    ascii VESSEL_SERVICE       : terminated_by(",");
+    ascii LAST_PORT            : terminated_by(",");
+    ascii VESSEL_LENGTH        : terminated_by(",");
+    ascii TERMINAL_ID          : terminated_by(",");
+    ascii IBCARRIER_TYPE       : terminated_by(",");
+	ascii OBCARRIER_TYPE       : terminated_by(0xA);
+};
+
+external vesselStatusDataWithErrBlock{
+    set{        
+        vesselStatusErrBlock error : optional;
+    };    
+    vesselStatusData vessStatusDataUdr;
+};
+
+in_map vesselStatusData_InMap : external(vesselStatusDataWithErrBlock), target_internal(vesselStatusDataTI){automatic : use_external_names;};
+
+decoder vesselStatusData_Decoder : in_map(vesselStatusData_InMap);
+
+decoder vesStatusFileDec {
+    decoder vesselStatusHeader_Decoder;
+    decoder vesselStatusData_Decoder;
+};
+
+out_map vesselStatusData_OutMap : internal(vesselStatusDataTI), external(vesselStatusDataWithErrBlock){automatic;};
+
+encoder vesselStatusData_Encoder : out_map(vesselStatusData_OutMap);
+
+external vesselServiceHeader : identified_by(EVENT_GKEY == "EVENT_GKEY"){
+    ascii EVENT_GKEY           : terminated_by(",");
+    ascii EVENT_NAME           : terminated_by(",");
+    ascii LINE_ID              : terminated_by(",");        // Name changed  to VESSEL_OPERATOR__ID to LINE_ID
+    ascii QUANTITY             : terminated_by(",");
+    ascii QUANTITY_UNIT        : terminated_by(",");
+    ascii SHIPARR_DATETIME     : terminated_by(",");
+    ascii VESSEL_ID            : terminated_by(",");
+    ascii VESSEL_NAME          : terminated_by(",");
+    ascii VESSEL_LINE          : terminated_by(",");     // vessel line is the vessel_operator_ID
+    //ascii VESSEL_OPERATOR_NAME : terminated_by(",");
+    ascii SUB_CON_ID           : terminated_by(",");
+    ascii EVENT_STARTDTTM      : terminated_by(",");
+    
+    ascii VESSELVISIT_ID       : terminated_by(",");
+    ascii SHIPDEP_DATETIME     : terminated_by(",");
+    ascii WORK_STRTDTTM        : terminated_by(",");
+    ascii WORK_ENDDTTM         : terminated_by(","); 
+    ascii GROSS_TON            : terminated_by(",");
+    ascii VESSEL_TYPE          : terminated_by(",");
+    ascii VESSEL_SERVICE       : terminated_by(",");
+	ascii LAST_PORT            : terminated_by(",");
+    ascii VESSEL_LENGTH        : terminated_by(",");
+	ascii IBCARRIER_TYPE       : terminated_by(",");
+	ascii OBCARRIER_TYPE       : terminated_by(",");
+    ascii TERMINAL_ID          : terminated_by(0xA);
+};
+
+external vesselServiceErrBlock : identified_by(ERROR_CODE == "ERR"){
+    ascii ERROR_CODE    : terminated_by(",");
+    ascii ERROR_MESSAGE : terminated_by(",");
+};
+
+in_map vesselServiceErrBlock_InMap : external(vesselServiceErrBlock), target_internal(vesselServiceErrBlockTI){automatic : use_external_names;};
+
+external vesselServiceHeaderWithErrBlock{
+    set{
+        vesselServiceErrBlock error : optional;
+    };    
+    vesselServiceHeader vessServiceHeaderUdr;
+};
+
+in_map vesselServiceHeader_InMap : external(vesselServiceHeaderWithErrBlock), target_internal(vesselServiceHeaderTI), discard_output{automatic;};
+
+decoder vesselServiceHeader_Decoder : in_map(vesselServiceHeader_InMap);
+
+external vesselServiceData{
+    ascii EVENT_GKEY           : terminated_by(",");
+    ascii EVENT_NAME           : terminated_by(",");
+    ascii LINE_ID              : terminated_by(",");
+    ascii QUANTITY             : terminated_by(","), int(base10);
+    ascii QUANTITY_UNIT        : terminated_by(",");
+    ascii SHIPARR_DATETIME     : terminated_by(",");
+    ascii VESSEL_ID            : terminated_by(",");
+    ascii VESSEL_NAME          : terminated_by(",");
+    ascii VESSEL_LINE          : terminated_by(",");
+    //ascii VESSEL_OPERATOR_NAME : terminated_by(",");
+    ascii SUB_CON_ID           : terminated_by(",");
+    ascii EVENT_STARTDTTM      : terminated_by(",");
+    
+     ascii VESSELVISIT_ID       : terminated_by(",");
+    ascii SHIPDEP_DATETIME     : terminated_by(",");
+    ascii WORK_STRTDTTM        : terminated_by(",");
+    ascii WORK_ENDDTTM         : terminated_by(","); 
+    ascii GROSS_TON            : terminated_by(","), float;
+    ascii VESSEL_TYPE          : terminated_by(",");
+    ascii VESSEL_SERVICE       : terminated_by(",");
+	ascii LAST_PORT            : terminated_by(",");
+    ascii VESSEL_LENGTH        : terminated_by(",");
+	ascii IBCARRIER_TYPE       : terminated_by(",");
+	ascii OBCARRIER_TYPE       : terminated_by(",");
+    ascii TERMINAL_ID          : terminated_by(0xA);
+    
+};
+
+external vesselServiceDataWithErrBlock{
+    set{
+        vesselServiceErrBlock error : optional;
+    };    
+    vesselServiceData vessServiceDataUdr;
+};
+
+in_map vesselServiceData_InMap : external(vesselServiceDataWithErrBlock), target_internal(vesselServiceDataTI){automatic : use_external_names;};
+
+decoder vesselServiceData_Decoder : in_map(vesselServiceData_InMap);
+
+decoder vesServiceFileDec{
+    decoder vesselServiceHeader_Decoder;
+    decoder vesselServiceData_Decoder *;
+};
+
+out_map vesselServiceData_OutMap : internal(vesselServiceDataTI), external(vesselServiceDataWithErrBlock){automatic;};
+
+encoder vesselServiceData_Encoder : out_map(vesselServiceData_OutMap);
+
+internal targetFileInt{
+    string agent1            ;
+    string bill_lading       ;
+    string booking_number    ;
+    string category          ;
+    string consignee_id      ;
+    string container_id      ;
+    string cstmdcdat         ;
+    string cstmdecno         ;
+	string enddateflag       ;
+    string equiptype         ;
+	string event_cat         ;
+    string event_gkey        ;
+    string event_name        ;
+    string freight_kind      ;
+    float  gross_ton         ;
+    string ibvisit_id        ;
+	string iso_grp           ;
+	string iso_len           ;
+    string is_imdg           ;
+    string imdgclass         ;
+    string is_oog            ;
+    string last_port         ;
+    string line_id           ;
+    string obvisit_id        ;
+	string payee_id          ;
+	string is_reefer         ;
+	string shipper_id        ;
+    string spcl_stow         ;
+    string subcon_id         ;
+    string terminalid        ;
+    string unit_gkey         ;
+    string vessel_id         ;
+    string vessel_length     ;
+    string vessel_line       ;
+    string vessel_name       ;
+    string vessel_service    ;
+    string vessel_type       ;
+	int    teu               ;
+	string visit_id          ;
+	string gkey_type         ;
+	string lastchargedtime   ;
+	string work_enddttm      ;
+	string work_strtdttm     ;
+    string time_in           ;
+    string time_out          ;
+    string shiparr_datetime  ;
+    string shipdep_datetime  ;
+    string ibcarrier_type    ;
+    string obcarrier_type    ;
+    string phase             ;
+    string delivery_dttm     ;
+    int    cit_quantity      ;
+    string cit_qty_unit      ;
+    string citdate_from      ;
+	string citdate_to        ;
+	string cittype           ;
+};
+
+//Decoder for file output
+external citFileHeader : identified_by(ZZAGENT1=="ZZAGENT1"){
+	ascii ZZAGENT1            : terminated_by(",");
+    ascii ZZBILL_LADING       : terminated_by(",");
+    ascii ZZBOOKING_NUMBER    : terminated_by(",");
+    ascii ZZCATEGORY          : terminated_by(",");
+    ascii ZZCONSIGNEE_ID      : terminated_by(",");
+    ascii ZZCONTAINER_ID      : terminated_by(",");
+    ascii ZZCSTMDCDAT         : terminated_by(",");
+    ascii ZZCSTMDECNO         : terminated_by(",");
+	ascii ZZENDDATEFLAG       : terminated_by(",");
+    ascii ZZEQUIPTYPE         : terminated_by(",");
+	ascii ZZEVENT_CAT         : terminated_by(",");
+    ascii ZZEVENT_GKEY        : terminated_by(",");
+    ascii ZZEVENT_NAME        : terminated_by(",");
+    ascii ZZFREIGHT_KIND      : terminated_by(",");
+    ascii ZZGROSS_TON         : terminated_by(",");
+    ascii ZZIBVISIT_ID        : terminated_by(",");
+	ascii ZZISO_GRP           : terminated_by(",");
+	ascii ZZISO_LEN           : terminated_by(",");
+    ascii ZZIS_IMDG           : terminated_by(",");
+    ascii ZZIMDGCLASS         : terminated_by(",");
+    ascii ZZOOG               : terminated_by(",");
+    ascii ZZLAST_PORT         : terminated_by(",");
+    ascii ZZLINE_ID           : terminated_by(",");
+    ascii ZZOBVISIT_ID        : terminated_by(",");
+	ascii ZZPAYEE_ID          : terminated_by(",");
+	ascii ZZIS_REEFER         : terminated_by(",");
+	ascii ZZSHIPPER_ID        : terminated_by(",");
+    ascii ZZSPCL_STOW         : terminated_by(",");
+    ascii ZZSUBCON_ID         : terminated_by(",");
+    ascii ZZTERMINALID        : terminated_by(",");
+    ascii ZZUNIT_GKEY         : terminated_by(",");
+    ascii ZZVESSEL_ID         : terminated_by(",");
+    ascii ZZVESSEL_LENGTH     : terminated_by(",");
+    ascii ZZVESSEL_LINE       : terminated_by(",");
+    ascii ZZVESSEL_NAME       : terminated_by(",");
+    ascii ZZVESSEL_SERVICE    : terminated_by(",");
+    ascii ZZVESSEL_TYPE       : terminated_by(",");
+	ascii ZZTEU               : terminated_by(",");
+	ascii ZZVISIT_ID          : terminated_by(",");
+	ascii ZZGKEY_TYPE         : terminated_by(",");
+	ascii ZZLASTCHARGEDTIME   : terminated_by(",");
+	ascii ZZWORK_ENDDTTM      : terminated_by(",");
+	ascii ZZWORK_STRTDTTM     : terminated_by(",");
+    ascii ZZTIME_IN           : terminated_by(",");
+    ascii ZZTIME_OUT          : terminated_by(",");
+    ascii ZZSHIPARR_DATETIME  : terminated_by(",");
+    ascii ZZSHIPDEP_DATETIME  : terminated_by(",");
+    ascii ZZIBCARRIER_TYPE    : terminated_by(",");
+    ascii ZZOBCARRIER_TYPE    : terminated_by(",");
+    ascii ZZPHASE             : terminated_by(",");
+    ascii ZZDELIVERY_DTTM     : terminated_by(",");
+    ascii CIT_QUANTITY        : terminated_by(",");
+    ascii CIT_QTY_UNIT        : terminated_by(",");
+    ascii CITDATE_FROM        : terminated_by(",");
+	ascii CITDATE_TO          : terminated_by(",");
+	ascii CITTYPE             : terminated_by(0xA);
+};
+
+in_map citFileHeader_InMap : external(citFileHeader), target_internal(citFileHeaderTI), discard_output{automatic;};
+
+decoder citFileHeader_Decoder : in_map(citFileHeader_InMap);
+
+//Decoder for file output
+external citFileData{
+	ascii ZZAGENT1            : terminated_by(",");
+    ascii ZZBILL_LADING       : terminated_by(",");
+    ascii ZZBOOKING_NUMBER    : terminated_by(",");
+    ascii ZZCATEGORY          : terminated_by(",");
+    ascii ZZCONSIGNEE_ID      : terminated_by(",");
+    ascii ZZCONTAINER_ID      : terminated_by(",");
+    ascii ZZCSTMDCDAT         : terminated_by(",");
+    ascii ZZCSTMDECNO         : terminated_by(",");
+	ascii ZZENDDATEFLAG       : terminated_by(",");
+    ascii ZZEQUIPTYPE         : terminated_by(",");
+	ascii ZZEVENT_CAT         : terminated_by(",");
+    ascii ZZEVENT_GKEY        : terminated_by(",");
+    ascii ZZEVENT_NAME        : terminated_by(",");
+    ascii ZZFREIGHT_KIND      : terminated_by(",");
+    ascii ZZGROSS_TON         : terminated_by(","),float;
+    ascii ZZIBVISIT_ID        : terminated_by(",");
+	ascii ZZISO_GRP           : terminated_by(",");
+	ascii ZZISO_LEN           : terminated_by(",");
+    ascii ZZIS_IMDG           : terminated_by(",");
+    ascii ZZIMDGCLASS         : terminated_by(",");
+    ascii ZZOOG               : terminated_by(",");
+    ascii ZZLAST_PORT         : terminated_by(",");
+    ascii ZZLINE_ID           : terminated_by(",");
+    ascii ZZOBVISIT_ID        : terminated_by(",");
+	ascii ZZPAYEE_ID          : terminated_by(",");
+	ascii ZZIS_REEFER         : terminated_by(",");
+	ascii ZZSHIPPER_ID        : terminated_by(",");
+    ascii ZZSPCL_STOW         : terminated_by(",");
+    ascii ZZSUBCON_ID         : terminated_by(",");
+    ascii ZZTERMINALID        : terminated_by(",");
+    ascii ZZUNIT_GKEY         : terminated_by(",");
+    ascii ZZVESSEL_ID         : terminated_by(",");
+    ascii ZZVESSEL_LENGTH     : terminated_by(",");
+    ascii ZZVESSEL_LINE       : terminated_by(",");
+    ascii ZZVESSEL_NAME       : terminated_by(",");
+    ascii ZZVESSEL_SERVICE    : terminated_by(",");
+    ascii ZZVESSEL_TYPE       : terminated_by(",");
+	ascii ZZTEU               : terminated_by(","),int(base10);
+	ascii ZZVISIT_ID          : terminated_by(",");
+	ascii ZZGKEY_TYPE         : terminated_by(",");
+	ascii ZZLASTCHARGEDTIME   : terminated_by(",");
+	ascii ZZWORK_ENDDTTM      : terminated_by(",");
+	ascii ZZWORK_STRTDTTM     : terminated_by(",");
+    ascii ZZTIME_IN           : terminated_by(",");
+    ascii ZZTIME_OUT          : terminated_by(",");
+    ascii ZZSHIPARR_DATETIME  : terminated_by(",");
+    ascii ZZSHIPDEP_DATETIME  : terminated_by(",");
+    ascii ZZIBCARRIER_TYPE    : terminated_by(",");
+    ascii ZZOBCARRIER_TYPE    : terminated_by(",");
+    ascii ZZPHASE             : terminated_by(",");
+    ascii ZZDELIVERY_DTTM     : terminated_by(",");
+    ascii CIT_QUANTITY        : terminated_by(","),int(base10);
+    ascii CIT_QTY_UNIT        : terminated_by(",");
+    ascii CITDATE_FROM        : terminated_by(",");
+	ascii CITDATE_TO          : terminated_by(",");
+	ascii CITTYPE             : terminated_by(0xA);
+};
+
+in_map citFileData_InMap : external(citFileData), target_internal(citFileDataTI){automatic;};
+
+decoder citFileData_Decoder : in_map(citFileData_InMap);
+
+decoder citFileConstructed{
+    decoder citFileHeader_Decoder;
+    decoder citFileData_Decoder *;
+};
+
+out_map citFileData_OutMap : internal(citFileDataTI), external(citFileData){automatic;};
+
+encoder citFileData_Encoder : out_map(citFileData_OutMap);
+
+//Json structure for Update Processing
+internal fieldStruct
+{
+    string sFieldName;
+    string sOldValue;
+    string sNewValue;
+};
+
+internal jsonFieldStruct
+{
+    string sID;
+    string sUpdateParam;
+    string fileName;
+    list<fieldStruct> fieldStructUdr;
+    any context;
+};
+
+internal rfcContext
+{
+    string sID;
+    string fileName;
+    any context;
+};]]></string>
+</exportmultiplex>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="APL_Source_Code" ref_path="apl_script[Internal]/storable[apl_script]/storable[Data]">
+   <string name="Definition"><![CDATA[import ultra.CM_AcuitiPort.ULF_Audit;
+
+auditInfoTI maptoauditdata(string inName,string wflName,string incTime,string eName, string uGkey, string contId, string filterWFLFlag, string proWFLFlag, string remark)
+ {
+	auditInfoTI auditdataUDR = udrCreate(auditInfoTI);
+	auditdataUDR.inputFileName=inName;
+	auditdataUDR.workFlowName=wflName;
+	auditdataUDR.inTime=incTime;
+	auditdataUDR.eventName=eName;
+	auditdataUDR.unitGkey=uGkey;
+	auditdataUDR.containerId=contId;
+	auditdataUDR.filterFlag=filterWFLFlag;
+	auditdataUDR.processingFlag=proWFLFlag ;
+	auditdataUDR.remarks=remark; 
+	return auditdataUDR;
+ }]]></string>
+</exportmultiplex>

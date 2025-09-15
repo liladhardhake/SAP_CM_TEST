@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="APL_Source_Code" ref_path="apl_script[Internal]/storable[apl_script]/storable[Data]">
+   <string name="Definition"><![CDATA[import ultra.CM_AcuitiPort.ULF_Dependent_Event;
+
+// UDR creation to read the rows of the generated table
+tableUDR mapToInternalUDR(table rowLookUp, int j) {
+  tableUDR invoiceUDR = udrCreate(tableUDR);
+  invoiceUDR.PARENT_EVENT = (string) tableGet(rowLookUp, j, 1);
+  invoiceUDR.DEPENDENT_EVENT = (string) tableGet(rowLookUp, j, 2);
+  invoiceUDR.LINE_ID = (string) tableGet(rowLookUp, j, 3);
+  invoiceUDR.CATEGORY = (string) tableGet(rowLookUp, j, 4);
+  invoiceUDR.FREIGHT_KIND = (string) tableGet(rowLookUp, j, 5);
+  invoiceUDR.SPECIAL_STOW = (string) tableGet(rowLookUp, j, 6);
+  invoiceUDR.IS_REEFERELECTRICITY = (string) tableGet(rowLookUp, j, 7);
+  return invoiceUDR;
+
+}
+
+list < string > returnDependentEvents(string sEvent, string sLineID, string sCategory, string sFrieghtKind, string sSpecialStow, string sReeferElectricity, table fromSharedTable) {
+  debug("Input Recieved PARENT_EVENT :: " + sEvent);
+  debug("Input Recieved LINE_ID :: " + sLineID);
+  debug("Input Recieved CATEGORY :: " + sCategory);
+  debug("Input Recieved FREIGHT_KIND :: " + sFrieghtKind);
+  debug("Input Recieved SPECIAL_STOW :: " + sSpecialStow);
+  debug("Input Recieved IS_REEFERELECTRICITY :: " + sReeferElectricity);
+  sLineID = sLineID != "" ? sLineID : "*";
+  sCategory = sCategory != "" ? sCategory : "*";
+  sFrieghtKind = sFrieghtKind != "" ? sFrieghtKind : "*";
+  sReeferElectricity = sReeferElectricity != "" ? sReeferElectricity : "*";
+  sSpecialStow = sSpecialStow != "" ? sSpecialStow : "*";
+  list < string > liDependents = listCreate(string);
+  tableUDR invoiceUDR = udrCreate(tableUDR);
+  //Table lookup for finding the matching rows  on parent event, category, freight kind
+  table rowLookUp = tableLookup(fromSharedTable, "PARENT_EVENT", "=", sEvent);
+  debug("Table after lookup:: " + rowLookUp);
+  int iRowCntLine;
+  iRowCntLine = tableRowCount(rowLookUp);
+  if (iRowCntLine > 0) {
+    for (int j = 0; j < iRowCntLine; j++) {
+      invoiceUDR = mapToInternalUDR(rowLookUp, j);
+      //Condition for retrieving the qualifing rows
+      if ((invoiceUDR.LINE_ID == sLineID || invoiceUDR.LINE_ID == "*") && (invoiceUDR.CATEGORY == sCategory || invoiceUDR.CATEGORY == "*") && (invoiceUDR.FREIGHT_KIND == sFrieghtKind || invoiceUDR.FREIGHT_KIND == "*") && (invoiceUDR.SPECIAL_STOW == sSpecialStow || invoiceUDR.SPECIAL_STOW == "*") && (invoiceUDR.IS_REEFERELECTRICITY == sReeferElectricity || invoiceUDR.IS_REEFERELECTRICITY == "*")) {
+
+        listAdd(liDependents, invoiceUDR.DEPENDENT_EVENT);
+
+      }
+    }
+
+  }
+  debug("#####DEPENDENT EVENTS FOUND ARE: " + liDependents);
+  return liDependents;
+}
+
+
+]]></string>
+</exportmultiplex>

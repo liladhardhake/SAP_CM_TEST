@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<group category="Internal">
+   <storable name="group" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Administrator"/>
+         <string name="1" value="Administrator"/>
+         <string name="2" value="Administrator"/>
+      </array>
+      <storable name="Auxiliary Data" storable-id="dr.ConfigAuxData" ver="2.0">
+         <map classname="java.util.LinkedHashMap" name="Entries" size="1">
+            <string name="key_0" value="Type"/>
+            <string name="value_0" value="Realtime"/>
+         </map>
+      </storable>
+      <storable name="Data" storable-id="dr.GroupData" ver="4.0">
+         <storable name="AbortOnMemberAbort" null="true"/>
+         <boolean name="continuous exec" value="false"/>
+         <int name="delay" value="0"/>
+         <storable name="exeSetting" storable-id="dr.ExecutionSettings" ver="10.0">
+            <boolean name="enabled" value="false"/>
+         </storable>
+         <storable name="group sched" storable-id="dr.ExecutionPlan" ver="1.0">
+            <array classname="com.digitalroute.xplan.DayPlan" name="Dayplans, not run" size="0"/>
+            <array classname="com.digitalroute.xplan.DayPlan" name="Dayplans, run" size="1">
+               <storable name="0" storable-id="dr.DailyDP" ver="1.0">
+                  <int name="Interval hours" value="0"/>
+                  <int name="Interval milli seconds" value="3000"/>
+                  <int name="Interval minutes" value="0"/>
+                  <int name="Interval seconds" value="3"/>
+                  <boolean name="Shall execute " value="true"/>
+                  <int name="Start t. o. d milli seconds" value="0"/>
+                  <int name="Start t. o. d seconds" value="0"/>
+                  <storable name="Start t. o. d." storable-id="dr.TimeOfDay" ver="1.0">
+                     <int name="Hour" value="0"/>
+                     <int name="Minute" value="0"/>
+                     <int name="Second" value="0"/>
+                  </storable>
+                  <int name="Stop t. o. d seconds" value="86399"/>
+                  <storable name="Stop t. o. d. " storable-id="dr.TimeOfDay" ver="1.0">
+                     <int name="Hour" value="23"/>
+                     <int name="Minute" value="59"/>
+                     <int name="Second" value="59"/>
+                  </storable>
+               </storable>
+            </array>
+            <array name="Triggers" null="true"/>
+         </storable>
+         <int name="max running" value="0"/>
+         <list classname="java.util.ArrayList" name="member list">
+            <storable name="0" storable-id="dr.MemberData" ver="2.0">
+               <storable name="config" storable-id="dr.DRConfiguration" ver="2.0">
+                  <set name="Dynamic Parameters" null="true"/>
+                  <string name="Folder" value="CM_AcuitiPort"/>
+                  <string name="Key" value="MZ1663850342372"/>
+                  <string name="Name" value="WFL_AcuitiPort_Processing_V2"/>
+                  <string name="Type" value="Workflow"/>
+               </storable>
+               <boolean name="is dynamic" value="false"/>
+               <list classname="java.util.ArrayList" name="prereq list"/>
+               <enum name="type" storable-id="dr.MemberData$MemberType" value="RTWFINSTANCE"/>
+               <enum name="valid type" storable-id="dr.ValidType" value="NOTVALIDATED"/>
+               <storable name="wf_instance_id" storable-id="dr.DRWfIdentity" ver="1.0">
+                  <string name="System name" value=""/>
+                  <string name="Template name" value="CM_AcuitiPort.WFL_AcuitiPort_Processing_V2"/>
+                  <int name="Version" value="0"/>
+                  <storable name="Workflow key" storable-id="dr.DRWfKey" ver="2.0">
+                     <long name="INSTANCE_ID" value="1"/>
+                     <string name="TEMPLATE_KEY" value="MZ1663850342372"/>
+                  </storable>
+                  <string name="Workflow name" value="workflow_1"/>
+                  <int name="dynamic" value="0"/>
+               </storable>
+            </storable>
+         </list>
+         <enum name="primary type" storable-id="dr.WorkflowType" value="REALTIME"/>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="CM_AcuitiPort"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="MZ1714155248825"/>
+      <string name="Modified By" value="mzadmin"/>
+      <long name="Modified Date" value="1739908156243"/>
+      <string name="Name" value="WFG_AcuitiPort_Proc_Offline"/>
+      <string name="Owner" value="mzadmin"/>
+      <string name="Type" value="Workflow Group"/>
+      <int name="Version" value="1"/>
+      <string name="documentation" value=""/>
+   </storable>
+</group>

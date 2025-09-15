@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="APL_Source_Code" ref_path="apl_script[Internal]/storable[apl_script]/storable[Data]">
+   <string name="Definition"><![CDATA[import ultra.CM_AcuitiPort.ULF_Company_Maps;
+
+tableUDR mapToInternalUDR(table rowLookUp,int j) // UDR CREATION TO READ THE ROWS OF THE GERNERATED TABLE WITH THE HELP OF QUERY
+{
+    tableUDR invoiceUDR = udrCreate(tableUDR);
+    invoiceUDR.INVOICE_COMPANY_TYPE = (string) tableGet(rowLookUp, j, 1);
+    invoiceUDR.ALTERNATIVE_INVOICE_TARIFF = (string) tableGet(rowLookUp, j, 2);
+    invoiceUDR.TARIFF_INVOICE = (string) tableGet(rowLookUp, j, 3);
+    invoiceUDR.ADDITIONAL_CUSTOMER = (string) tableGet(rowLookUp, j, 4);
+    invoiceUDR.PARENT_EVENT = (string) tableGet(rowLookUp, j, 5);
+	invoiceUDR.CATEGORY = (string) tableGet(rowLookUp, j, 6);
+    invoiceUDR.FREIGHT_KIND = (string) tableGet(rowLookUp, j, 7);
+	invoiceUDR.LINE_ID = (string) tableGet(rowLookUp, j, 8);
+	invoiceUDR.SHIPPER_ID = (string) tableGet(rowLookUp, j, 9);
+	invoiceUDR.CONSIGNEE_ID = (string) tableGet(rowLookUp, j, 10);
+	invoiceUDR.SPECIAL_STOW = (string) tableGet(rowLookUp, j, 11);
+    invoiceUDR.VESSEL_SERVICE = (string) tableGet(rowLookUp, j, 12);
+    invoiceUDR.VESSEL_LINE = (string) tableGet(rowLookUp, j, 13);
+	
+    return invoiceUDR;
+}
+
+
+map<string,string> getPayeeFromCompanyMaps(string sCategory, string sConsigneeID, string sEvent, string sFrieghtKind,string sLineID, string sShipperID, string sSpecialStow, string sVesselLine, string sVesselService, table fromSharedTable)
+{
+    // checks for inputs recieved*
+    /*
+    debug("Input Recieved EVENT_NAME ::"+sEvent+"|");
+    debug("Input Recieved LINE_ID ::"+sLineID+"|");
+    debug("Input Recieved CATEGORY ::"+sCategory+"|");
+    debug("Input Recieved FREIGHT_KIND ::"+sFrieghtKind+"|");
+	debug("Input Recieved CONSIGNEE_ID ::"+sConsigneeID+"|");
+    debug("Input Recieved SHIPPER_ID ::"+sShipperID+"|");
+    debug("Input Recieved SPECIAL_STOW ::"+sSpecialStow+"|");
+    debug("Input Recieved VESSEL_SERVICE ::"+sVesselService+"|");
+    debug("Input Recieved VESSEL_LINE ::"+sVesselLine+"|");
+    debug("Table from Shared table profile::"+fromSharedTable+"|"); */
+   
+    map<string,string> GetTariffInvoiceDetails = mapCreate(string,string);
+    map<string,string> GetDefaultValues = mapCreate(string,string); 
+  
+    
+    string sLineID1;      
+     if(sCategory != null){
+         sLineID1    = sLineID !=  "" ? sLineID : "-";
+    }else{
+        sLineID1= "-";
+    }
+    string sCategory1; 
+    if(sCategory != null){
+         sCategory1    = sCategory != "" ? sCategory : "-";
+    }else{
+        sCategory1= "-";
+    }
+    string sFrieghtKind1;
+    if(sFrieghtKind != null){
+         sFrieghtKind1    = sFrieghtKind !=  "" ? sFrieghtKind : "-";
+    }else{
+        sFrieghtKind1= "-";
+    }
+    string sConsigneeID1;
+    if(sConsigneeID != null){
+         sConsigneeID1    = sConsigneeID !=  "" ? sConsigneeID : "-";
+    }else{
+        sConsigneeID1= "-";
+    }
+    string sShipperID1;
+    if(sShipperID != null){
+         sShipperID1    = sShipperID !=  "" ? sShipperID : "-";
+    }else{
+        sShipperID1= "-";
+    }
+    string sSpecialStow1;
+    if(sSpecialStow != null){
+         sSpecialStow1    = sSpecialStow !=  "" ? sSpecialStow : "-";
+    }else{
+        sSpecialStow1= "-";
+    }
+    string sVesselService1;
+    if(sVesselService != null){
+         sVesselService1    = sVesselService !=  "" ? sVesselService : "-";
+    }else{
+        sVesselService1= "-";
+    }
+    string sVesselLine1;
+    if(sVesselLine != null){
+         sVesselLine1    = sVesselLine !=  "" ? sVesselLine : "-";
+    }else{
+        sVesselLine1= "-";
+    }
+    
+    
+    debug("Input EVENT_NAME :: "+sEvent);
+    debug("Input  LINE_ID :: "+sLineID1);
+    debug("Input  CATEGORY1 :: "+sCategory1);
+    debug("Input  FREIGHT_KIND :: "+sFrieghtKind1);
+	debug("Input  CONSIGNEE_ID :: "+sConsigneeID1);
+    debug("Input  SHIPPER_ID :: "+sShipperID1);
+    debug("Input  SPECIAL_STOW :: "+sSpecialStow1);
+    debug("Input  VESSEL_SERVICE :: "+sVesselService1);
+    debug("Input  VESSEL_LINE :: "+sVesselLine1);
+   
+    table tbInvoiceMap;
+    tableUDR invoiceUDR = udrCreate(tableUDR);
+    table rowLookUp = tableLookup(fromSharedTable,"PARENT_EVENT","=", sEvent);
+    //debug("Table after lookup:: "+rowLookUp);
+    //string sQuerySpcl = "select \"ALTERNATE_INVOICE_PAYEE\",\"TARIFF_INVOICE\",\"ADDITIONAL_CUSTOMER\",\"INVOICE_COMPANY_TYPE\",\"LINE_ID\",\"SHIPPER_ID\",\"CONSIGNEE_ID\",\"FREIGHT_KIND\",\"CATEGORY\",\"SPECIAL_STOW\",\"PARENT_EVENT\" from \"TB_COMPANY_MAPS_UNIT_MARINE\" where ((\"TARIFF_INVOICE\" != '-') or (\"ALTERNATE_INVOICE_PAYEE\" != '-')) and ((\"PARENT_EVENT\" = '" + sEvent + "') or (\"PARENT_EVENT\" like '%" + sEvent + "%'))";
+    //debug("The value of sQuerySpcl = " + (sQuerySpcl));
+    //debug("BEfore Query");
+    //tbInvoiceMap = tableCreate("CM_AcuitiPort_Container.PRF_Database_Profile", sQuerySpcl); //Query for retrieving the Row for the Event Name
+    //debug("table is :" +tbInvoiceMap);
+    //debug("After Query");  
+    int iRowCntLine = tableRowCount(rowLookUp); // Gives the Row Count For Particular Event Name
+    //debug(" Number Of Rows Qualify For The Table Are :: " +(iRowCntLine));
+    int i=0;
+    if(iRowCntLine==0)
+    {
+        debug("NO ROWS FOUND");
+    }
+   
+    if(iRowCntLine > 0)
+    {
+         
+        for(int j=0;j< iRowCntLine;j++)
+        {
+           i=i+1; 
+           invoiceUDR = mapToInternalUDR(rowLookUp,j);
+       
+       // CONDITION TO FIND THE BEST ROW MATCH OF THE PARTICULAR EVENT NAME GENERATED WITH THE HELP OF QUERY
+          //debug("invoiceudr is "+invoiceUDR);
+         if((strREContains(invoiceUDR.CATEGORY, sCategory1) || (invoiceUDR.CATEGORY == "*")) && (strREContains(invoiceUDR.FREIGHT_KIND, sFrieghtKind1) || (invoiceUDR.FREIGHT_KIND == "*")) && ((sLineID1 != null && strREContains(invoiceUDR.LINE_ID, sLineID1)) || (invoiceUDR.LINE_ID == "*")) && (strREContains(invoiceUDR.SHIPPER_ID, sShipperID1) || (invoiceUDR.SHIPPER_ID == "*")) && (strREContains(invoiceUDR.CONSIGNEE_ID, sConsigneeID1) || (invoiceUDR.CONSIGNEE_ID == "*")) && (strREContains(invoiceUDR.SPECIAL_STOW, sSpecialStow1) || (invoiceUDR.SPECIAL_STOW == "*")) && (strREContains(invoiceUDR.VESSEL_SERVICE, sVesselService1) || (invoiceUDR.VESSEL_SERVICE == "*")) && (strREContains(invoiceUDR.VESSEL_LINE, sVesselLine1) || (invoiceUDR.VESSEL_LINE == "*"))) 
+                {  	 
+                                          
+                  mapSet(GetTariffInvoiceDetails,"ALTERNATE_INVOICE_PAYEE",invoiceUDR.ALTERNATIVE_INVOICE_TARIFF);
+                  mapSet(GetTariffInvoiceDetails,"PAYEE",invoiceUDR.TARIFF_INVOICE);
+                  mapSet(GetTariffInvoiceDetails,"ADDITIONAL_CUSTOMER",invoiceUDR.ADDITIONAL_CUSTOMER);
+                  mapSet(GetTariffInvoiceDetails,"INVOICE_COMPANY_TYPE",invoiceUDR.INVOICE_COMPANY_TYPE);
+                  mapSet(GetTariffInvoiceDetails,"LINE_ID",invoiceUDR.LINE_ID);
+                  mapSet(GetTariffInvoiceDetails,"CONSIGNEE_ID",invoiceUDR.CONSIGNEE_ID);
+                  
+                  debug("The value of GetTariffInvoiceDetails ::::  " +GetTariffInvoiceDetails); 
+                  debug("Row qualified is:: "+i);
+                  break;
+                } 
+              
+            
+            else
+            {
+                //debug("PARENT EVENT not match for sEvent= " +sEvent + " invoiceUDR.PARENT_EVENT = "+invoiceUDR.PARENT_EVENT);
+            }
+         }  
+        
+    }
+    return GetTariffInvoiceDetails;
+}]]></string>
+</exportmultiplex>

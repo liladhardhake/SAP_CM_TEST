@@ -1,0 +1,1007 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<webservices_profile category="Internal">
+   <storable name="webservices_profile" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Administrator"/>
+         <string name="1" value="Administrator"/>
+         <string name="2" value="Administrator"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.WSProfileConfig" ver="310.0">
+         <boolean name="2-way Authentication" value="false"/>
+         <string name="Binding name" value="ChargeableItemChargingServicesPortBinding"/>
+         <boolean name="Desktop Validation" value="false"/>
+         <boolean name="Disable Underscore Binding Mode" value="false"/>
+         <boolean name="Disable Wrapper Style" value="false"/>
+         <boolean name="Enable Big Decimal" value="false"/>
+         <boolean name="Enable JAAS" value="false"/>
+         <boolean name="Enable Username Token" value="false"/>
+         <boolean name="Enable WS Addressing" value="false"/>
+         <boolean name="Enforce RM" value="false"/>
+         <string name="JAAS Module" value=""/>
+         <string name="JAAS Properties" value=""/>
+         <string name="Max Enum Members" value="256"/>
+         <boolean name="Populate OriginalData Field" value="false"/>
+         <string name="Port type" value="ChargeableItemChargingServices"/>
+         <boolean name="Process Implicit SOAP Headers" value="false"/>
+         <string name="RM Store" value="In Memory"/>
+         <string name="Schema Bindings" value=""/>
+         <boolean name="Schema Validation" value="false"/>
+         <boolean name="Security Enabled" value="false"/>
+         <storable name="Security Profile TLS" null="true"/>
+         <storable name="Security Settings" storable-id="dr.SecuritySettings" ver="3.1">
+            <boolean name="ENABLE_WS_SECURITY_BINARY_TOKEN" value="false"/>
+            <boolean name="ENABLE_WS_SECURITY_ENCRYPTION" value="false"/>
+            <boolean name="ENABLE_WS_SECURITY_SIGNING" value="false"/>
+            <boolean name="ENABLE_WS_SECURITY_TIMESTAMP" value="false"/>
+            <password name="KEY_PASSWORD" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+            <string name="KEY_STORE_ALIAS" value=""/>
+            <bytearray name="KEY_STORE_CONTENT"><![CDATA[`
+]]></bytearray>
+            <string name="KEY_STORE_FILE" value=""/>
+            <password name="KEY_STORE_PWD" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+            <storable name="SecurityProfile WEB" null="true"/>
+            <boolean name="USE_REQ_CERT" value="false"/>
+         </storable>
+         <string name="Service Port name" value="chargeableItemChargingPort"/>
+         <boolean name="Simple Mode Enabled" value="false"/>
+         <string name="TLS keystore file" value=""/>
+         <bytearray name="TLS keystore file content"><![CDATA[`
+]]></bytearray>
+         <password name="TLS keystore password" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+         <password name="Username Token Password" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+         <string name="Username Token Username" value=""/>
+         <list classname="java.util.LinkedList" name="concatenationFilePathList"/>
+         <string name="helper_class" value="ws.MZ1655278057874.PRF_WS_CheckCharge.WSHelperImpl"/>
+         <list classname="java.util.LinkedList" name="includeFiles">
+            <storable name="0" storable-id="dr.WSDLIncludeFileStoreable" ver="2.1">
+               <string name="fileContent" quoted="true"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schema.charging.ws.highdeal.com/" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:core="http://schema.ws.highdeal.com/" jaxb:version="2.0" targetNamespace="http://schema.charging.ws.highdeal.com/" version="1.0">\u000d
+<xs:import namespace="http://schema.ws.highdeal.com/" schemaLocation="core_schema.xsd"/>\u000d
+<xs:element name="chargeableItemChargeRequest" type="tns:ChargeableItemChargeRequest"/>\u000d
+<xs:element name="chargeableItemChargeResponse" type="tns:ChargeableItemChargeResponse"/>\u000d
+<xs:element name="chargeableItemChargeMassRequest" type="tns:ChargeableItemChargeMassRequest"/>\u000d
+<xs:element name="chargeableItemChargeMassResponse" type="tns:ChargeableItemChargeMassResponse"/>\u000d
+<xs:element name="chargeableItemChargeBundleRequest" type="tns:ChargeableItemChargeBundleRequest"/>\u000d
+<xs:element name="chargeableItemChargeBundleResponse" type="tns:ChargeableItemChargeBundleResponse"/>\u000d
+<xs:element name="chargeableItemCheckChargeRequest" type="tns:ChargeableItemCheckChargeRequest"/>\u000d
+<xs:element name="chargeableItemCheckChargeResponse" type="tns:ChargeableItemCheckChargeResponse"/>\u000d
+<xs:element name="chargeableItemCheckChargeMassRequest" type="tns:ChargeableItemCheckChargeMassRequest"/>\u000d
+<xs:element name="chargeableItemCheckChargeMassResponse" type="tns:ChargeableItemCheckChargeMassResponse"/>\u000d
+<!--  Operation Message: Chargeable Item Charge  -->\u000d
+<xs:complexType name="ChargeableItemChargeRequest">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="context" type="tns:ChargeableItemChargeContext"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="chargeableItem" type="tns:ChargeableItem"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="ChargeableItemChargeResponse">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:ChargingResponse"/>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<!--  Operation Message: Chargeable Item Charge Mass  -->\u000d
+<xs:complexType name="ChargeableItemChargeMassRequest">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="context" type="tns:ChargeableItemChargeContext"/>\u000d
+<xs:element maxOccurs="1000" minOccurs="0" name="chargeableItemChargeRequest" type="tns:ChargeableItemChargeRequest"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="ChargeableItemChargeMassResponse">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:Response">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="unbounded" minOccurs="0" name="chargeableItemChargeResponse" type="tns:ChargeableItemChargeResponse"/>\u000d
+</xs:sequence>\u000d
+</xs:extension>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<!--  Operation Message: Chargeable Item Charge Bundle  -->\u000d
+<xs:complexType name="ChargeableItemChargeBundleRequest">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="context" type="tns:ChargeableItemChargeContext"/>\u000d
+<xs:element maxOccurs="1000" minOccurs="0" name="chargeableItemChargeRequest" type="tns:ChargeableItemChargeRequest"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="ChargeableItemChargeBundleResponse">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:Response">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="unbounded" minOccurs="0" name="chargeableItemChargeResponse" type="tns:ChargeableItemChargeResponse"/>\u000d
+</xs:sequence>\u000d
+</xs:extension>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<!--  Operation Message: Chargeable Item Check Charge  -->\u000d
+<xs:complexType name="ChargeableItemCheckChargeRequest">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="context" type="tns:ChargeableItemChargeContext"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="chargeableItem" type="tns:ChargeableItem"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="ChargeableItemCheckChargeResponse">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:ChargingResponse"/>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<!--  Operation Message: Chargeable Item Check Charge Mass  -->\u000d
+<xs:complexType name="ChargeableItemCheckChargeMassRequest">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="context" type="tns:ChargeableItemChargeContext"/>\u000d
+<xs:element maxOccurs="1000" minOccurs="0" name="chargeableItemCheckChargeRequest" type="tns:ChargeableItemCheckChargeRequest"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="ChargeableItemCheckChargeMassResponse">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:Response">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="unbounded" minOccurs="0" name="chargeableItemCheckChargeResponse" type="tns:ChargeableItemCheckChargeResponse"/>\u000d
+</xs:sequence>\u000d
+</xs:extension>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<!--  Charging Operation Context  -->\u000d
+<xs:complexType name="ChargeableItemChargeContext">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="senderInfo" type="tns:SenderContext"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="chargingOutputContext" type="tns:ChargingOutputContext"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="chargingResultContext" type="tns:ChargingResultContext"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="chargingResultOnErrorContext" type="tns:ChargingResultOnErrorContext"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="SenderContext">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="jobId" type="core:Integer22"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="ChargingOutputContext">\u000d
+<xs:sequence>\u000d
+<xs:element default="true" maxOccurs="1" minOccurs="0" name="chargeableItemExported" type="xs:boolean"/>\u000d
+<xs:element default="false" maxOccurs="1" minOccurs="0" name="itemImmediatelyLoaded" type="xs:boolean"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="ChargingResultContext">\u000d
+<xs:sequence>\u000d
+<xs:element default="false" maxOccurs="1" minOccurs="0" name="chargingProcessInfoReturned" type="xs:boolean"/>\u000d
+<xs:element default="false" maxOccurs="1" minOccurs="0" name="chargingContractInfoReturned" type="xs:boolean"/>\u000d
+<xs:element default="false" maxOccurs="1" minOccurs="0" name="chargeableItemInfoReturned" type="xs:boolean"/>\u000d
+<xs:element default="false" maxOccurs="1" minOccurs="0" name="accountOperationReturned" type="xs:boolean"/>\u000d
+<xs:element default="false" maxOccurs="1" minOccurs="0" name="accountInfoReturned" type="xs:boolean"/>\u000d
+<xs:element default="false" maxOccurs="1" minOccurs="0" name="chargedItemReturned" type="xs:boolean"/>\u000d
+<xs:element default="false" maxOccurs="1" minOccurs="0" name="notificationReturned" type="xs:boolean"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="ChargingResultOnErrorContext">\u000d
+<xs:sequence>\u000d
+<xs:element default="false" maxOccurs="1" minOccurs="0" name="notificationReturned" type="xs:boolean"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<!--  Business Object: Chargeable Item  -->\u000d
+<xs:complexType name="ChargeableItem">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="name" type="core:NotEmptyString256"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="uid" type="tns:StringUniqueIdentifier"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="userTechnicalId" type="core:NotEmptyString256"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="serviceId" type="core:NotEmptyString256"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="consumptionDate" type="core:Date"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="userProperties" type="tns:ChargeableItemUserProperties"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="ChargeableItemUserProperties">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1000" minOccurs="0" name="property" type="tns:ChargeableItemProperty"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="ChargeableItemProperty">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="name" type="core:String256"/>\u000d
+<xs:choice>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="stringValue" type="xs:string"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="numberValue" type="core:Decimal28_6"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="dateValue" type="core:Date"/>\u000d
+</xs:choice>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="StringUniqueIdentifier">\u000d
+<xs:simpleContent>\u000d
+<xs:extension base="core:NotEmptyString256">\u000d
+<xs:attribute name="type" type="core:NotEmptyString256" use="optional"/>\u000d
+</xs:extension>\u000d
+</xs:simpleContent>\u000d
+</xs:complexType>\u000d
+<!--  Operation Result  -->\u000d
+<xs:complexType name="BaseResponse">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="status" type="tns:ResponseStatus"/>\u000d
+<xs:element minOccurs="0" name="message" type="xs:string"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:simpleType name="ResponseStatus">\u000d
+<xs:restriction base="xs:string">\u000d
+<xs:enumeration value="return"/>\u000d
+<xs:enumeration value="error"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:complexType name="Response">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:BaseResponse">\u000d
+<xs:sequence>\u000d
+<xs:element minOccurs="0" name="error" type="tns:Failure"/>\u000d
+</xs:sequence>\u000d
+</xs:extension>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<!--  Charging Operation Result  -->\u000d
+<xs:complexType name="ChargingResponse">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:BaseResponse">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="result" type="tns:ChargingResult"/>\u000d
+<xs:element minOccurs="0" name="error" type="tns:ChargingFailure"/>\u000d
+</xs:sequence>\u000d
+</xs:extension>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="ChargingResult">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="chargingProcessInfo" type="tns:ChargingProcessInfo"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="chargingContractInfo" type="tns:ChargingContractInfo"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="chargeableItemInfo" type="tns:ChargeableItemInfo"/>\u000d
+<xs:element maxOccurs="unbounded" minOccurs="0" name="accountOperation" type="tns:AccountOperation"/>\u000d
+<xs:element maxOccurs="unbounded" minOccurs="0" name="externalAccountInfo" type="tns:ExternalAccountInfo"/>\u000d
+<xs:element maxOccurs="unbounded" minOccurs="0" name="prepaidAccountInfo" type="tns:PrepaidAccountInfo"/>\u000d
+<xs:element maxOccurs="unbounded" minOccurs="0" name="chargedItem" type="tns:ChargedItem"/>\u000d
+<xs:element maxOccurs="unbounded" minOccurs="0" name="notification" type="tns:Notification"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="ChargingProcessInfo">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="chargedItemSetUniqueId" type="tns:IntegerUniqueIdentifier"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="eventProcessingDate" type="core:Date"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="ChargingContractInfo">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="subscriberAccountId" type="core:NotEmptyString256"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="chargingContractId" type="core:NotEmptyString256"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="chargingContractItemId" type="core:String256"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="ChargeableItemInfo">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="uid" type="tns:StringUniqueIdentifier"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="AccountOperation">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="type" type="tns:AccountOperationType"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="amount" type="core:Amount"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="netAmount" type="core:Amount"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="taxAmount" type="core:Amount"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="mainAccountReference" type="tns:AccountReference"/>\u000d
+<xs:element maxOccurs="unbounded" minOccurs="0" name="amountAssignment" type="tns:AmountAssignment"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="key" type="xs:int"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="dependentAccountOperationKey" type="xs:int"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:simpleType name="AccountOperationType">\u000d
+<xs:restriction base="xs:string">\u000d
+<xs:enumeration value="debit"/>\u000d
+<xs:enumeration value="credit"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:complexType name="AmountAssignment">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="amount" type="core:Amount"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="accountReference" type="tns:AccountReference"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="chargedItemKey" type="xs:int"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="AccountReference">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="type" type="tns:AccountReferenceType"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="id" type="core:String256"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:simpleType name="AccountReferenceType">\u000d
+<xs:restriction base="xs:string">\u000d
+<xs:enumeration value="external"/>\u000d
+<xs:enumeration value="prepaid"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:complexType name="ExternalAccountInfo">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="id" type="core:String256"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="externalSystemCode" type="core:String256"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="additionalId" type="core:String256"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="PrepaidAccountInfo">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="id" type="core:String256"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="balance" type="core:Amount"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="stateSchedule" type="tns:StateSchedule"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="StateSchedule">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:StateScheduleItem"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="StateScheduleItem">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="stateCode" type="tns:StateScheduleItemCode"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="fromDate" type="core:Date"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:simpleType name="StateScheduleItemCode">\u000d
+<xs:restriction base="xs:string">\u000d
+<xs:enumeration value="blocked"/>\u000d
+<xs:enumeration value="locked"/>\u000d
+<xs:enumeration value="closed"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:complexType name="ChargedItem">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="chargedItemClassId" type="core:String256"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="key" type="xs:int"/>\u000d
+<xs:element maxOccurs="unbounded" minOccurs="0" name="field" type="tns:Field"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="Notification">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="id" type="xs:string"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="message" type="xs:string"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="creationDate" type="core:Date"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="accountOperationKey" type="xs:int"/>\u000d
+<xs:element maxOccurs="unbounded" minOccurs="0" name="field" type="tns:Field"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="Field">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="name" type="core:String256"/>\u000d
+<xs:choice>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="stringValue" type="xs:string"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="numberValue" type="core:Decimal28_6"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="dateValue" type="core:Date"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="booleanValue" type="xs:boolean"/>\u000d
+</xs:choice>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="IntegerUniqueIdentifier">\u000d
+<xs:simpleContent>\u000d
+<xs:extension base="core:Integer22">\u000d
+<xs:attribute name="type" type="core:NotEmptyString256" use="optional"/>\u000d
+</xs:extension>\u000d
+</xs:simpleContent>\u000d
+</xs:complexType>\u000d
+<!--  Failure  -->\u000d
+<xs:complexType name="Failure">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="category" type="tns:FailureCategory"/>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="message" type="xs:string"/>\u000d
+<xs:element minOccurs="0" name="cause" type="core:FailureCause">\u000d
+<xs:annotation>\u000d
+<xs:documentation> Consult the SAP CC Error Code Reference documentation for more information. Consider also the causedBy element. </xs:documentation>\u000d
+</xs:annotation>\u000d
+</xs:element>\u000d
+<xs:element maxOccurs="unbounded" minOccurs="0" name="causedBy" type="core:FailureCause"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:simpleType name="FailureCategory">\u000d
+<xs:restriction base="xs:string">\u000d
+<xs:enumeration value="illegalState"/>\u000d
+<xs:enumeration value="invalid"/>\u000d
+<xs:enumeration value="invalidConfiguration"/>\u000d
+<xs:enumeration value="prerequisiteMissing"/>\u000d
+<xs:enumeration value="temporaryIllegalSystemState"/>\u000d
+<xs:enumeration value="illegalSystemState"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<!--  Charging Failure  -->\u000d
+<xs:complexType name="ChargingFailure">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:Failure">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="reason" type="tns:ChargingFailureReason"/>\u000d
+<xs:element maxOccurs="1" minOccurs="1" name="chargeableItem" type="tns:ChargeableItem"/>\u000d
+</xs:sequence>\u000d
+</xs:extension>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<xs:simpleType name="ChargingFailureReason">\u000d
+<xs:restriction base="xs:string">\u000d
+<xs:enumeration value="outOfValidityPeriod"/>\u000d
+<xs:enumeration value="notAuthorized"/>\u000d
+<xs:enumeration value="accountBlocked"/>\u000d
+<xs:enumeration value="accountLocked"/>\u000d
+<xs:enumeration value="accountClosed"/>\u000d
+<xs:enumeration value="cannotChargeAccount"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+</xs:schema>]]></string>
+               <string name="filePathSequence" value="charging_schema.xsd"/>
+            </storable>
+            <storable name="1" storable-id="dr.WSDLIncludeFileStoreable" ver="2.1">
+               <string name="fileContent" quoted="true"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schema.ws.highdeal.com/" targetNamespace="http://schema.ws.highdeal.com/" version="1.0">\u000d
+<xs:complexType name="MassResponse">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:Response">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" minOccurs="0" name="failures" type="tns:Integer">\u000d
+<xs:annotation>\u000d
+<xs:documentation> The number of erroneous single operations due to a business error. Check the error stack (category, message, cause). </xs:documentation>\u000d
+</xs:annotation>\u000d
+</xs:element>\u000d
+</xs:sequence>\u000d
+</xs:extension>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="Response">\u000d
+<xs:sequence>\u000d
+<xs:element name="status" type="tns:ResponseStatus"/>\u000d
+<xs:element minOccurs="0" name="message" type="xs:string"/>\u000d
+<xs:element minOccurs="0" name="error" type="tns:Failure"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:simpleType name="ResponseStatus">\u000d
+<xs:restriction base="tns:String256">\u000d
+<xs:enumeration value="return"/>\u000d
+<xs:enumeration value="error"/>\u000d
+<xs:enumeration value="inProgress"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:complexType name="Failure">\u000d
+<xs:sequence>\u000d
+<xs:element minOccurs="0" name="category" type="tns:FailureCategory"/>\u000d
+<!--  should be minOccurs="1"  -->\u000d
+<xs:element minOccurs="0" name="message" type="xs:string"/>\u000d
+<xs:element minOccurs="0" name="cause" type="tns:FailureCause">\u000d
+<xs:annotation>\u000d
+<xs:documentation> Consult the SAP CC Error Code Reference documentation for more information. Consider also the causedBy element. </xs:documentation>\u000d
+</xs:annotation>\u000d
+</xs:element>\u000d
+<xs:element maxOccurs="unbounded" minOccurs="0" name="causedBy" type="tns:FailureCause"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:simpleType name="FailureCategory">\u000d
+<xs:restriction base="tns:String256">\u000d
+<xs:enumeration value="alreadyExists"/>\u000d
+<xs:enumeration value="doesNotExist"/>\u000d
+<xs:enumeration value="invalid"/>\u000d
+<xs:enumeration value="prerequisiteMissing"/>\u000d
+<xs:enumeration value="incompatibleConfiguration"/>\u000d
+<xs:enumeration value="illegalState"/>\u000d
+<xs:enumeration value="temporaryIllegalState"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:complexType name="FailureCause">\u000d
+<xs:sequence>\u000d
+<xs:element name="module" type="xs:string"/>\u000d
+<xs:element name="code" type="xs:int"/>\u000d
+<xs:element name="message" type="xs:string"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="NullableDate">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:NullableFlag">\u000d
+<xs:sequence>\u000d
+<xs:element name="value" type="xs:dateTime"/>\u000d
+</xs:sequence>\u000d
+</xs:extension>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="NullableString">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:NullableFlag">\u000d
+<xs:sequence>\u000d
+<xs:element name="value" type="xs:string"/>\u000d
+</xs:sequence>\u000d
+</xs:extension>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="NullableFlag">\u000d
+<xs:attribute name="undef" type="xs:boolean"/>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="AdditionalInfo">\u000d
+<xs:sequence>\u000d
+<xs:element name="name" type="tns:String256"/>\u000d
+<xs:element minOccurs="0" name="description" type="tns:String2000"/>\u000d
+<xs:choice>\u000d
+<xs:element name="string" type="tns:String2000"/>\u000d
+<xs:element name="date" type="tns:Date"/>\u000d
+<xs:element name="number" type="tns:Decimal28_6"/>\u000d
+</xs:choice>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<!--  Search Filter  -->\u000d
+<xs:complexType name="SearchFilter">\u000d
+<xs:sequence>\u000d
+<xs:element minOccurs="0" name="searchWindow" type="tns:SearchFilterWindow"/>\u000d
+<xs:element default="false" minOccurs="0" name="totalCountRequired" type="xs:boolean"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="SearchFilterWindow">\u000d
+<xs:annotation>\u000d
+<xs:documentation> The settings to enable reference-based pagination of search results in response. Several operation requests are necessary to retrieve the complete results. </xs:documentation>\u000d
+</xs:annotation>\u000d
+<xs:sequence>\u000d
+<xs:element minOccurs="0" name="windowSize" type="xs:int">\u000d
+<xs:annotation>\u000d
+<xs:documentation> The maximum number of results expected in the operation response. The SAP CC system returns a subset of the matching result set. </xs:documentation>\u000d
+</xs:annotation>\u000d
+</xs:element>\u000d
+<xs:element minOccurs="0" name="fromUniqueId" type="tns:String256">\u000d
+<xs:annotation>\u000d
+<xs:documentation> The reference to start pagination from. When omitted in the first search operation request, the beginning of the result set is returned by the SAP CC system. When set in an operation request, it must be equal to the lastUniqueId element in the previous operation response. </xs:documentation>\u000d
+</xs:annotation>\u000d
+</xs:element>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="SearchResponse">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:Response">\u000d
+<xs:sequence>\u000d
+<xs:element minOccurs="0" name="totalCount" type="xs:int">\u000d
+<xs:annotation>\u000d
+<xs:documentation> The number of remaining objects in the set after the current page found by the SAP CC system. This includes the number of objects in the current set. </xs:documentation>\u000d
+</xs:annotation>\u000d
+</xs:element>\u000d
+<xs:element minOccurs="0" name="lastUniqueId" type="tns:String256">\u000d
+<xs:annotation>\u000d
+<xs:documentation> The reference of the last element in case of pagination. Set up the fromUniqueId element in the next search operation request with this reference value. </xs:documentation>\u000d
+</xs:annotation>\u000d
+</xs:element>\u000d
+</xs:sequence>\u000d
+</xs:extension>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="StringAttributeDescription">\u000d
+<xs:sequence>\u000d
+<xs:choice>\u000d
+<xs:element name="enumeration" type="tns:StringEnumeration"/>\u000d
+<xs:element name="pattern" type="tns:String256"/>\u000d
+</xs:choice>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="DateAttributeDescription">\u000d
+<xs:sequence>\u000d
+<xs:choice>\u000d
+<xs:element name="enumeration" type="tns:DateEnumeration"/>\u000d
+<xs:element name="range" type="tns:DateRange"/>\u000d
+</xs:choice>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="NumberAttributeDescription">\u000d
+<xs:sequence>\u000d
+<xs:choice>\u000d
+<xs:element name="enumeration" type="tns:NumberEnumeration"/>\u000d
+<xs:element name="range" type="tns:NumberRange"/>\u000d
+</xs:choice>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="AdditionalAttributeDescription">\u000d
+<xs:sequence>\u000d
+<xs:element name="name" type="tns:String256"/>\u000d
+<xs:choice>\u000d
+<xs:element name="pattern" type="tns:String256"/>\u000d
+<xs:element name="stringEnumeration" type="tns:StringEnumeration"/>\u000d
+<xs:element name="numberEnumeration" type="tns:NumberEnumeration"/>\u000d
+<xs:element name="dateEnumeration" type="tns:DateEnumeration"/>\u000d
+<xs:element name="numberRange" type="tns:NumberRange"/>\u000d
+<xs:element name="dateRange" type="tns:DateRange"/>\u000d
+</xs:choice>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="StringEnumeration">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="unbounded" name="value" type="tns:String2000"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="DateEnumeration">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="unbounded" name="value" type="tns:Date"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="NumberEnumeration">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="unbounded" name="value" type="tns:Decimal28_6"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="DateRange">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" name="min" type="tns:DateBoundary"/>\u000d
+<xs:element maxOccurs="1" name="max" type="tns:DateBoundary"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="DateBoundary">\u000d
+<xs:simpleContent>\u000d
+<xs:extension base="tns:Date">\u000d
+<xs:attribute default="true" name="included" type="xs:boolean"/>\u000d
+</xs:extension>\u000d
+</xs:simpleContent>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="NumberRange">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" name="min" type="tns:NumberBoundary"/>\u000d
+<xs:element maxOccurs="1" name="max" type="tns:NumberBoundary"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="NumberBoundary">\u000d
+<xs:simpleContent>\u000d
+<xs:extension base="tns:Decimal28_6">\u000d
+<xs:attribute default="true" name="included" type="xs:boolean"/>\u000d
+</xs:extension>\u000d
+</xs:simpleContent>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="IntegerRange">\u000d
+<xs:sequence>\u000d
+<xs:element maxOccurs="1" name="min" type="tns:IntegerBoundary"/>\u000d
+<xs:element maxOccurs="1" name="max" type="tns:IntegerBoundary"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="IntegerBoundary">\u000d
+<xs:simpleContent>\u000d
+<xs:extension base="tns:Integer22">\u000d
+<xs:attribute default="true" name="included" type="xs:boolean"/>\u000d
+</xs:extension>\u000d
+</xs:simpleContent>\u000d
+</xs:complexType>\u000d
+<xs:simpleType name="SearchOrderType">\u000d
+<xs:restriction base="tns:String256">\u000d
+<xs:enumeration value="asc"/>\u000d
+<xs:enumeration value="desc"/>\u000d
+<xs:enumeration value="noOrder"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:simpleType name="SearchFilterType">\u000d
+<xs:restriction base="xs:string">\u000d
+<xs:enumeration value="boolean"/>\u000d
+<xs:enumeration value="number"/>\u000d
+<xs:enumeration value="string"/>\u000d
+<xs:enumeration value="date"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<!--  SAP CC base types  -->\u000d
+<xs:simpleType name="Decimal28_6">\u000d
+<xs:restriction base="xs:decimal">\u000d
+<xs:maxInclusive value="9999999999999999999999.999999"/>\u000d
+<xs:minInclusive value="-9999999999999999999999.999999"/>\u000d
+<xs:totalDigits value="28"/>\u000d
+<xs:fractionDigits value="6"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:simpleType name="Long">\u000d
+<xs:restriction base="xs:long">\u000d
+<xs:maxInclusive value="9223372036854775807"/>\u000d
+<xs:minInclusive value="0"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:simpleType name="Integer">\u000d
+<xs:restriction base="xs:int">\u000d
+<xs:maxInclusive value="2147483647"/>\u000d
+<xs:minInclusive value="0"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:simpleType name="Integer22">\u000d
+<xs:restriction base="xs:decimal">\u000d
+<xs:totalDigits value="22"/>\u000d
+<xs:fractionDigits value="0"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:simpleType name="PositiveDecimal28_6">\u000d
+<xs:restriction base="tns:Decimal28_6">\u000d
+<xs:minInclusive value="0"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:simpleType name="CurrencyCode">\u000d
+<xs:restriction base="xs:string">\u000d
+<xs:maxLength value="5"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:complexType name="Amount">\u000d
+<xs:simpleContent>\u000d
+<xs:extension base="tns:Decimal28_6">\u000d
+<xs:attribute name="currencyCode" type="tns:CurrencyCode"/>\u000d
+</xs:extension>\u000d
+</xs:simpleContent>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="PositiveAmount">\u000d
+<xs:simpleContent>\u000d
+<xs:extension base="tns:PositiveDecimal28_6">\u000d
+<xs:attribute name="currencyCode" type="tns:CurrencyCode"/>\u000d
+</xs:extension>\u000d
+</xs:simpleContent>\u000d
+</xs:complexType>\u000d
+<xs:simpleType name="String256">\u000d
+<xs:restriction base="xs:string">\u000d
+<xs:maxLength value="256"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:simpleType name="NotEmptyString256">\u000d
+<xs:restriction base="xs:string">\u000d
+<xs:minLength value="1"/>\u000d
+<xs:maxLength value="256"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:simpleType name="String2000">\u000d
+<xs:restriction base="xs:string">\u000d
+<xs:maxLength value="2000"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:simpleType name="Date">\u000d
+<xs:restriction base="xs:dateTime">\u000d
+<xs:pattern value="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:simpleType name="CountryCode">\u000d
+<xs:restriction base="xs:string">\u000d
+<xs:length value="2"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:simpleType name="Empty">\u000d
+<xs:restriction base="xs:string">\u000d
+<xs:length value="0"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+<xs:complexType abstract="true" name="CatalogObject">\u000d
+<xs:sequence>\u000d
+<xs:element name="id" type="tns:String256"/>\u000d
+<xs:element minOccurs="0" name="description" type="tns:String2000"/>\u000d
+<xs:element maxOccurs="unbounded" minOccurs="0" name="additionalInfo" type="tns:AdditionalInfo"/>\u000d
+</xs:sequence>\u000d
+</xs:complexType>\u000d
+<xs:complexType abstract="true" name="Table">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:CatalogObject">\u000d
+<xs:sequence>\u000d
+<xs:element name="tableClassId" type="tns:String256"/>\u000d
+</xs:sequence>\u000d
+</xs:extension>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<xs:complexType abstract="true" name="CatalogTable">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:Table">\u000d
+<xs:sequence>\u000d
+<xs:element minOccurs="0" name="agreementId" type="tns:String256"/>\u000d
+</xs:sequence>\u000d
+</xs:extension>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="CatalogSearchFilter">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:SearchFilter">\u000d
+<xs:sequence>\u000d
+<xs:element minOccurs="0" name="id" type="tns:StringAttributeDescription"/>\u000d
+<xs:element minOccurs="0" name="description" type="tns:StringAttributeDescription"/>\u000d
+<xs:element maxOccurs="unbounded" minOccurs="0" name="additionalInfo" type="tns:AdditionalAttributeDescription"/>\u000d
+</xs:sequence>\u000d
+</xs:extension>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="TableSearchFilter">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:CatalogSearchFilter">\u000d
+<xs:sequence>\u000d
+<xs:element minOccurs="0" name="tableClassId" type="tns:StringAttributeDescription"/>\u000d
+</xs:sequence>\u000d
+</xs:extension>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<xs:complexType name="CatalogTableSearchFilter">\u000d
+<xs:complexContent>\u000d
+<xs:extension base="tns:TableSearchFilter">\u000d
+<xs:sequence>\u000d
+<xs:element minOccurs="0" name="agreementId" type="tns:StringAttributeDescription"/>\u000d
+<xs:element default="catalog" minOccurs="0" name="tableScope" type="tns:TableScope"/>\u000d
+<xs:element default="false" minOccurs="0" name="omitRows" type="xs:boolean">\u000d
+<xs:annotation>\u000d
+<xs:documentation> Set this flag to true when you want the table's rows to be omitted from the response. </xs:documentation>\u000d
+</xs:annotation>\u000d
+</xs:element>\u000d
+</xs:sequence>\u000d
+</xs:extension>\u000d
+</xs:complexContent>\u000d
+</xs:complexType>\u000d
+<xs:simpleType name="TableScope">\u000d
+<xs:restriction base="xs:string">\u000d
+<xs:enumeration value="agreement"/>\u000d
+<xs:enumeration value="both"/>\u000d
+<xs:enumeration value="catalog"/>\u000d
+</xs:restriction>\u000d
+</xs:simpleType>\u000d
+</xs:schema>]]></string>
+               <string name="filePathSequence" value="core_schema.xsd"/>
+            </storable>
+         </list>
+         <string name="inputAndOutputTypeName"><![CDATA[ws.MZ1655278057874.PRF_WS_CheckCharge.udr.AbstractChargeableItemChargingServicesWSCycle]]></string>
+         <string name="properties"><![CDATA[# Advanced XML binding options can be customized here. If the properties are commented out, default values are used.
+
+#Enable JAXB Simple Binding Mode
+# When true, XSD Schemas of loaded WSDL files are compiled into Java code using the experimental "Simple and better binding mode". This is necessary for some complex types, for instance when duplicate element names are used within the same complex type.
+enable_JAXB_simple_binding false
+
+#Disable JAXWS Wrapper style Mode
+# When true, the cycle UDR will contain request and response parameters that wrap all the arguments in request and response UDRs.
+disable_JAXWS_wrapper_mode false
+
+#Enable Processing Of Implicit Soap Header
+# When true, any SOAP headers defined in the binding section of WSDL files are compiled into Java code. This is necessary in order to manipulate the SOAP headers in outgoing Web Service requests. 
+enable_processing_of_implicit_SOAP_header false
+
+#Disable Underscore Binding Mode
+# When false, underscore binding mode is true, JAXB will not strip underscore from the element names when converting a WSDL file to Java.
+disable_under_score_binding false
+
+#Populate originaldata field
+# When true the OriginalData field in the WSCycleUDR will be populated with the content of the SOAP request
+populate_originaldata_field false
+
+#Max enum members
+# Sets the value for the typesafeEnumMaxMembers jaxb global variable which controls the maximum number of allowed enum members
+max_enum_members 256
+
+#Schema level bindings
+# Sets the jaxb schema level bindings per xsd file. The format is [filename.xsd]:package=[packageSuffix],[transformationType]-prefix=prefix,suffix=suffix;
+schema_level_bindings 
+
+#Global bindings
+# Sets the jaxb global bindings per xsd file. The format is property=value;
+global_bindings localScoping=nested
+
+#Enable fault stack trace in response
+# When true stack trace information will be available in error responses
+fault_stack_trace_enabled false
+
+#Allow HEAD
+# When true HTTP method HEAD is allowed
+allow_head false
+
+#Jetty Accept Queue Size
+# Size of the Jetty ServerConnector request queue, set to 0 to disable queue
+jetty_accept_queue_size 0
+
+#Enable Big Decimal
+# Enable the use of BigDecimal as internal type for decimal
+enable_big_decimal false
+
+]]></string>
+         <boolean name="singleWSDLFile" value="true"/>
+         <string name="transport" value="HTTP"/>
+         <map classname="java.util.HashMap" name="typeNamespaceToPrefixMap" size="1">
+            <string name="key_0" value="http://schema.charging.ws.highdeal.com/"/>
+            <string name="value_0" value="schema"/>
+         </map>
+         <string name="unique_name" value="com.digitalroute.ws.ws1655277593584"/>
+         <string name="wsdlFileContent" quoted="true"><![CDATA[<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:tns="http://charging.ws.highdeal.com/" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:schema="http://schema.charging.ws.highdeal.com/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="charging" targetNamespace="http://charging.ws.highdeal.com/">\u000d
+<types>\u000d
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:tns="http://charging.ws.highdeal.com/" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:schema="http://schema.charging.ws.highdeal.com/" xmlns="http://schemas.xmlsoap.org/wsdl/">\u000d
+<xsd:import namespace="http://schema.charging.ws.highdeal.com/" schemaLocation="charging_schema.xsd"/>\u000d
+</xsd:schema>\u000d
+</types>\u000d
+<message name="chargeableItemChargeMassRequest">\u000d
+<part element="schema:chargeableItemChargeMassRequest" name="request"> </part>\u000d
+</message>\u000d
+<message name="chargeableItemCheckChargeMassRequest">\u000d
+<part element="schema:chargeableItemCheckChargeMassRequest" name="request"> </part>\u000d
+</message>\u000d
+<message name="chargeableItemChargeBundleResponse">\u000d
+<part element="schema:chargeableItemChargeBundleResponse" name="response"> </part>\u000d
+</message>\u000d
+<message name="chargeableItemChargeResponse">\u000d
+<part element="schema:chargeableItemChargeResponse" name="response"> </part>\u000d
+</message>\u000d
+<message name="chargeableItemCheckChargeResponse">\u000d
+<part element="schema:chargeableItemCheckChargeResponse" name="response"> </part>\u000d
+</message>\u000d
+<message name="chargeableItemChargeMassResponse">\u000d
+<part element="schema:chargeableItemChargeMassResponse" name="response"> </part>\u000d
+</message>\u000d
+<message name="chargeableItemChargeRequest">\u000d
+<part element="schema:chargeableItemChargeRequest" name="request"> </part>\u000d
+</message>\u000d
+<message name="chargeableItemChargeBundleRequest">\u000d
+<part element="schema:chargeableItemChargeBundleRequest" name="request"> </part>\u000d
+</message>\u000d
+<message name="chargeableItemCheckChargeMassResponse">\u000d
+<part element="schema:chargeableItemCheckChargeMassResponse" name="response"> </part>\u000d
+</message>\u000d
+<message name="chargeableItemCheckChargeRequest">\u000d
+<part element="schema:chargeableItemCheckChargeRequest" name="request"> </part>\u000d
+</message>\u000d
+<portType name="ChargeableItemChargingServices">\u000d
+<operation name="chargeableItemCharge">\u000d
+<input message="tns:chargeableItemChargeRequest"> </input>\u000d
+<output message="tns:chargeableItemChargeResponse"> </output>\u000d
+</operation>\u000d
+<operation name="chargeableItemChargeMass">\u000d
+<input message="tns:chargeableItemChargeMassRequest"> </input>\u000d
+<output message="tns:chargeableItemChargeMassResponse"> </output>\u000d
+</operation>\u000d
+<operation name="chargeableItemChargeBundle">\u000d
+<input message="tns:chargeableItemChargeBundleRequest"> </input>\u000d
+<output message="tns:chargeableItemChargeBundleResponse"> </output>\u000d
+</operation>\u000d
+<operation name="chargeableItemCheckCharge">\u000d
+<input message="tns:chargeableItemCheckChargeRequest"> </input>\u000d
+<output message="tns:chargeableItemCheckChargeResponse"> </output>\u000d
+</operation>\u000d
+<operation name="chargeableItemCheckChargeMass">\u000d
+<input message="tns:chargeableItemCheckChargeMassRequest"> </input>\u000d
+<output message="tns:chargeableItemCheckChargeMassResponse"> </output>\u000d
+</operation>\u000d
+</portType>\u000d
+<binding name="ChargeableItemChargingServicesPortBinding" type="tns:ChargeableItemChargingServices">\u000d
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>\u000d
+<operation name="chargeableItemCharge">\u000d
+<soap:operation soapAction="chargeableItemCharge"/>\u000d
+<input>\u000d
+<soap:body use="literal"/>\u000d
+</input>\u000d
+<output>\u000d
+<soap:body use="literal"/>\u000d
+</output>\u000d
+</operation>\u000d
+<operation name="chargeableItemChargeMass">\u000d
+<soap:operation soapAction="chargeableItemChargeMass"/>\u000d
+<input>\u000d
+<soap:body use="literal"/>\u000d
+</input>\u000d
+<output>\u000d
+<soap:body use="literal"/>\u000d
+</output>\u000d
+</operation>\u000d
+<operation name="chargeableItemChargeBundle">\u000d
+<soap:operation soapAction="chargeableItemChargeBundle"/>\u000d
+<input>\u000d
+<soap:body use="literal"/>\u000d
+</input>\u000d
+<output>\u000d
+<soap:body use="literal"/>\u000d
+</output>\u000d
+</operation>\u000d
+<operation name="chargeableItemCheckCharge">\u000d
+<soap:operation soapAction="chargeableItemCheckCharge"/>\u000d
+<input>\u000d
+<soap:body use="literal"/>\u000d
+</input>\u000d
+<output>\u000d
+<soap:body use="literal"/>\u000d
+</output>\u000d
+</operation>\u000d
+<operation name="chargeableItemCheckChargeMass">\u000d
+<soap:operation soapAction="chargeableItemCheckChargeMass"/>\u000d
+<input>\u000d
+<soap:body use="literal"/>\u000d
+</input>\u000d
+<output>\u000d
+<soap:body use="literal"/>\u000d
+</output>\u000d
+</operation>\u000d
+</binding>\u000d
+<service name="chargeableItemCharging">\u000d
+<port binding="tns:ChargeableItemChargingServicesPortBinding" name="chargeableItemChargingPort">\u000d
+<soap:address location="http://cc2020:9180/chargeableItemCharging"/>\u000d
+</port>\u000d
+</service>\u000d
+</definitions>]]></string>
+         <string name="wsdlFileName" value="chargingUDR.wsdl"/>
+         <string name="wsdl_file"><![CDATA[C:\Users\ACIPLE1220\Desktop\Acuiti\Acuiti_Port\WSDL]]></string>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="CM_AcuitiPort"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="MZ1655278057874"/>
+      <string name="Modified By" value="mzadmin"/>
+      <long name="Modified Date" value="1739959455675"/>
+      <string name="Name" value="PRF_WS_CheckCharge"/>
+      <string name="Owner" value="mzadmin"/>
+      <string name="Type" value="WS Profile"/>
+      <int name="Version" value="2"/>
+      <string name="documentation" value=""/>
+   </storable>
+</webservices_profile>

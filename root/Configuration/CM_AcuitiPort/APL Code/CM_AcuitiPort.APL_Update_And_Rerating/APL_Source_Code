@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="APL_Source_Code" ref_path="apl_script[Internal]/storable[apl_script]/storable[Data]">
+   <string name="Definition"><![CDATA[import ultra.CM_AcuitiPort.ULF_AcuitiPort;
+//import ultra.CM_AcuitiPort.ULF_Update_Rerating;
+
+containerFileDataTI createContainerDBEntry(containerFileDataTI containerFileOutUdr)
+{
+    containerFileDataTI containerFileOLDUdr;// = udrCreate(containerFileDataTI);
+    string query= "SELECT * FROM \"ACUITIPORT\".\"TB_CONTAINER_INPUT\" WHERE \"EVENT_GKEY\"= \'"+ containerFileOutUdr.contFileDataUdr.EVENT_GKEY +"'";
+    table createTable = tableCreate("CM_AcuitiPort.PRF_Database_Profile_PS4",query);
+	int iRowCntLine;
+	iRowCntLine = tableRowCount(createTable);
+    if(iRowCntLine == 1)
+    {  
+        containerFileDataTI invoiceUDR = mapToContainerInternalUDR(createTable,0);
+        containerFileOLDUdr = invoiceUDR;
+        string updatedTime;
+        dateToString(updatedTime,dateCreateNow());
+        string sql ="UPDATE \"ACUITIPORT\".\"TB_CONTAINER_INPUT\" SET \"UPD_PROC_STATUS\" = \'RECIEVED\' ,\"EVENT_OPERATION\" = \'U\',\"UPDATED_TIME\" = \'"+ updatedTime +"' WHERE \"EVENT_GKEY\"= \'"+ containerFileOutUdr.contFileDataUdr.EVENT_GKEY +"'";
+        debug("THE QUERY IS::" +sql);
+        sqlExec("CM_AcuitiPort.PRF_Database_Profile_PS4",sql);     
+    }
+    else
+    {
+        string createdTime;
+        dateToString(createdTime,dateCreateNow());
+        string Sql ="INSERT INTO \"ACUITIPORT\".\"TB_CONTAINER_INPUT\"(\"AGENT1\",\"BILL_LADING\",\"BOOKING_NUMBER\",\"CATEGORY\",\"CONSIGNEE_ID\",\"CONTAINER_ID\",\"CSTMDCDAT\",\"CSTMDECNO\",\"EQUIPTYPE\",\"EVENT_GKEY\",\"EVENT_NAME\",\"FREIGHT_KIND\",\"GROSS_TON\",\"IBVISIT_ID\",\"ISO_GROUP\",\"ISO_LENGTH\",\"IS_IMDG\",\"IMDGCLASS\",\"IS_OOG\",\"LAST_PORT\",\"LINE_ID\",\"OBVISIT_ID\",\"SHIPPER_ID\",\"SPCL_STOW\",\"SUBCON_ID\",\"TERMINALID\",\"UNIT_GKEY\",\"VESSEL_ID\",\"VESSEL_LENGTH\",\"VES_LINE\",\"VESSEL_NAME\",\"VES_SER\",\"VESSEL_TYPE\",\"VISIT_ID\",\"WORK_ENDTIME\",\"WORK_STARTTIME\",\"TIME_IN\",\"TIME_OUT\",\"SHIPARR_DATETIME\",\"SHIPDEP_DATETIME\",\"EVENT_STARTDTTM\",\"EVENT_ENDDTTM\",\"IBCARRIER_TYPE\",\"OBCARRIER_TYPE\",\"QUANTITY\",\"QUANTITY_UNIT\",\"DELIVERY_DTTM\",\"IS_REEFER\",\"EVENT_STATUS\",\"UPD_PROC_STATUS\",\"EVENT_OPERATION\",\"CREATED_BY\",\"CREATED_TIME\",\"UPDATED_BY\",\"UPDATED_TIME\") VALUES('" + containerFileOutUdr.contFileDataUdr.AGENT1 +"','" + containerFileOutUdr.contFileDataUdr.BILL_LADING + "','" + containerFileOutUdr.contFileDataUdr.BOOKING_NUMBER + "','" + containerFileOutUdr.contFileDataUdr.CATEGORY + "','" + containerFileOutUdr.contFileDataUdr.CONSIGNEE_ID + "','" + containerFileOutUdr.contFileDataUdr.CONTAINER_ID + "','" + containerFileOutUdr.contFileDataUdr.CSTMDCDAT + "','" + containerFileOutUdr.contFileDataUdr.CSTMDECNO + "','" + containerFileOutUdr.contFileDataUdr.EQUIPTYPE + "','" + containerFileOutUdr.contFileDataUdr.EVENT_GKEY + "','" + containerFileOutUdr.contFileDataUdr.EVENT_NAME + "','" + containerFileOutUdr.contFileDataUdr.FREIGHT_KIND + "','" + containerFileOutUdr.contFileDataUdr.GROSS_TON + "','" + containerFileOutUdr.contFileDataUdr.IBVISIT_ID + "','" + containerFileOutUdr.contFileDataUdr.ISO_GROUP + "','" + containerFileOutUdr.contFileDataUdr.ISO_LENGTH + "','" + containerFileOutUdr.contFileDataUdr.IS_IMDG + "','" + containerFileOutUdr.contFileDataUdr.IMDGCLASS + "','" + containerFileOutUdr.contFileDataUdr.IS_OOG + "','" + containerFileOutUdr.contFileDataUdr.LAST_PORT + "','" + containerFileOutUdr.contFileDataUdr.LINE_ID + "','" + containerFileOutUdr.contFileDataUdr.OBVISIT_ID + "','" + containerFileOutUdr.contFileDataUdr.SHIPPER_ID + "','" + containerFileOutUdr.contFileDataUdr.SPCL_STOW + "','" + containerFileOutUdr.contFileDataUdr.SUBCON_ID + "','" + containerFileOutUdr.contFileDataUdr.TERMINALID + "','" + containerFileOutUdr.contFileDataUdr.UNIT_GKEY + "','" + containerFileOutUdr.contFileDataUdr.VESSEL_ID + "','" + containerFileOutUdr.contFileDataUdr.VESSEL_LENGTH + "','" + containerFileOutUdr.contFileDataUdr.VES_LINE + "','" + containerFileOutUdr.contFileDataUdr.VESSEL_NAME + "','" + containerFileOutUdr.contFileDataUdr.VES_SER + "','" + containerFileOutUdr.contFileDataUdr.VESSEL_TYPE + "','" + containerFileOutUdr.contFileDataUdr.VISIT_ID + "','" + containerFileOutUdr.contFileDataUdr.WORK_ENDTIME + "','" + containerFileOutUdr.contFileDataUdr.WORK_STARTTIME + "','" + containerFileOutUdr.contFileDataUdr.TIME_IN + "','" + containerFileOutUdr.contFileDataUdr.TIME_OUT + "','" + containerFileOutUdr.contFileDataUdr.SHIPARR_DATETIME + "','" + containerFileOutUdr.contFileDataUdr.SHIPDEP_DATETIME + "','" + containerFileOutUdr.contFileDataUdr.EVENT_STARTDTTM + "','" + containerFileOutUdr.contFileDataUdr.EVENT_ENDDTTM + "','" + containerFileOutUdr.contFileDataUdr.IBCARRIER_TYPE + "','" + containerFileOutUdr.contFileDataUdr.OBCARRIER_TYPE + "','" + containerFileOutUdr.contFileDataUdr.QUANTITY + "','" + containerFileOutUdr.contFileDataUdr.QUANTITY_UNIT + "','" + containerFileOutUdr.contFileDataUdr.DELIVERY_DTTM + "','" + containerFileOutUdr.contFileDataUdr.IS_REEFER + "','QUEUED','PENDING','C','MZ_USER','" + createdTime + "','MZ_USER','-')";
+        debug("THE QUERY IS::" +Sql);
+        sqlExec("CM_AcuitiPort.PRF_Database_Profile_PS4",Sql);
+    }
+    
+    return containerFileOLDUdr;
+}
+
+containerFileDataTI mapToContainerInternalUDR(table fromSharedTable,int j) // UDR CREATION TO READ THE ROWS OF THE GERNERATED TABLE WITH THE HELP OF QUERY
+{
+    containerFileDataTI contDataUdr = udrCreate(containerFileDataTI);
+    containerFileData tableRecUdr = udrCreate(containerFileData);
+    contDataUdr.contFileDataUdr = tableRecUdr;
+    debug("The value of tableRecUdr = " + (tableRecUdr));
+    tableRecUdr.AGENT1 = (string) tableGet(fromSharedTable, j, 1);
+	tableRecUdr.BILL_LADING = (string) tableGet(fromSharedTable, j, 2);
+    tableRecUdr.BOOKING_NUMBER = (string) tableGet(fromSharedTable, j, 3);
+    tableRecUdr.CATEGORY = (string) tableGet(fromSharedTable, j, 4);
+    tableRecUdr.CONSIGNEE_ID = (string) tableGet(fromSharedTable, j, 5);
+    tableRecUdr.CONTAINER_ID = (string) tableGet(fromSharedTable, j, 6);
+    tableRecUdr.CSTMDCDAT = (string) tableGet(fromSharedTable, j, 7);
+    tableRecUdr.CSTMDECNO = (string) tableGet(fromSharedTable, j, 8);
+    tableRecUdr.EQUIPTYPE = (string) tableGet(fromSharedTable, j, 9);
+    tableRecUdr.EVENT_GKEY = (string) tableGet(fromSharedTable, j, 10);
+    tableRecUdr.EVENT_NAME = (string) tableGet(fromSharedTable, j, 11);
+    tableRecUdr.FREIGHT_KIND = (string) tableGet(fromSharedTable, j, 12);
+    tableRecUdr.GROSS_TON = (string) tableGet(fromSharedTable, j, 13);
+    tableRecUdr.IBVISIT_ID = (string) tableGet(fromSharedTable, j, 14);
+    tableRecUdr.ISO_GROUP = (string) tableGet(fromSharedTable, j, 15);
+    tableRecUdr.ISO_LENGTH = (string) tableGet(fromSharedTable, j, 16);
+    tableRecUdr.IS_IMDG = (string) tableGet(fromSharedTable, j, 17);
+    tableRecUdr.IMDGCLASS = (string) tableGet(fromSharedTable, j, 18);
+    tableRecUdr.IS_OOG = (string) tableGet(fromSharedTable, j, 19);
+    tableRecUdr.LAST_PORT = (string) tableGet(fromSharedTable, j, 20);
+    tableRecUdr.LINE_ID = (string) tableGet(fromSharedTable, j, 21);
+    tableRecUdr.OBVISIT_ID = (string) tableGet(fromSharedTable, j, 22);
+    tableRecUdr.SHIPPER_ID = (string) tableGet(fromSharedTable, j, 23);
+    tableRecUdr.SPCL_STOW = (string) tableGet(fromSharedTable, j, 24);
+    tableRecUdr.SUBCON_ID = (string) tableGet(fromSharedTable, j, 25);
+    tableRecUdr.TERMINALID = (string) tableGet(fromSharedTable, j, 26);
+    tableRecUdr.UNIT_GKEY = (string) tableGet(fromSharedTable, j, 27);
+    tableRecUdr.VESSEL_ID = (string) tableGet(fromSharedTable, j, 28);
+    tableRecUdr.VESSEL_LENGTH = (string) tableGet(fromSharedTable, j, 29);
+    tableRecUdr.VES_LINE = (string) tableGet(fromSharedTable, j, 30);
+    tableRecUdr.VESSEL_NAME = (string) tableGet(fromSharedTable, j, 31);
+    tableRecUdr.VES_SER = (string) tableGet(fromSharedTable, j, 32);
+    tableRecUdr.VESSEL_TYPE = (string) tableGet(fromSharedTable, j, 33);
+    tableRecUdr.VISIT_ID = (string) tableGet(fromSharedTable, j, 34);
+    tableRecUdr.WORK_ENDTIME = (string) tableGet(fromSharedTable, j, 35);
+    tableRecUdr.WORK_STARTTIME = (string) tableGet(fromSharedTable, j, 36);
+    tableRecUdr.TIME_IN = (string) tableGet(fromSharedTable, j, 37);
+    tableRecUdr.TIME_OUT = (string) tableGet(fromSharedTable, j, 38);
+    tableRecUdr.SHIPARR_DATETIME = (string) tableGet(fromSharedTable, j, 39);
+    tableRecUdr.SHIPDEP_DATETIME = (string) tableGet(fromSharedTable, j, 40);
+    tableRecUdr.EVENT_STARTDTTM = (string) tableGet(fromSharedTable, j, 41);
+    tableRecUdr.EVENT_ENDDTTM = (string) tableGet(fromSharedTable, j, 42);
+    tableRecUdr.IBCARRIER_TYPE = (string) tableGet(fromSharedTable, j, 43);
+    tableRecUdr.OBCARRIER_TYPE = (string) tableGet(fromSharedTable, j, 44);
+    tableRecUdr.QUANTITY = (int) tableGet(fromSharedTable, j, 45);
+    tableRecUdr.QUANTITY_UNIT = (string) tableGet(fromSharedTable, j, 46);
+    tableRecUdr.DELIVERY_DTTM = (string) tableGet(fromSharedTable, j, 47);
+    tableRecUdr.IS_REEFER = (string) tableGet(fromSharedTable, j, 48);
+    return contDataUdr;
+};
+
+vesselStatusDataTI createVesselStatusDBEntry(vesselStatusDataTI vesselStatusFileOutUdr)
+{
+    vesselStatusDataTI vesselStatusOLDUdr;// = udrCreate(vesselStatusDataTI);
+    string eventGkey;
+    if(vesselStatusFileOutUdr.vessStatusDataUdr.PHASE == "DEPARTED")
+    {
+        eventGkey = "D"+vesselStatusFileOutUdr.vessStatusDataUdr.VESSELVISIT_ID;
+    }
+    else
+    {
+        eventGkey = "A"+vesselStatusFileOutUdr.vessStatusDataUdr.VESSELVISIT_ID;
+    }
+    string query= "SELECT * FROM \"ACUITIPORT\".\"TB_VESSEL_STATUS_INPUT\" WHERE \"EVENT_GKEY\"= \'"+ eventGkey +"'";
+    table createTable = tableCreate("CM_AcuitiPort.PRF_Database_Profile_PS4",query);
+	int iRowCntLine;
+	iRowCntLine = tableRowCount(createTable);
+    if(iRowCntLine == 1)
+    {
+        vesselStatusDataTI invoiceUDR = mapToVesselStatusInternalUDR(createTable,0);
+        vesselStatusOLDUdr = invoiceUDR;
+        string updatedTime;
+        dateToString(updatedTime,dateCreateNow());
+        string sql ="UPDATE \"ACUITIPORT\".\"TB_VESSEL_STATUS_INPUT\" SET \"UPD_PROC_STATUS\" = \'RECIEVED\' ,\"EVENT_OPERATION\" = \'U\',\"UPDATED_TIME\" = \'"+ updatedTime +"' where \"VESSELVISIT_ID\"= \'"+ vesselStatusFileOutUdr.vessStatusDataUdr.VESSELVISIT_ID +"'";
+        debug("THE QUERY IS::" +sql);
+        sqlExec("CM_AcuitiPort.PRF_Database_Profile_PS4",sql);    
+    }
+    else
+    {
+         string createdTime;
+         dateToString(createdTime,dateCreateNow());
+         string Sql ="INSERT INTO \"ACUITIPORT\".\"TB_VESSEL_STATUS_INPUT\"(\"VESSELVISIT_ID\",\"SHIPARR_DATETIME\",\"SHIPDEP_DATETIME\",\"WORK_STRTDTTM\",\"WORK_ENDDTTM\",\"PHASE\",\"GROSS_TON\",\"VESSEL_LINE\",\"VESSEL_ID\",\"VESSEL_NAME\",\"VESSEL_TYPE\",\"VESSEL_SERVICE\",\"LAST_PORT\",\"VESSEL_LENGTH\",\"TERMINAL_ID\",\"IBCARRIER_TYPE\",\"OBCARRIER_TYPE\",\"EVENT_GKEY\",\"EVENT_STATUS\",\"UPD_PROC_STATUS\",\"EVENT_OPERATION\",\"CREATED_BY\",\"CREATED_TIME\",\"UPDATED_BY\",\"UPDATED_TIME\") VALUES('" + vesselStatusFileOutUdr.vessStatusDataUdr.VESSELVISIT_ID +"','" + vesselStatusFileOutUdr.vessStatusDataUdr.SHIPARR_DATETIME + "','" + vesselStatusFileOutUdr.vessStatusDataUdr.SHIPDEP_DATETIME + "','" + vesselStatusFileOutUdr.vessStatusDataUdr.WORK_STRTDTTM + "','" + vesselStatusFileOutUdr.vessStatusDataUdr.WORK_ENDDTTM + "','" + vesselStatusFileOutUdr.vessStatusDataUdr.PHASE + "','" + vesselStatusFileOutUdr.vessStatusDataUdr.GROSS_TON + "','" + vesselStatusFileOutUdr.vessStatusDataUdr.VESSEL_LINE + "','" + vesselStatusFileOutUdr.vessStatusDataUdr.VESSEL_ID + "','" + vesselStatusFileOutUdr.vessStatusDataUdr.VESSEL_NAME + "','" + vesselStatusFileOutUdr.vessStatusDataUdr.VESSEL_TYPE + "','" + vesselStatusFileOutUdr.vessStatusDataUdr.VESSEL_SERVICE + "','" + vesselStatusFileOutUdr.vessStatusDataUdr.LAST_PORT + "','" + vesselStatusFileOutUdr.vessStatusDataUdr.VESSEL_LENGTH + "','" + vesselStatusFileOutUdr.vessStatusDataUdr.TERMINAL_ID + "','" + vesselStatusFileOutUdr.vessStatusDataUdr.IBCARRIER_TYPE + "','" + vesselStatusFileOutUdr.vessStatusDataUdr.OBCARRIER_TYPE + "','" + eventGkey + "','QUEUED','PENDING','C','MZ_USER','" + createdTime + "','MZ_USER','-')";
+         debug("THE QUERY IS::" +Sql);
+         sqlExec("CM_AcuitiPort.PRF_Database_Profile_PS4",Sql);
+    }
+    return vesselStatusOLDUdr;
+    
+};
+vesselServiceDataTI createVesselServiceDBEntry(vesselServiceDataTI vesselServiceFileOutUdr)
+{
+    vesselServiceDataTI vesselServiceFileOLDUdr;// = udrCreate(vesselServiceDataTI);
+    string query= "SELECT * FROM \"ACUITIPORT\".\"TB_VESSEL_SERVICES_INPUT\" WHERE \"EVENT_GKEY\"= \'"+ vesselServiceFileOutUdr.vessServiceDataUdr.EVENT_GKEY +"'";
+    table createTable = tableCreate("CM_AcuitiPort.PRF_Database_Profile_PS4",query);
+	int iRowCntLine;
+	iRowCntLine = tableRowCount(createTable);
+    if(iRowCntLine == 1)
+    {
+         vesselServiceDataTI invoiceUDR = mapToVesselServiceInternalUDR(createTable,0);
+         vesselServiceFileOLDUdr = invoiceUDR;
+         string updatedTime;
+         dateToString(updatedTime,dateCreateNow());
+         string sql ="UPDATE \"ACUITIPORT\".\"TB_VESSEL_SERVICES_INPUT\" SET \"UPD_PROC_STATUS\" = \'RECIEVED\' ,\"EVENT_OPERATION\" = \'U\',\"UPDATED_TIME\" = \'"+ updatedTime +"' where \"EVENT_GKEY\"= \'"+ vesselServiceFileOutUdr.vessServiceDataUdr.EVENT_GKEY +"'";
+         debug("THE QUERY IS::" +sql);
+         sqlExec("CM_AcuitiPort.PRF_Database_Profile_PS4",sql);   
+     }
+    else
+    {
+         string createdTime;
+         dateToString(createdTime,dateCreateNow());
+         string Sql ="INSERT INTO \"ACUITIPORT\".\"TB_VESSEL_SERVICES_INPUT\"(\"EVENT_GKEY\",\"EVENT_NAME\",\"LINE_ID\",\"QUANTITY\",\"QUANTITY_UNIT\",\"SHIPARR_DATETIME\",\"VESSEL_ID\",\"VESSEL_NAME\",\"VESSEL_LINE\",\"SUB_CON_ID\",\"EVENT_STARTDTTM\",\"VESSELVISIT_ID\",\"SHIPDEP_DATETIME\",\"WORK_STRTDTTM\",\"WORK_ENDDTTM\",\"GROSS_TON\",\"VESSEL_TYPE\",\"VESSEL_SERVICE\",\"LAST_PORT\",\"VESSEL_LENGTH\",\"IBCARRIER_TYPE\",\"OBCARRIER_TYPE\",\"TERMINAL_ID\",\"EVENT_STATUS\",\"UPD_PROC_STATUS\",\"EVENT_OPERATION\",\"CREATED_BY\",\"CREATED_TIME\",\"UPDATED_BY\",\"UPDATED_TIME\") VALUES('" + vesselServiceFileOutUdr.vessServiceDataUdr.EVENT_GKEY +"','" + vesselServiceFileOutUdr.vessServiceDataUdr.EVENT_NAME + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.LINE_ID + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.QUANTITY + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.QUANTITY_UNIT + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.SHIPARR_DATETIME + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.VESSEL_ID + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.VESSEL_NAME + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.VESSEL_LINE + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.SUB_CON_ID + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.EVENT_STARTDTTM + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.VESSELVISIT_ID + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.SHIPDEP_DATETIME + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.WORK_STRTDTTM + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.WORK_ENDDTTM + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.GROSS_TON + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.VESSEL_TYPE + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.VESSEL_SERVICE + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.LAST_PORT + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.VESSEL_LENGTH + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.IBCARRIER_TYPE + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.OBCARRIER_TYPE + "','" + vesselServiceFileOutUdr.vessServiceDataUdr.TERMINAL_ID + "','QUEUED','PENDING','C','MZ_USER','" + createdTime + "','MZ_USER','-')";
+         debug("THE QUERY IS::" +Sql);
+         sqlExec("CM_AcuitiPort.PRF_Database_Profile_PS4",Sql);
+    }
+    return vesselServiceFileOLDUdr;
+};
+vesselStatusDataTI mapToVesselStatusInternalUDR(table fromSharedTable,int j) // UDR CREATION TO READ THE ROWS OF THE GERNERATED TABLE WITH THE HELP OF QUERY
+{
+    vesselStatusDataTI VesStatusDataUdr = udrCreate(vesselStatusDataTI);
+    vesselStatusData tableRecUdr = udrCreate(vesselStatusData);
+    VesStatusDataUdr.vessStatusDataUdr = tableRecUdr;
+    debug("The value of tableRecUdr = " + (tableRecUdr));
+    tableRecUdr.VESSELVISIT_ID = (string) tableGet(fromSharedTable, j, 1);
+	tableRecUdr.SHIPARR_DATETIME = (string) tableGet(fromSharedTable, j, 2);
+    tableRecUdr.SHIPDEP_DATETIME = (string) tableGet(fromSharedTable, j, 3);
+    tableRecUdr.WORK_STRTDTTM = (string) tableGet(fromSharedTable, j, 4);
+    tableRecUdr.WORK_ENDDTTM = (string) tableGet(fromSharedTable, j, 5);
+    tableRecUdr.PHASE = (string) tableGet(fromSharedTable, j, 6);
+    tableRecUdr.GROSS_TON = (float) tableGet(fromSharedTable, j, 7);
+    tableRecUdr.VESSEL_LINE = (string) tableGet(fromSharedTable, j, 8);
+    tableRecUdr.VESSEL_ID = (string) tableGet(fromSharedTable, j, 9);
+    tableRecUdr.VESSEL_NAME = (string) tableGet(fromSharedTable, j, 10);
+    tableRecUdr.VESSEL_TYPE = (string) tableGet(fromSharedTable, j, 11);
+    tableRecUdr.VESSEL_SERVICE = (string) tableGet(fromSharedTable, j, 12);
+    tableRecUdr.LAST_PORT = (string) tableGet(fromSharedTable, j, 13);
+    tableRecUdr.VESSEL_LENGTH = (string) tableGet(fromSharedTable, j, 14);
+    tableRecUdr.TERMINAL_ID = (string) tableGet(fromSharedTable, j, 15);
+    tableRecUdr.IBCARRIER_TYPE = (string) tableGet(fromSharedTable, j, 16);
+    tableRecUdr.OBCARRIER_TYPE = (string) tableGet(fromSharedTable, j, 17);
+    //tableRecUdr.TERMINAL_ID = (string) tableGet(fromSharedTable, j, 17);
+    return VesStatusDataUdr;
+};
+vesselServiceDataTI mapToVesselServiceInternalUDR(table fromSharedTable,int j) // UDR CREATION TO READ THE ROWS OF THE GERNERATED TABLE WITH THE HELP OF QUERY
+{
+    vesselServiceDataTI VesServDataUdr = udrCreate(vesselServiceDataTI);
+    vesselServiceData tableRecUdr = udrCreate(vesselServiceData);
+    VesServDataUdr.vessServiceDataUdr = tableRecUdr;
+    debug("The value of tableRecUdr = " + (tableRecUdr));
+    tableRecUdr.EVENT_GKEY = (string) tableGet(fromSharedTable, j, 1);
+	tableRecUdr.EVENT_NAME = (string) tableGet(fromSharedTable, j, 2);
+    tableRecUdr.LINE_ID = (string) tableGet(fromSharedTable, j, 3);
+    tableRecUdr.QUANTITY = (int)tableGet(fromSharedTable, j, 4);
+    tableRecUdr.QUANTITY_UNIT = (string) tableGet(fromSharedTable, j, 5);
+    tableRecUdr.SHIPARR_DATETIME = (string) tableGet(fromSharedTable, j, 6);
+    tableRecUdr.VESSEL_ID = (string) tableGet(fromSharedTable, j, 7);
+    tableRecUdr.VESSEL_NAME = (string) tableGet(fromSharedTable, j, 8);
+    tableRecUdr.VESSEL_LINE = (string) tableGet(fromSharedTable, j, 9);
+    tableRecUdr.SUB_CON_ID = (string) tableGet(fromSharedTable, j, 10);
+    tableRecUdr.EVENT_STARTDTTM = (string) tableGet(fromSharedTable, j, 11);
+    tableRecUdr.VESSELVISIT_ID = (string) tableGet(fromSharedTable, j, 12);
+    tableRecUdr.SHIPDEP_DATETIME = (string) tableGet(fromSharedTable, j, 13);
+    tableRecUdr.WORK_STRTDTTM = (string) tableGet(fromSharedTable, j, 14);
+    tableRecUdr.WORK_ENDDTTM = (string) tableGet(fromSharedTable, j, 15);
+    tableRecUdr.GROSS_TON = (float) tableGet(fromSharedTable, j, 16);
+    tableRecUdr.VESSEL_TYPE = (string) tableGet(fromSharedTable, j, 17);
+    tableRecUdr.VESSEL_SERVICE = (string) tableGet(fromSharedTable, j, 18);
+    tableRecUdr.LAST_PORT = (string) tableGet(fromSharedTable, j, 19);
+    tableRecUdr.VESSEL_LENGTH = (string) tableGet(fromSharedTable, j, 20);
+    tableRecUdr.IBCARRIER_TYPE = (string) tableGet(fromSharedTable, j, 21);
+    tableRecUdr.OBCARRIER_TYPE = (string) tableGet(fromSharedTable, j, 22);
+    tableRecUdr.TERMINAL_ID = (string) tableGet(fromSharedTable, j, 23);
+    return VesServDataUdr;
+};]]></string>
+</exportmultiplex>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Template" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <list classname="java.util.ArrayList" name="Comments"/>
+   <storable name="Execution Config" storable-id="dr.WorkflowExecutionConfig" ver="10.0">
+      <enum name="debugType" storable-id="dr.DebugType" value="EVENT"/>
+      <storable name="executionSettings" storable-id="dr.ExecutionSettings" ver="10.0">
+         <storable name="autostart" storable-id="dr.AutoStartSettings" ver="1.0">
+            <enum classname="com.digitalroute.wf.AutoStartSettings$AbortBehaviour" name="abort behaviour" value="ABORT"/>
+            <boolean name="enabled" value="false"/>
+            <int name="instances" value="0"/>
+         </storable>
+         <enum name="dist" storable-id="dr.WorkflowDistType" value="ROUND_ROBIN"/>
+         <boolean name="enabled" value="true"/>
+         <list classname="java.util.LinkedList" name="groupList">
+            <storable name="0" storable-id="dr.PicoGroupEntity" ver="2.0">
+               <string name="GroupName" value="ec1"/>
+               <int name="PicoType" value="2"/>
+            </storable>
+         </list>
+      </storable>
+      <int name="noOfFilesToKeep" value="0"/>
+      <string name="throughputMIM" null="true"/>
+      <string name="txnHandler" value="Default Handler"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Field Types"/>
+   <list classname="java.util.ArrayList" name="Logged error MIM"/>
+   <list classname="java.util.ArrayList" name="Nodes">
+      <storable name="0" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.mz.pulse.agent.PulseCollectorAgentInspRT]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.mz.pulse.agent.PulseCollectorAgentInspRT]]></string>
+               <storable name="Data" storable-id="dr.PulseData" ver="10.0">
+                  <double name="center" value="1.0"/>
+                  <string name="data" value=""/>
+                  <boolean name="dataEntered" value="true"/>
+                  <boolean name="dataRandomData" value="false"/>
+                  <boolean name="dataRandomOrderSeq" value="false"/>
+                  <int name="dataRangeEnd" value="10"/>
+                  <int name="dataRangeStart" value="0"/>
+                  <boolean name="dataSequentialOrder" value="true"/>
+                  <boolean name="dataSequentialRange" value="false"/>
+                  <int name="dataSize" value="1"/>
+                  <enum name="dataUnit" storable-id="dr.PulseDataSizeUnit" value="Bytes"/>
+                  <long name="intervalFixed" value="1"/>
+                  <string name="intervalType" value="Fixed"/>
+                  <double name="poissonRate" value="1.0"/>
+                  <long name="rate" value="1"/>
+                  <long name="start" value="1"/>
+                  <long name="stop" value="10"/>
+                  <enum name="unit" storable-id="dr.PulseTimeUnit" value="MINUTES"/>
+                  <double name="width" value="1.0"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Pulse_1"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[consume {
+    
+    if(instanceOf(input, PulseUDR)){
+       
+     string val = "DR_DEFAULT_KEY-90D9B0418A6A795A443C32401BFD2CF6";
+    debug("the val is: " +decryptMZEncryptedString(val));
+   /* long val1 =  dateCreateNowMilliseconds();
+    date val12 = dateCreateFromMilliseconds(val1);
+    debug("The value of date in system = " + (val12));
+    string ex ;
+    dateToString(ex,val12);
+    int days = 10;
+    date val3;
+    val3 = dateCreateFromMilliseconds(0);
+    string ex1;
+    dateToString(ex1, val3);
+    debug("The value of first date = " + (val3));
+
+    string val4 = strSubstring(ex, 11, 19);
+    
+    debug("The value of val4 = " + (val4));
+    string val5 = strSubstring(ex1, 0, 11);
+    
+    debug("The value of val5 = " + (val5));
+    
+    string val6  = val5 + val4; 
+    debug("The value of val6 = " + (val6));
+    strToDate(val3, val6);
+    debug("The value of val3 = " + (val3));
+    dateAddDays(val3, days);
+    debug("The value of val3 = " + (val3));
+    
+    */
+    
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="1">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="PulseUDR"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_1"/>
+      </storable>
+   </list>
+   <storable name="Persistent" storable-id="dr.WorkflowPersistentConfig" ver="10.0">
+      <string name="persistentInspector" null="true"/>
+      <storable name="persistentStorageConfig" null="true"/>
+      <string name="persistentTimeoutHandler" null="true"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Routes">
+      <storable name="0" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="r_1"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Service"/>
+   <boolean name="Template Valid" value="true"/>
+   <storable name="Thread data" storable-id="dr.WorkflowExecutionRealtimeConfig" ver="10.0">
+      <int name="countInterval" value="1"/>
+      <int name="queueSize" value="1000"/>
+      <string name="queueStrategy" value="Blocking queue"/>
+      <string name="queueWorkerStrategy" value="RoundRobin"/>
+      <boolean name="standalone" value="false"/>
+      <int name="threads" value="8"/>
+   </storable>
+</exportmultiplex>

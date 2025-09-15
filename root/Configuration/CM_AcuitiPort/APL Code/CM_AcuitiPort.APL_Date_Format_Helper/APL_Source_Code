@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="APL_Source_Code" ref_path="apl_script[Internal]/storable[apl_script]/storable[Data]">
+   <string name="Definition"><![CDATA[final string NULL_VALUE = null;
+
+date convertDataFormat_V1(string sInDate){
+	date dInDate = strToDateCheck(sInDate,"dd/MM/yyyy");
+	string sOutDate = dateToStringCheck(dInDate,"yyyy-MM-dd'T'HH:mm:ss");
+	date dOutDate = strToDateCheck(sOutDate,"yyyy-MM-dd'T'HH:mm:ss");
+	return dOutDate;
+}
+
+date convertDataFormat_V2(string sInDate){
+	date dInDate = strToDateCheck(sInDate, "yyyy-MM-dd");
+    string sOutDate = dateToStringCheck(dInDate, "yyy-MM-dd'T'HH:mm:ss+SS:SS");
+    date dOutDate = strToDateCheck(sOutDate, "yyy-MM-dd'T'HH:mm:ss+SS:SS");
+    debug("Input date : "+sInDate+ " Converted date "+dOutDate);
+	return dOutDate;
+}
+
+date convertDataFormat_V3(string sInDate){
+	date dInDate = strToDateCheck(sInDate,"yyyyMMdd");
+	string sOutDate = dateToStringCheck(dInDate,"yyyy-MM-dd'T'HH:mm:ss");
+	date dOutDate = strToDateCheck(sOutDate,"yyyy-MM-dd'T'HH:mm:ss");
+	return dOutDate;
+}
+
+date convertDataFormat_V6(string sInDate){
+	date dInDate = strToDateCheck(sInDate,"yyyyMMdd");
+	string sOutDate = dateToStringCheck(dInDate,"dd.MM.yyyy");
+	date dOutDate = strToDateCheck(sOutDate,"dd.MM.yyyy");
+	return dOutDate;
+}
+
+date convertDataFormat_V4(string sInDate){
+	date dInDate = strToDateCheck(sInDate,"dd.MM.yyyy.HHmmss");
+	string sOutDate = dateToStringCheck(dInDate,"yyyy-MM-dd'T'HH:mm:ss");
+	date dOutDate = strToDateCheck(sOutDate,"yyyy-MM-dd'T'HH:mm:ss");
+	return dOutDate;
+}
+
+date convertDataFormat_V5(string sInDate){	
+	date dOutDate = strToDateCheck(sInDate,"yyyy-MM-dd'T'HH:mm:ss+SS:SS");
+	return dOutDate;
+}
+
+date convertTStoDate(string sInDate){
+	date dInDate = strToDateCheck(sInDate,"yyyy-MM-dd'T'HH:mm:ss+SS:SS");
+	string sOutDate = dateToStringCheck(dInDate,"yyyy-MM-dd");
+	date dOutDate = strToDateCheck(sOutDate,"yyyy-MM-dd");
+	return dOutDate;
+}
+
+date strToDateCheck(string inDate, string dateFormat){
+	date outDate;
+	if(inDate != NULL_VALUE){
+		if(!strToDate(outDate,inDate,dateFormat)){
+			debug("Valid input string format: " +inDate);
+         }
+	}
+	else{
+        debug("strToDateCheck :Input is null");
+	}
+	return outDate;
+}
+
+
+string dateToStringCheck(date dEndWOrk, string dateFormat){
+    string outString;
+    if(dEndWOrk != NULL_VALUE)
+    {
+        dateToString(outString,dEndWOrk,dateFormat);     
+    }    
+    return outString;
+}]]></string>
+</exportmultiplex>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Template" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <list classname="java.util.ArrayList" name="Comments"/>
+   <storable name="Execution Config" storable-id="dr.WorkflowExecutionConfig" ver="10.0">
+      <enum name="debugType" storable-id="dr.DebugType" value="EVENT"/>
+      <storable name="executionSettings" storable-id="dr.ExecutionSettings" ver="10.0">
+         <storable name="autostart" storable-id="dr.AutoStartSettings" ver="1.0">
+            <enum classname="com.digitalroute.wf.AutoStartSettings$AbortBehaviour" name="abort behaviour" value="ABORT"/>
+            <boolean name="enabled" value="false"/>
+            <int name="instances" value="0"/>
+         </storable>
+         <enum name="dist" storable-id="dr.WorkflowDistType" value="ROUND_ROBIN"/>
+         <boolean name="enabled" value="true"/>
+         <list classname="java.util.LinkedList" name="groupList">
+            <storable name="0" storable-id="dr.PicoGroupEntity" ver="2.0">
+               <string name="GroupName" value="ecsa1"/>
+               <int name="PicoType" value="2"/>
+            </storable>
+         </list>
+      </storable>
+      <int name="noOfFilesToKeep" value="0"/>
+      <string name="throughputMIM" null="true"/>
+      <string name="txnHandler" value="Default Handler"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Field Types"/>
+   <list classname="java.util.ArrayList" name="Logged error MIM"/>
+   <list classname="java.util.ArrayList" name="Nodes">
+      <storable name="0" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.mz.pulse.agent.PulseCollectorAgentInspRT]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.mz.pulse.agent.PulseCollectorAgentInspRT]]></string>
+               <storable name="Data" storable-id="dr.PulseData" ver="10.0">
+                  <double name="center" value="1.0"/>
+                  <string name="data" value=""/>
+                  <boolean name="dataEntered" value="true"/>
+                  <boolean name="dataRandomData" value="false"/>
+                  <boolean name="dataRandomOrderSeq" value="false"/>
+                  <int name="dataRangeEnd" value="10"/>
+                  <int name="dataRangeStart" value="0"/>
+                  <boolean name="dataSequentialOrder" value="true"/>
+                  <boolean name="dataSequentialRange" value="false"/>
+                  <int name="dataSize" value="1"/>
+                  <enum name="dataUnit" storable-id="dr.PulseDataSizeUnit" value="Bytes"/>
+                  <long name="intervalFixed" value="1"/>
+                  <string name="intervalType" value="Fixed"/>
+                  <double name="poissonRate" value="1.0"/>
+                  <long name="rate" value="1"/>
+                  <long name="start" value="1"/>
+                  <long name="stop" value="10"/>
+                  <enum name="unit" storable-id="dr.PulseTimeUnit" value="SECONDS"/>
+                  <double name="width" value="1.0"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Pulse_1"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.ws.CM_AcuitiAirPort_CAP.WS_BulkLoader.cycles;
+import ultra.ws.CM_AcuitiAirPort_CAP.WS_BulkLoader.schema;
+
+consume
+{
+     if(instanceOf(input,PulseUDR))
+    {
+        WSCycle_chargedItemLoad chargeLoad=udrCreate(WSCycle_chargedItemLoad);
+        ChargedItemLoadRequest itemLoad=udrCreate(ChargedItemLoadRequest);
+        chargeLoad.param=itemLoad;
+        udrRoute(chargeLoad);
+   
+    }
+    else
+    {
+        debug("Response from CC>>>"+input);  
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="2">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[ws.CM_AcuitiAirPort_CAP.WS_BulkLoader.cycles.AbstractRatingServicesWSCycle]]></string>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="PulseUDR"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_1"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.ws.WSForwarderInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.ws.WSForwarderInsp"/>
+               <storable name="Data" storable-id="dr.WSForwarderData" ver="11.0">
+                  <boolean name="cdataSupport" value="false"/>
+                  <boolean name="enableBasicAuthentication" value="true"/>
+                  <boolean name="enableRouteRawXML" value="false"/>
+                  <string name="httpAddress" value="http://172.16.16.37:9080/rating"/>
+                  <password name="httpPassword" value="DR-4-F35CF3D5EB78FFB4129FE4DBD96D9626"/>
+                  <string name="httpUsername" value="CC_Webservice"/>
+                  <storable name="profile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="CM_AcuitiAirPort_CAP"/>
+                     <string name="Key" value="MZ1708345240158"/>
+                     <string name="Name" value="WS_BulkLoader"/>
+                     <string name="Type" value="WS Profile"/>
+                  </storable>
+                  <string name="routeRawXMLTo" null="true"/>
+                  <int name="serverTimeout" value="3000"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Web_Service_Request_1"/>
+      </storable>
+   </list>
+   <storable name="Persistent" storable-id="dr.WorkflowPersistentConfig" ver="10.0">
+      <string name="persistentInspector" null="true"/>
+      <storable name="persistentStorageConfig" null="true"/>
+      <string name="persistentTimeoutHandler" null="true"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Routes">
+      <storable name="0" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="r_1"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="r_2"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="r_3"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Service"/>
+   <boolean name="Template Valid" value="true"/>
+   <storable name="Thread data" storable-id="dr.WorkflowExecutionRealtimeConfig" ver="10.0">
+      <int name="countInterval" value="1"/>
+      <int name="queueSize" value="1000"/>
+      <string name="queueStrategy" value="Blocking queue"/>
+      <string name="queueWorkerStrategy" value="RoundRobin"/>
+      <boolean name="standalone" value="true"/>
+      <int name="threads" value="8"/>
+   </storable>
+</exportmultiplex>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Ultra_Format" ref_path="ultra_format[Internal]/storable[ultra_format]/storable[Data]">
+   <string name="Definition"><![CDATA[external Input{
+ ascii class :terminated_by(",");
+ ascii fname:terminated_by(",");
+ ascii revenue :terminated_by(","),int(base10);
+ ascii bicVal:terminated_by(",");
+ ascii discount:terminated_by(",");
+ ascii inconsist : terminated_by(0xA);
+};
+
+
+in_map inRec : external(Input),target_internal(InputTI){
+ automatic;   
+};
+
+decoder InDecoder : in_map(inRec);
+
+out_map outRec : external(Input),internal(InputTI){
+ automatic;   
+};
+
+encoder InEncoder : out_map(outRec);
+
+session muAggUDR{
+    string bicValue;
+    boolean isBicFound;
+    boolean discount;
+    boolean isDiscountFound;
+    string inv;
+    int revenue;
+
+};]]></string>
+</exportmultiplex>

@@ -1,0 +1,892 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Template" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <storable name="Audit Profile" null="true"/>
+   <int name="Cancel batch count" value="0"/>
+   <int name="Cancel batch type" value="0"/>
+   <list classname="java.util.ArrayList" name="Comments"/>
+   <storable name="Data Veracity Profile" null="true"/>
+   <storable name="Error UDR type name" null="true"/>
+   <boolean name="Error batch type" value="false"/>
+   <string name="Error code" null="true"/>
+   <map name="Error map" null="true"/>
+   <storable name="Execution Config" storable-id="dr.WorkflowExecutionConfig" ver="10.0">
+      <enum name="debugType" storable-id="dr.DebugType" value="FILE"/>
+      <storable name="executionSettings" storable-id="dr.ExecutionSettings" ver="10.0">
+         <storable name="autostart" storable-id="dr.AutoStartSettings" ver="1.0">
+            <enum classname="com.digitalroute.wf.AutoStartSettings$AbortBehaviour" name="abort behaviour" value="ABORT"/>
+            <boolean name="enabled" value="false"/>
+            <int name="instances" value="0"/>
+         </storable>
+         <enum name="dist" storable-id="dr.WorkflowDistType" value="ROUND_ROBIN"/>
+         <boolean name="enabled" value="true"/>
+         <list classname="java.util.LinkedList" name="groupList">
+            <storable name="0" storable-id="dr.PicoGroupEntity" ver="2.0">
+               <string name="GroupName" value="ec1"/>
+               <int name="PicoType" value="2"/>
+            </storable>
+         </list>
+      </storable>
+      <int name="noOfFilesToKeep" value="1"/>
+      <string name="throughputMIM" null="true"/>
+      <string name="txnHandler" value="Default Handler"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Field Types">
+      <storable name="0" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Source - Directory"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="2108931552"/>
+         <string name="Node Name" value="From_Collection"/>
+      </storable>
+      <storable name="1" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Source - Filename"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="2108931552"/>
+         <string name="Node Name" value="From_Collection"/>
+      </storable>
+      <storable name="2" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Disk - Directory"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="1298438762"/>
+         <string name="Node Name" value="FilterOut"/>
+      </storable>
+      <storable name="3" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Disk - Directory"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-493548852"/>
+         <string name="Node Name" value="ErrDisk"/>
+      </storable>
+      <storable name="4" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Disk - Directory"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-1559366358"/>
+         <string name="Node Name" value="Undecoded"/>
+      </storable>
+      <storable name="5" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Disk - Directory"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-1922701760"/>
+         <string name="Node Name" value="auditDir"/>
+      </storable>
+   </list>
+   <boolean name="Log On CB" value="false"/>
+   <list classname="java.util.ArrayList" name="Logged error MIM"/>
+   <list classname="java.util.ArrayList" name="Nodes">
+      <storable name="0" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.diskinput.DiskAdvInputInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="3">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.diskinput.DiskAdvInputInsp"/>
+               <storable name="Data" storable-id="dr.DiskAdvInputData" ver="10.0">
+                  <string name="collectionStrategyName" null="true"/>
+                  <boolean name="routeFileRef" value="false"/>
+                  <array classname="java.lang.String" name="strategyClasses" size="2">
+                     <string name="0" value="com.digitalroute.misc.advcoll.impl.DefaultFileInfo"/>
+                     <string name="1"><![CDATA[com.digitalroute.misc.advcoll.impl.DefaultSourceFileHandling]]></string>
+                  </array>
+                  <string name="strategyCombinationClass"><![CDATA[com.digitalroute.misc.advcoll.impl.DefaultCollectionStrategy]]></string>
+                  <array classname="com.digitalroute.devkit.storable.DRStorable" name="strategyConfigs" size="2">
+                     <storable name="0" storable-id="dr.DefaultFileInfoConfig" ver="10.0">
+                        <string name="baseDir" value="/home/mzadmin/AcuitiPort/Input"/>
+                        <enum name="compType" storable-id="dr.CompressionType" value="NONE"/>
+                        <string name="fileRegExp" value="CHARGEABLE_CONTAINER.csv"/>
+                        <boolean name="subfolders" value="false"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DefaultSourceFileHandlingConfig" ver="10.0">
+                        <int name="idleTime" value="0"/>
+                        <boolean name="moveBeforeRetrieval" value="false"/>
+                        <string name="moveSuffix" value=""/>
+                        <string name="rbDirectory" value=""/>
+                        <int name="rbKeepInterval" value="-1"/>
+                        <string name="rbRenamePrefix" value=""/>
+                        <string name="rbRenameSuffix" value=""/>
+                        <string name="rbReplace" value=""/>
+                        <string name="rbSearch" value=""/>
+                        <enum name="rbType" storable-id="dr.RetrievalType" value="REMOVE"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+            <storable name="1" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.devkit.wf.DRFNSServiceInsp"/>
+               <storable name="Data" storable-id="dr.DRFNSServiceConfigExtension" ver="10.0">
+                  <boolean name="enabled" value="false"/>
+                  <storable name="nextSeqNo" storable-id="dr.SequenceNumberFieldValue" ver="2.0">
+                     <long name="SeqNo" value="-1"/>
+                     <long name="SeqNoUpdate" value="0"/>
+                  </storable>
+                  <long name="nextSeqNoValue" value="-1"/>
+                  <long name="seqNoChk" value="0"/>
+                  <int name="seqNoLen" value="-1"/>
+                  <boolean name="shallWarnOnOutOfSequence" value="false"/>
+                  <int name="startPos" value="-1"/>
+                  <long name="wrapOnSeqNo" value="-1"/>
+                  <long name="wrapToSeqNo" value="0"/>
+               </storable>
+            </storable>
+            <storable name="2" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.devkit.wf.DRFileInfoSortOrderServiceInsp]]></string>
+               <storable name="Data" storable-id="dr.DRFileInfoSortOrderServiceConfig" ver="10.0">
+                  <boolean name="enabled" value="false"/>
+                  <boolean name="ignoreCase" value="false"/>
+                  <int name="length" value="0"/>
+                  <enum name="orderType" storable-id="dr.DRFileOrderType" value="FILENAME_VALUE"/>
+                  <enum name="patternType" storable-id="dr.DRFilenamePatternSelection" value="POSITION"/>
+                  <string name="regExp" null="true"/>
+                  <enum name="sortOrder" storable-id="dr.DRSortOrder" value="ASCENDING"/>
+                  <enum name="sortType" storable-id="dr.DRFilenameSortType" value="ALPHANUMERIC"/>
+                  <int name="startPos" value="0"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="From_Collection"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.StuffyMapperInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="2">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.StuffyMapperInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.CM_AcuitiPort.ULF_AcuitiPort;
+
+string inFileName;
+
+beginBatch {
+    inFileName = strToUpper((string)mimGet("From_Collection","Source Filename"));
+}
+
+consume {
+    if(instanceOf(input,bytearray)){
+        if(strREContains(inFileName,"CONTAINER")){
+            udrRoute(input,"toUnit");
+        }
+        else if(strREContains(inFileName,"STATUS")){
+            udrRoute(input,"toStatus");    
+        }
+        else if(strREContains(inFileName,"SERVICE")){
+            udrRoute(input,"toService");
+        }
+        else
+            debug("In else");
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="1">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="bytearray"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+            <storable name="1" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.devkit.hidden.DRThreadBufferInsp"/>
+               <storable name="Data" storable-id="dr.DRThreadBufferConfig" ver="10.0">
+                  <boolean name="printStats" value="false"/>
+                  <boolean name="useOwnThread" value="false"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="ReadByteArray"/>
+      </storable>
+      <storable name="10" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.diskoutput.DiskOutputInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="2">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.diskoutput.DiskOutputInsp"/>
+               <storable name="Data" storable-id="dr.DiskOutputData" ver="13.0">
+                  <string name="arguments" value=""/>
+                  <string name="command" value=""/>
+                  <enum name="compType" storable-id="dr.CompressionType" value="NONE"/>
+                  <boolean name="createEmpty" value="false"/>
+                  <boolean name="createNonExistingBaseDir" value="false"/>
+                  <string name="directory" value="/home/mzadmin/AcuitiPort/Container/Audit"/>
+                  <enum name="inputType" storable-id="dr.InputType" value="ByteArray"/>
+               </storable>
+            </storable>
+            <storable name="1" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.devkit.wf.DRFNTServiceInsp"/>
+               <storable name="Data" storable-id="dr.DRFNTServiceConfig" ver="11.0">
+                  <boolean name="createNonExistDirectories" value="true"/>
+                  <array classname="com.digitalroute.devkit.hidden.DRFNTServiceEntry" name="entries" size="2">
+                     <storable name="0" storable-id="dr.DRFNTServiceEntry" ver="3.0">
+                        <int name="Alignment" value="1"/>
+                        <string name="Date format" null="true"/>
+                        <boolean name="Delimiter" value="false"/>
+                        <string name="Mim entry" null="true"/>
+                        <string name="Pad" null="true"/>
+                        <int name="Size" value="-1"/>
+                        <string name="Trailing separator" null="true"/>
+                        <string name="User entry" value="AUDIT_"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRFNTServiceEntry" ver="3.0">
+                        <int name="Alignment" value="1"/>
+                        <string name="Date format" null="true"/>
+                        <boolean name="Delimiter" value="false"/>
+                        <string name="Mim entry" value="From_Collection.Source Filename"/>
+                        <string name="Pad" null="true"/>
+                        <int name="Size" value="-1"/>
+                        <string name="Trailing separator" null="true"/>
+                        <string name="User entry" null="true"/>
+                     </storable>
+                  </array>
+                  <boolean name="fNTListEnabled" value="true"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="auditDir"/>
+      </storable>
+      <storable name="11" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.ultra.UltraEncoderInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="4">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.ultra.UltraEncoderInsp"/>
+               <storable name="Data" storable-id="dr.UltraEncoderDataValidation" ver="12.0">
+                  <storable name="encoderConfig" null="true"/>
+                  <string name="encoderName" value="CM_AcuitiPort.ULF_Audit.auditInfo_encoder"/>
+                  <boolean name="skipEncoding" value="false"/>
+               </storable>
+            </storable>
+            <storable name="1" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.devkit.hidden.DRHeaderServiceInsp"/>
+               <storable name="Data" storable-id="dr.HeaderTrailerConfig" ver="10.0">
+                  <array classname="com.digitalroute.devkit.hidden.HeaderTrailerEntry" name="entries" size="0"/>
+                  <boolean name="suppress" value="false"/>
+               </storable>
+            </storable>
+            <storable name="2" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.devkit.hidden.DRTrailerServiceInsp]]></string>
+               <storable name="Data" storable-id="dr.HeaderTrailerConfig" ver="10.0">
+                  <array classname="com.digitalroute.devkit.hidden.HeaderTrailerEntry" name="entries" size="0"/>
+                  <boolean name="suppress" value="false"/>
+               </storable>
+            </storable>
+            <storable name="3" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.devkit.hidden.DRThreadBufferInsp"/>
+               <storable name="Data" storable-id="dr.DRThreadBufferConfig" ver="10.0">
+                  <boolean name="printStats" value="false"/>
+                  <boolean name="useOwnThread" value="false"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="auditEnc"/>
+      </storable>
+      <storable name="12" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.workflowbridge.batch.fwd.WfbBatchFwdInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.workflowbridge.batch.fwd.WfbBatchFwdInsp]]></string>
+               <storable name="Data" storable-id="dr.WfBridgeFwdData" ver="10.0">
+                  <storable name="profile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="CM_AcuitiPort"/>
+                     <string name="Key" value="MZ1659941311127"/>
+                     <string name="Name" value="PRF_WFL_Bridge"/>
+                     <string name="Type" value="Workflow Bridge Profile"/>
+                  </storable>
+                  <string name="streamId" value="default"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Workflow_Bridge_FW"/>
+      </storable>
+      <storable name="13" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.StuffyMapperInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="2">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.StuffyMapperInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[consume {
+    debug("actions ::: " +input);
+
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="1">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="wfb.ConsumeCycleUDR"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+            <storable name="1" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.devkit.hidden.DRThreadBufferInsp"/>
+               <storable name="Data" storable-id="dr.DRThreadBufferConfig" ver="10.0">
+                  <boolean name="printStats" value="false"/>
+                  <boolean name="useOwnThread" value="false"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="actions"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.ultra.UltraDecoderInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.ultra.UltraDecoderInsp"/>
+               <storable name="Data" storable-id="dr.UltraDecoderData" ver="11.0">
+                  <object name="decoderConfig">
+                     <null name="Object Internal"/>
+                  </object>
+                  <string name="decoderName" value="CM_AcuitiPort.ULF_AcuitiPort.contFileDec"/>
+                  <boolean name="doFullDecode" value="false"/>
+                  <int name="errorMode" value="2"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="ContainerDec"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.ultra.UltraDecoderInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.ultra.UltraDecoderInsp"/>
+               <storable name="Data" storable-id="dr.UltraDecoderData" ver="11.0">
+                  <object name="decoderConfig">
+                     <null name="Object Internal"/>
+                  </object>
+                  <string name="decoderName" value="CM_AcuitiPort.ULF_AcuitiPort.vesStatusFileDec"/>
+                  <boolean name="doFullDecode" value="false"/>
+                  <int name="errorMode" value="2"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="VessStatusDec"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.ultra.UltraDecoderInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.ultra.UltraDecoderInsp"/>
+               <storable name="Data" storable-id="dr.UltraDecoderData" ver="11.0">
+                  <object name="decoderConfig">
+                     <null name="Object Internal"/>
+                  </object>
+                  <string name="decoderName" value="CM_AcuitiPort.ULF_AcuitiPort.vesServiceFileDec"/>
+                  <boolean name="doFullDecode" value="false"/>
+                  <int name="errorMode" value="2"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="VessServiceDec"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.StuffyMapperInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="2">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.StuffyMapperInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import apl.CM_AcuitiPort.APL_AcuitiPort_Validation;
+import apl.CM_AcuitiPort.APL_Constants;
+import ultra.CM_AcuitiPort.ULF_AcuitiPort;
+import apl.CM_AcuitiPort.APL_Audit;
+import ultra.CM_AcuitiPort.ULF_Audit;
+import apl.CM_AcuitiPort.APL_Update_And_Rerating;
+
+boolean containerHeaderRouted,vesselStatusHeaderRouted,vesselServiceHeaderRouted;
+table fromSharedTable;
+table contSharedTable,vessServSharedTable,vessStatSharedTable;
+initialize{   
+    fromSharedTable=tableCreateShared("CM_AcuitiPort.PRF_Shared_Table_TB_Mandatory_Fields");
+    loadTableMandatoryFieldValidation(fromSharedTable);
+};
+
+beginBatch{
+    containerHeaderRouted=true;
+    vesselStatusHeaderRouted=true;
+    vesselServiceHeaderRouted=true;
+}
+
+consume{
+        debug("input is: "+input);
+        
+        string incFileName=(string)mimGet("From_Collection","Source Filename");
+        string wflName=(string)mimGet("Workflow","Workflow Name");
+        string incFileTime=(string)mimGet("From_Collection","File Retrieval Timestamp");
+        string filterWFLFlag,proWFLFag,remark ;
+        
+//*********************************************** check applied for Container Input ***********************************************
+    if(instanceOf(input, containerFileDataTI)){
+        //debug("Inside containerFileDataTI"); 
+        containerFileDataTI containerFileInfo =  (containerFileDataTI)input;   
+        containerFileDataTI containerFileOutUdr = udrCreate(containerFileDataTI);
+        
+        string eventName=containerFileInfo.contFileDataUdr.EVENT_NAME;
+        string eventGkey=containerFileInfo.contFileDataUdr.EVENT_GKEY;
+        string containerId=containerFileInfo.contFileDataUdr.CONTAINER_ID;
+        
+        containerFileOutUdr = validateContainerInputRecord(containerFileInfo);
+        
+        if(udrIsPresent(containerFileOutUdr.error.ERROR_CODE) && containerFileOutUdr.error.ERROR_CODE != null){
+            bytearray containerErrorOut;
+            
+            filterWFLFlag="N";
+            proWFLFag="-";
+            remark=containerFileOutUdr.error.ERROR_MESSAGE;
+            auditInfoTI auditdataUDR=udrCreate(auditInfoTI);
+            auditdataUDR =maptoauditdata(incFileName, wflName, incFileTime, eventName,eventGkey,containerId,filterWFLFlag,proWFLFag,remark);
+            udrRoute(auditdataUDR,"toAuditEnc"); 
+                       
+            if(containerHeaderRouted){
+                bytearray headerToBa;
+                strToBA(headerToBa,containerHeader);
+                headerToBa = addNewLine(headerToBa);
+                udrRoute(headerToBa,"toErrDisk");
+                containerHeaderRouted=false;
+            }
+            containerErrorOut=udrEncode("CM_AcuitiPort.ULF_AcuitiPort.containerFileData_Encoder",containerFileOutUdr);
+            //udrRoute(auditdataUDR,"toAuditEnc");
+            udrRoute(containerErrorOut,"toErrDisk");
+        }
+        else{
+            containerFileDataTI containerFileOLDUdr = udrCreate(containerFileDataTI);
+            containerFileOLDUdr = createContainerDBEntry(containerFileOutUdr);
+            debug("The value of containerFileOLDUdr = " + (containerFileOLDUdr));
+            if(containerFileOLDUdr != null)
+            {
+                jsonFieldStruct jsonData = compareTwoRecords(containerFileOLDUdr,containerFileOutUdr,"CONTAINER");
+                //list<string> liTemp = compareTwoRecords(containerFileOLDUdr,containerFileOutUdr,"CONTAINER");
+                jsonData.sUpdateParam = identifyInvoiceUpdOrReRateUpd(jsonData.fieldStructUdr,"CONTAINER",containerFileOutUdr.contFileDataUdr.EVENT_NAME); 
+                jsonData.sID = "CONTAINER";
+                jsonData.fileName =(string)mimGet("From_Collection","Source Filename"); 
+                debug("The value of jsonData.sUpdateParam: "+jsonData.sUpdateParam);
+                debug("The value of jsonData = " + (jsonData));
+                udrRoute(jsonData,"toWflBridge");
+            }
+            else
+            {
+                targetFileInt internaludr = mapContainerInputToInternal(containerFileOutUdr);
+                citFileDataTI outUdr = createCITRecord(internaludr);
+                udrRoute(outUdr,"toCITEnc");
+            }
+        }
+    }
+//*********************************************** check applied for Vessel Status Input ***********************************************
+    
+    else if(instanceOf(input, vesselStatusDataTI)){
+        vesselStatusDataTI vesselStatusInfo = (vesselStatusDataTI)input;
+        vesselStatusDataTI vesselStatusOutUdr = udrCreate(vesselStatusDataTI);
+        
+        string eventGkey = "";
+        string eventName = vesselStatusInfo.vessStatusDataUdr.VESSEL_NAME;
+        string vesselID = vesselStatusInfo.vessStatusDataUdr.VESSEL_ID;
+        
+        vesselStatusOutUdr = validateVesselStatusInputRecord(vesselStatusInfo);
+        if(udrIsPresent(vesselStatusOutUdr.error.ERROR_CODE) &&  vesselStatusOutUdr.error.ERROR_CODE != null && vesselStatusOutUdr.error.ERROR_CODE == "ERR"){
+            
+            filterWFLFlag="N";
+            proWFLFag="-";
+            remark="BAD_UDR";
+            auditInfoTI auditdataUDR=udrCreate(auditInfoTI);
+            auditdataUDR =maptoauditdata(incFileName, wflName, incFileTime, eventName,eventGkey,vesselID,filterWFLFlag,proWFLFag,remark);
+            udrRoute(auditdataUDR,"toAuditEnc"); 
+            
+            bytearray vesselStatusErrorOut;
+            if(vesselStatusHeaderRouted){
+                bytearray headerToBa;
+                strToBA(headerToBa,vesselStatusHeader);
+                headerToBa = addNewLine(headerToBa);
+                udrRoute(headerToBa,"toErrDisk");
+                vesselStatusHeaderRouted=false;
+            }
+            vesselStatusErrorOut=udrEncode("CM_AcuitiPort.ULF_AcuitiPort.vesselStatusData_Encoder",vesselStatusOutUdr);
+            udrRoute(vesselStatusErrorOut,"toErrDisk");
+        }
+        else{
+            debug("Valid record");
+            vesselStatusDataTI vesselStatusOLDUdr = udrCreate(vesselStatusDataTI);
+            vesselStatusOLDUdr = createVesselStatusDBEntry(vesselStatusOutUdr);
+            debug("The value of vesselStatusOLDUdr = " + (vesselStatusOLDUdr));
+            if(vesselStatusOLDUdr != null)
+            {
+                jsonFieldStruct jsonData = compareTwoRecords(vesselStatusOLDUdr,vesselStatusOutUdr,"VESSEL_STATUS");
+                jsonData.sUpdateParam = identifyInvoiceUpdOrReRateUpd(jsonData.fieldStructUdr,"VESSEL_STATUS",""); 
+                debug("The value of jsonData.sUpdateParam: "+jsonData.sUpdateParam);
+                jsonData.sID = "VESSEL_STATUS";
+                jsonData.fileName =(string)mimGet("From_Collection","Source Filename"); 
+                debug("The value of jsonData = " + (jsonData));
+                udrRoute(jsonData,"toWflBridge");
+            }
+            else
+            {
+                targetFileInt internaludr = mapVesselStatusInputToInternal(vesselStatusOutUdr);
+                citFileDataTI outUdr = createCITRecord(internaludr);
+                udrRoute(outUdr,"toCITEnc");
+            }
+        }
+    }
+//*********************************************** check applied for Vessel Service Input ***********************************************
+    else if(instanceOf(input, vesselServiceDataTI)){
+        vesselServiceDataTI vesselServiceInfo =  (vesselServiceDataTI)input;
+        vesselServiceDataTI vesselServiceOutUdr = udrCreate(vesselServiceDataTI);
+        
+        string eventGkey = vesselServiceInfo.vessServiceDataUdr.EVENT_GKEY;
+        string eventName = vesselServiceInfo.vessServiceDataUdr.EVENT_NAME;
+        string vesselID = vesselServiceInfo.vessServiceDataUdr.VESSEL_ID;
+        
+        vesselServiceOutUdr = validateVesselServiceInputRecord(vesselServiceInfo);
+        if(udrIsPresent(vesselServiceOutUdr.error.ERROR_CODE) && vesselServiceOutUdr.error.ERROR_CODE != null && vesselServiceOutUdr.error.ERROR_CODE == "ERR"){
+            
+            filterWFLFlag="N";
+            proWFLFag="-";
+            remark="BAD_UDR";
+            auditInfoTI auditdataUDR=udrCreate(auditInfoTI);
+            auditdataUDR = maptoauditdata(incFileName, wflName, incFileTime, eventName, eventGkey, vesselID, filterWFLFlag, proWFLFag, remark);
+            udrRoute(auditdataUDR,"toAuditEnc"); 
+            
+            bytearray vesselServiceErrorOut;
+            if(vesselServiceHeaderRouted){
+                bytearray headerToBa;
+                strToBA(headerToBa,vesselServiceHeader);
+                headerToBa = addNewLine(headerToBa);
+                udrRoute(headerToBa,"toErrDisk");
+                vesselServiceHeaderRouted=false;
+            }
+            vesselServiceErrorOut=udrEncode("CM_AcuitiPort.ULF_AcuitiPort.vesselServiceData_Encoder",vesselServiceOutUdr);
+            udrRoute(vesselServiceErrorOut,"toErrDisk");
+        }
+        else{
+            debug("Valid record");
+            vesselServiceDataTI vesselServiceFileOLDUdr = udrCreate(vesselServiceDataTI);
+            vesselServiceFileOLDUdr = createVesselServiceDBEntry(vesselServiceOutUdr);
+            debug("The value of vesselServiceFileOLDUdr = " + (vesselServiceFileOLDUdr));
+            if(vesselServiceFileOLDUdr != null)
+            {
+                jsonFieldStruct jsonData = compareTwoRecords(vesselServiceFileOLDUdr,vesselServiceOutUdr,"VESSEL_SERVICE");
+                jsonData.sUpdateParam = identifyInvoiceUpdOrReRateUpd(jsonData.fieldStructUdr,"VESSEL_SERVICE",""); 
+                debug("The value of jsonData.sUpdateParam: "+jsonData.sUpdateParam);
+                jsonData.sID = "VESSEL_SERVICE";
+                jsonData.fileName =(string)mimGet("From_Collection","Source Filename"); 
+                debug("The value of jsonData = " + (jsonData));
+                udrRoute(jsonData,"toWflBridge");
+            }
+            else
+            {
+                targetFileInt internaludr = mapVesselServiceInputToInternal(vesselServiceOutUdr);
+                citFileDataTI outUdr = createCITRecord(internaludr);
+                udrRoute(outUdr,"toCITEnc");
+            }
+        }
+    }
+//*********************************************** check applied for undecoded Input ***********************************************
+    else if(instanceOf(input, bytearray)){
+        debug("Inside bytearray block");
+        bytearray inpBa = (bytearray)input;
+        udrRoute(inpBa,"toUndecoded");
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="4">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="bytearray"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.UltraClientInfo" ver="1.0">
+                        <string name="FormatName" value="CM_AcuitiPort.ULF_AcuitiPort"/>
+                        <string name="TypeName" value="CM_AcuitiPort.ULF_AcuitiPort.containerFileDataTI"/>
+                     </storable>
+                     <storable name="2" storable-id="dr.UltraClientInfo" ver="1.0">
+                        <string name="FormatName" value="CM_AcuitiPort.ULF_AcuitiPort"/>
+                        <string name="TypeName" value="CM_AcuitiPort.ULF_AcuitiPort.vesselServiceDataTI"/>
+                     </storable>
+                     <storable name="3" storable-id="dr.UltraClientInfo" ver="1.0">
+                        <string name="FormatName" value="CM_AcuitiPort.ULF_AcuitiPort"/>
+                        <string name="TypeName" value="CM_AcuitiPort.ULF_AcuitiPort.vesselStatusDataTI"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+            <storable name="1" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.devkit.hidden.DRThreadBufferInsp"/>
+               <storable name="Data" storable-id="dr.DRThreadBufferConfig" ver="10.0">
+                  <boolean name="printStats" value="false"/>
+                  <boolean name="useOwnThread" value="false"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Validation"/>
+      </storable>
+      <storable name="6" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.ultra.UltraEncoderInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="4">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.ultra.UltraEncoderInsp"/>
+               <storable name="Data" storable-id="dr.UltraEncoderDataValidation" ver="12.0">
+                  <storable name="encoderConfig" null="true"/>
+                  <string name="encoderName" value="CM_AcuitiPort.ULF_AcuitiPort.citFileData_Encoder"/>
+                  <boolean name="skipEncoding" value="false"/>
+               </storable>
+            </storable>
+            <storable name="1" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.devkit.hidden.DRHeaderServiceInsp"/>
+               <storable name="Data" storable-id="dr.HeaderTrailerConfig" ver="10.0">
+                  <array classname="com.digitalroute.devkit.hidden.HeaderTrailerEntry" name="entries" size="2">
+                     <storable name="0" storable-id="dr.HeaderTrailerEntry" ver="1.0">
+                        <int name="Alignment" value="1"/>
+                        <string name="Date format" null="true"/>
+                        <string name="MIM entry" null="true"/>
+                        <char name="Padding" value="0"/>
+                        <int name="Size" value="716"/>
+                        <string name="User entry"><![CDATA[ZZAGENT1,ZZBILL_LADING,ZZBOOKING_NUMBER,ZZCATEGORY,ZZCONSIGNEE_ID,ZZCONTAINER_ID,ZZCSTMDCDAT,ZZCSTMDECNO,ZZENDDATEFLAG,ZZEQUIPTYPE,ZZEVENT_CAT,ZZEVENT_GKEY,ZZEVENT_NAME,ZZFREIGHT_KIND,ZZGROSS_TON,ZZIBVISIT_ID,ZZISO_GRP,ZZISO_LEN,ZZIS_IMDG,ZZIMDGCLASS,ZZOOG,ZZLAST_PORT,ZZLINE_ID,ZZOBVISIT_ID,ZZPAYEE_ID,ZZIS_REEFER,ZZSHIPPER_ID,ZZSPCL_STOW,ZZSUBCON_ID,ZZTERMINALID,ZZUNIT_GKEY,ZZVESSEL_ID,ZZVESSEL_LENGTH,ZZVESSEL_LINE,ZZVESSEL_NAME,ZZVESSEL_SERVICE,ZZVESSEL_TYPE,ZZTEU,ZZVISIT_ID,ZZGKEY_TYPE,ZZLASTCHARGEDTIME,ZZWORK_ENDDTTM,ZZWORK_STRTDTTM,ZZTIME_IN,ZZTIME_OUT,ZZSHIPARR_DATETIME,ZZSHIPDEP_DATETIME,ZZIBCARRIER_TYPE,ZZOBCARRIER_TYPE,ZZPHASE,ZZDELIVERY_DTTM,CIT_QUANTITY,CIT_QTY_UNIT,CITDATE_FROM,CITDATE_TO,CITTYPE]]></string>
+                     </storable>
+                     <storable name="1" storable-id="dr.HeaderTrailerEntry" ver="1.0">
+                        <int name="Alignment" value="1"/>
+                        <string name="Date format" null="true"/>
+                        <string name="MIM entry" null="true"/>
+                        <char name="Padding" value="10"/>
+                        <int name="Size" value="1"/>
+                        <string name="User entry" null="true"/>
+                     </storable>
+                  </array>
+                  <boolean name="suppress" value="true"/>
+               </storable>
+            </storable>
+            <storable name="2" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.devkit.hidden.DRTrailerServiceInsp]]></string>
+               <storable name="Data" storable-id="dr.HeaderTrailerConfig" ver="10.0">
+                  <array classname="com.digitalroute.devkit.hidden.HeaderTrailerEntry" name="entries" size="0"/>
+                  <boolean name="suppress" value="false"/>
+               </storable>
+            </storable>
+            <storable name="3" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.devkit.hidden.DRThreadBufferInsp"/>
+               <storable name="Data" storable-id="dr.DRThreadBufferConfig" ver="10.0">
+                  <boolean name="printStats" value="false"/>
+                  <boolean name="useOwnThread" value="false"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Encoder"/>
+      </storable>
+      <storable name="7" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.diskoutput.DiskOutputInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="2">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.diskoutput.DiskOutputInsp"/>
+               <storable name="Data" storable-id="dr.DiskOutputData" ver="13.0">
+                  <string name="arguments" value=""/>
+                  <string name="command" value=""/>
+                  <enum name="compType" storable-id="dr.CompressionType" value="NONE"/>
+                  <boolean name="createEmpty" value="false"/>
+                  <boolean name="createNonExistingBaseDir" value="false"/>
+                  <string name="directory" value="/home/mzadmin/AcuitiPort/Container/process_In"/>
+                  <enum name="inputType" storable-id="dr.InputType" value="ByteArray"/>
+               </storable>
+            </storable>
+            <storable name="1" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.devkit.wf.DRFNTServiceInsp"/>
+               <storable name="Data" storable-id="dr.DRFNTServiceConfig" ver="11.0">
+                  <boolean name="createNonExistDirectories" value="true"/>
+                  <array classname="com.digitalroute.devkit.hidden.DRFNTServiceEntry" name="entries" size="2">
+                     <storable name="0" storable-id="dr.DRFNTServiceEntry" ver="3.0">
+                        <int name="Alignment" value="1"/>
+                        <string name="Date format" null="true"/>
+                        <boolean name="Delimiter" value="false"/>
+                        <string name="Mim entry" null="true"/>
+                        <string name="Pad" null="true"/>
+                        <int name="Size" value="-1"/>
+                        <string name="Trailing separator" value="_"/>
+                        <string name="User entry" value="CIT"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRFNTServiceEntry" ver="3.0">
+                        <int name="Alignment" value="1"/>
+                        <string name="Date format" null="true"/>
+                        <boolean name="Delimiter" value="false"/>
+                        <string name="Mim entry" value="From_Collection.Source Filename"/>
+                        <string name="Pad" null="true"/>
+                        <int name="Size" value="-1"/>
+                        <string name="Trailing separator" null="true"/>
+                        <string name="User entry" null="true"/>
+                     </storable>
+                  </array>
+                  <boolean name="fNTListEnabled" value="true"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="FilterOut"/>
+      </storable>
+      <storable name="8" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.diskoutput.DiskOutputInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="2">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.diskoutput.DiskOutputInsp"/>
+               <storable name="Data" storable-id="dr.DiskOutputData" ver="13.0">
+                  <string name="arguments" value=""/>
+                  <string name="command" value=""/>
+                  <enum name="compType" storable-id="dr.CompressionType" value="NONE"/>
+                  <boolean name="createEmpty" value="false"/>
+                  <boolean name="createNonExistingBaseDir" value="true"/>
+                  <string name="directory" value="/home/mzadmin/AcuitiPort/ErrorFiles"/>
+                  <enum name="inputType" storable-id="dr.InputType" value="ByteArray"/>
+               </storable>
+            </storable>
+            <storable name="1" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.devkit.wf.DRFNTServiceInsp"/>
+               <storable name="Data" storable-id="dr.DRFNTServiceConfig" ver="11.0">
+                  <boolean name="createNonExistDirectories" value="true"/>
+                  <array classname="com.digitalroute.devkit.hidden.DRFNTServiceEntry" name="entries" size="3">
+                     <storable name="0" storable-id="dr.DRFNTServiceEntry" ver="3.0">
+                        <int name="Alignment" value="1"/>
+                        <string name="Date format" null="true"/>
+                        <boolean name="Delimiter" value="false"/>
+                        <string name="Mim entry" null="true"/>
+                        <string name="Pad" null="true"/>
+                        <int name="Size" value="-1"/>
+                        <string name="Trailing separator" value="_"/>
+                        <string name="User entry" value="Err"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRFNTServiceEntry" ver="3.0">
+                        <int name="Alignment" value="1"/>
+                        <string name="Date format" null="true"/>
+                        <boolean name="Delimiter" value="false"/>
+                        <string name="Mim entry" value="From_Collection.Source Filename"/>
+                        <string name="Pad" null="true"/>
+                        <int name="Size" value="-1"/>
+                        <string name="Trailing separator" value="_"/>
+                        <string name="User entry" null="true"/>
+                     </storable>
+                     <storable name="2" storable-id="dr.DRFNTServiceEntry" ver="3.0">
+                        <int name="Alignment" value="1"/>
+                        <string name="Date format" null="true"/>
+                        <boolean name="Delimiter" value="false"/>
+                        <string name="Mim entry" value="Workflow.Transaction ID"/>
+                        <string name="Pad" null="true"/>
+                        <int name="Size" value="-1"/>
+                        <string name="Trailing separator" null="true"/>
+                        <string name="User entry" null="true"/>
+                     </storable>
+                  </array>
+                  <boolean name="fNTListEnabled" value="true"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="ErrDisk"/>
+      </storable>
+      <storable name="9" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.diskoutput.DiskOutputInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="2">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.diskoutput.DiskOutputInsp"/>
+               <storable name="Data" storable-id="dr.DiskOutputData" ver="13.0">
+                  <string name="arguments" value=""/>
+                  <string name="command" value=""/>
+                  <enum name="compType" storable-id="dr.CompressionType" value="NONE"/>
+                  <boolean name="createEmpty" value="false"/>
+                  <boolean name="createNonExistingBaseDir" value="true"/>
+                  <string name="directory" value="/home/mzadmin/AcuitiPort/ErrorFiles"/>
+                  <enum name="inputType" storable-id="dr.InputType" value="ByteArray"/>
+               </storable>
+            </storable>
+            <storable name="1" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.devkit.wf.DRFNTServiceInsp"/>
+               <storable name="Data" storable-id="dr.DRFNTServiceConfig" ver="11.0">
+                  <boolean name="createNonExistDirectories" value="true"/>
+                  <array classname="com.digitalroute.devkit.hidden.DRFNTServiceEntry" name="entries" size="3">
+                     <storable name="0" storable-id="dr.DRFNTServiceEntry" ver="3.0">
+                        <int name="Alignment" value="1"/>
+                        <string name="Date format" null="true"/>
+                        <boolean name="Delimiter" value="false"/>
+                        <string name="Mim entry" null="true"/>
+                        <string name="Pad" null="true"/>
+                        <int name="Size" value="-1"/>
+                        <string name="Trailing separator" value="_"/>
+                        <string name="User entry" value="unDecoded"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRFNTServiceEntry" ver="3.0">
+                        <int name="Alignment" value="1"/>
+                        <string name="Date format" null="true"/>
+                        <boolean name="Delimiter" value="false"/>
+                        <string name="Mim entry" value="From_Collection.Source Filename"/>
+                        <string name="Pad" null="true"/>
+                        <int name="Size" value="-1"/>
+                        <string name="Trailing separator" value="_"/>
+                        <string name="User entry" null="true"/>
+                     </storable>
+                     <storable name="2" storable-id="dr.DRFNTServiceEntry" ver="3.0">
+                        <int name="Alignment" value="1"/>
+                        <string name="Date format" null="true"/>
+                        <boolean name="Delimiter" value="false"/>
+                        <string name="Mim entry" value="Workflow.Transaction ID"/>
+                        <string name="Pad" null="true"/>
+                        <int name="Size" value="-1"/>
+                        <string name="Trailing separator" null="true"/>
+                        <string name="User entry" null="true"/>
+                     </storable>
+                  </array>
+                  <boolean name="fNTListEnabled" value="true"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Undecoded"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Routes">
+      <storable name="0" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toA1"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toUnit"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="10" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toUndecoded"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="11" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toAuditEnc"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="12" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toAuditDir"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="13" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toWflBridge"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="14" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toActions"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toStatus"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toService"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toA2"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toA3"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="6" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toA4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="7" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toCITEnc"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="8" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toProcess"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="9" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toErrDisk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Service"/>
+   <boolean name="Template Valid" value="true"/>
+</exportmultiplex>

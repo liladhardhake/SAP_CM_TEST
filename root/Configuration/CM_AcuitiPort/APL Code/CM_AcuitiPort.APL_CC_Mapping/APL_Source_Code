@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="APL_Source_Code" ref_path="apl_script[Internal]/storable[apl_script]/storable[Data]">
+   <string name="Definition"><![CDATA[import ultra.CM_AcuitiPort.ULF_AcuitiPort;
+import ultra.ws.CM_AcuitiPort.PRF_WS_CheckCharge.schema;
+import ultra.SAP_RFC.CM_AcuitiPort.PRF_RFC_ZFICA;
+import ultra.SAP_RFC.CM_AcuitiPort.PRF_RFC_ZFICA.subUdr;
+import ultra.sapcc.batch;
+import ultra.sapcc;
+import apl.CM_AcuitiPort.APL_Constants;
+//userProperties (ChargeableItemUserProperties (ws.CM_AcuitiPort_Container.PRF_WS_CheckCharge.schema))
+ChargeableItemUserProperties chrgeableItemProperties =udrCreate(ChargeableItemUserProperties);
+//param.chargeableItem.userProperties.property.name
+list<ChargeableItemProperty> lichrgeableItemProperty = listCreate(ChargeableItemProperty);
+
+list<PropertyUDR> lipropertyUdr = listCreate(PropertyUDR);
+date dateFilter;
+
+ChargeableItem createContainerCIC(string sagent1, string sbill_lading, string sbooking_number, string scategory, string sconsignee_id, string scontainer_id, string scstmdcdat, string scstmdecno, string senddateflag, string sequiptype, string sevent_cat, string sevent_gkey, string sevent_name, string sfreight_kind, double sgross_ton, string sibvisit_id, string siso_grp, string siso_len, string sis_imdg, string simdgclass, string sis_oog, string slast_port, string sline_id, string sobvisit_id, string spayee_id, string sis_reefer, string sshipper_id, string sspcl_stow, string ssubcon_id, string sterminalid, string sunit_gkey, string svessel_id, string svessel_length, string svessel_line, string svessel_name, string svessel_service, string svessel_type, double steu, string svisit_id, string sgkey_type, string slastchargedtime, string swork_enddttm, string swork_strtdttm, string stime_in, string stime_out, string sshiparr_datetime, string sshipdep_datetime, string sibcarrier_type, string sobcarrier_type, string sphase,string sdelivery_dttm,double scit_quantity, string scit_qty_unit, string scitdate_from, string scitdate_to, string scittype){
+    listClear(lichrgeableItemProperty);
+    ChargeableItem chargeItem = udrCreate(ChargeableItem);
+    
+    list<string> vesselServiceList = listCreate(string);
+    vesselServiceList = strSplit(externalReferenceGet("CM_AcuitiPort.PRF_ExtRef_AcuitiPort", "VESSEL_SERVICE_EVENTS"),",");
+    boolean flag=false;
+    for(string compareEvent:vesselServiceList)
+    {
+	   if(compareEvent==sevent_name)
+	   {
+		  flag=true;
+	   }  
+    }
+     
+    int iIndex;
+    if(liStorageEvents != null && listSize(liStorageEvents)>0)
+    {
+        iIndex = listFindIndex(liStorageEvents, string sStorageEventName, sStorageEventName == sevent_name);
+    }
+    else
+    {
+        iIndex = -1;
+    }
+   // if(sevent_name == (string) listGet(vesselServiceList,0) || sevent_name == (string) listGet(vesselServiceList,1) || sevent_name == (string) listGet(vesselServiceList,2) || sevent_name == (string) listGet(vesselServiceList,3) || sevent_name == (string) listGet(vesselServiceList,4) || sevent_name == (string) listGet(vesselServiceList,5) || sevent_name == (string) listGet(vesselServiceList,6) || sevent_name == (string) listGet(vesselServiceList,7) || sevent_name == (string) listGet(vesselServiceList,8) || sevent_name == (string) listGet(vesselServiceList,9) || sevent_name == (string) listGet(vesselServiceList,10) || sevent_name == (string) listGet(vesselServiceList,11) || sevent_name == (string) listGet(vesselServiceList,13))
+    if(flag)
+    {
+        if ( sphase== "ARRIVED" || sphase == "DEPARTED")
+    	{
+    	   chargeItem.serviceId = "VSL_STUS";
+    	}
+    	else
+    	{
+    	 chargeItem.serviceId = "VSL_SERV"; 
+    	}
+
+    }
+     else if(sevent_name == "DEPARTED" || sevent_name == "ARRIVED")
+    {
+     chargeItem.serviceId = "VSL_STUS";   
+    }
+    	
+    else if(iIndex == -1)
+    {
+        chargeItem.serviceId = "CONT_SERV";
+    }
+    else
+    {
+        chargeItem.serviceId = "STRG_SERV";
+    }	
+    
+    /*if(sevent_name == "UNIT_STORAGE" || sevent_name == "UNIT_ELECTRICITY")
+    {
+        chargeItem.serviceId = "STRG_SERV";
+    }
+    else
+    {
+        chargeItem.serviceId = "CONT_SERV";
+    }*/
+    
+    if(sevent_name == "HATCH_COVER_CLOSE")
+    {
+     chargeItem.serviceId = "VSL_SERV";   
+    }
+    if(sevent_name == "DEPARTED" || sevent_name == "ARRIVED")
+    {
+     chargeItem.serviceId = "VSL_STUS";   
+    }
+    
+    //CIC Name
+    chargeItem.name ="APCS";
+    chargeItem.userTechnicalId = spayee_id;
+    
+    //strToDate(dateFilter,"29/06/2022 17:00:00","dd/MM/yyyy HH:mm:ss");
+    //chargeItem.consumptionDate = dateFilter;
+    chargeItem.consumptionDate = convertDate(scitdate_from);
+    
+	chargeableItemPropString("ZZAGENT1" ,sagent1);
+	chargeableItemPropString("ZZBILL_LADING" ,sbill_lading);
+	chargeableItemPropString("ZZBOOKING_NUMBER" ,sbooking_number);
+	chargeableItemPropString("ZZCATEGORY" ,scategory);
+	chargeableItemPropString("ZZCONSIGNEE_ID" ,sconsignee_id);
+	chargeableItemPropString("ZZCONTAINER_ID" ,scontainer_id);
+	chargeableItemPropDate("ZZCSTMDCDAT" ,convertDate(scstmdcdat));
+	chargeableItemPropString("ZZCSTMDECNO" ,scstmdecno);
+	chargeableItemPropString("ZZENDDATEFLAG" ,senddateflag);
+	chargeableItemPropString("ZZEQUIPTYPE" ,sequiptype);
+	chargeableItemPropString("ZZEVENT_CAT" ,sevent_cat);
+	chargeableItemPropString("ZZEVENT_GKEY" ,sevent_gkey);
+	chargeableItemPropString("ZZEVENT_NAME" ,sevent_name);
+	chargeableItemPropString("ZZFREIGHT_KIND" ,sfreight_kind);
+	chargeableItemPropNumber("ZZGROSS_TON" ,sgross_ton);
+	chargeableItemPropString("ZZIBVISIT_ID" ,sibvisit_id);
+	chargeableItemPropString("ZZISO_GRP" ,siso_grp);
+	chargeableItemPropString("ZZISO_LEN" ,siso_len);
+	chargeableItemPropString("ZZIS_IMDG" ,sis_imdg);
+	chargeableItemPropString("ZZIMDGCLASS" ,simdgclass);
+	chargeableItemPropString("ZZOOG" ,sis_oog);
+	chargeableItemPropString("ZZLAST_PORT" ,slast_port);
+	chargeableItemPropString("ZZLINE_ID" ,sline_id);
+	chargeableItemPropString("ZZOBVISIT_ID" ,sobvisit_id);
+	chargeableItemPropString("ZZPAYEE_ID" ,spayee_id);
+	chargeableItemPropString("ZZIS_REEFER" ,sis_reefer);
+	chargeableItemPropString("ZZSHIPPER_ID" ,sshipper_id);
+	chargeableItemPropString("ZZSPCL_STOW" ,sspcl_stow);
+	chargeableItemPropString("ZZSUBCON_ID" ,ssubcon_id);
+	chargeableItemPropString("ZZTERMINALID" ,sterminalid);
+	chargeableItemPropString("ZZUNIT_GKEY" ,sunit_gkey);
+	chargeableItemPropString("ZZVESSEL_ID" ,svessel_id);
+	chargeableItemPropString("ZZVESSEL_LENGTH" ,svessel_length);
+	chargeableItemPropString("ZZVESSEL_LINE" ,svessel_line);
+	chargeableItemPropString("ZZVESSEL_NAME" ,svessel_name);
+	chargeableItemPropString("ZZVESSEL_SERVICE" ,svessel_service);
+	chargeableItemPropString("ZZVESSEL_TYPE" ,svessel_type);
+	chargeableItemPropNumber("ZZTEU" ,steu);
+	chargeableItemPropString("ZZVISIT_ID" ,svisit_id);
+	chargeableItemPropString("ZZGKEY_TYPE" ,sgkey_type);
+	chargeableItemPropDate("ZZLASTCHARGEDTIME" ,convertDate(slastchargedtime));
+	chargeableItemPropDate("ZZWORK_ENDDTTM" ,convertDate(swork_enddttm));
+	chargeableItemPropDate("ZZWORK_STRTDTTM" ,convertDate(swork_strtdttm));
+	chargeableItemPropDate("ZZTIME_IN" ,convertDate(stime_in));
+	chargeableItemPropDate("ZZTIME_OUT" ,convertDate(stime_out));
+	chargeableItemPropDate("ZZSHIPARR_DATETIME" ,convertDate(sshiparr_datetime));
+	chargeableItemPropDate("ZZSHIPDEP_DATETIME" ,convertDate(sshipdep_datetime));
+	chargeableItemPropString("ZZIBCARRIER_TYPE" ,sibcarrier_type);
+	chargeableItemPropString("ZZOBCARRIER_TYPE" ,sobcarrier_type);    
+    chargeableItemPropString("ZZPHASE" ,sphase);
+    chargeableItemPropDate("ZZDELIVERY_DTTM" ,convertDate(sdelivery_dttm));
+	chargeableItemPropNumber("CIT_QUANTITY" ,scit_quantity);
+	chargeableItemPropString("CIT_QTY_UNIT" ,scit_qty_unit);
+    
+    chargeableItemPropDate("CITDATE_FROM" ,convertDate(scitdate_from));
+    if(senddateflag == "N" || senddateflag == "-"){
+	chargeableItemPropDate("CITDATE_TO" ,convertDate(scitdate_from));
+    }
+    else{
+        chargeableItemPropDate("CITDATE_TO" ,convertDate(scitdate_to));
+    }
+    string stime_to,stime_from;
+    dateToString(stime_to,getTimeValue(convertDate(scitdate_to)));
+    dateToString(stime_from,getTimeValue(convertDate(scitdate_from)));
+    debug("The value of stime_to = " + (stime_to));
+    debug("The value of stime_from = " + (stime_from));
+	//chargeableItemPropDate("CITDATE_FROM" ,getDateValue(convertDate(scitdate_from)));
+	//chargeableItemPropDate("CITDATE_TO" ,getDateValue(convertDate(scitdate_to)));
+    chargeableItemPropString("CITTIME_FROM" ,strREReplaceAll(stime_from ,":" ,""));
+    chargeableItemPropString("CITTIME_TO" ,strREReplaceAll(stime_to,":" ,""));
+    //chargeableItemPropString("CITTIME_FROM" ,getTimeValue(convertDate(scitdate_from)));
+	//chargeableItemPropString("CITTIME_TO" ,getTimeValue(convertDate(scitdate_to)));
+    //chargeableItemPropString("CITTIME_FROM" ,stime_from);
+    //chargeableItemPropString("CITTIME_TO" ,stime_to);
+    
+    if(scittype == "AC01")
+    {
+	   chargeableItemPropString("CITTYPE" ,scittype);
+    }
+    
+    
+    chrgeableItemProperties.property = lichrgeableItemProperty;
+    chargeItem.userProperties=chrgeableItemProperties;
+    return chargeItem;
+};
+    
+void chargeableItemPropString(string val1, string val2){
+    ChargeableItemProperty chrgeable = udrCreate(ChargeableItemProperty);
+    chrgeable.name=val1;
+    chrgeable.stringValue=val2;
+    listAdd(lichrgeableItemProperty,chrgeable);
+};
+
+void chargeableItemPropNumber(string val1, double val2){
+    ChargeableItemProperty chrgeable = udrCreate(ChargeableItemProperty);
+    chrgeable.name=val1;
+    chrgeable.numberValue=val2;
+    listAdd(lichrgeableItemProperty,chrgeable);    
+};
+
+void chargeableItemPropDate(string val1, date val2){
+    ChargeableItemProperty chrgeable = udrCreate(ChargeableItemProperty);
+    chrgeable.name=val1;
+    chrgeable.dateValue=val2;
+    listAdd(lichrgeableItemProperty,chrgeable);    
+};
+
+
+sapcc.batch.AcquireUDR sendContainerCIC(string sagent1, string sbill_lading, string sbooking_number, string scategory, string sconsignee_id, string scontainer_id, string scstmdcdat, string scstmdecno, string senddateflag, string sequiptype, string sevent_cat, string sevent_gkey, string sevent_name, string sfreight_kind, double sgross_ton, string sibvisit_id, string siso_grp, string siso_len, string sis_imdg, string simdgclass, string sis_oog, string slast_port, string sline_id, string sobvisit_id, string spayee_id, string sis_reefer, string sshipper_id, string sspcl_stow, string ssubcon_id, string sterminalid, string sunit_gkey, string svessel_id, string svessel_length, string svessel_line, string svessel_name, string svessel_service, string svessel_type, double steu, string svisit_id, string sgkey_type, string slastchargedtime, string swork_enddttm, string swork_strtdttm, string stime_in, string stime_out, string sshiparr_datetime, string sshipdep_datetime, string sibcarrier_type, string sobcarrier_type, string sphase,string sdelivery_dttm, double scit_quantity, string scit_qty_unit, string scitdate_from, string scitdate_to, string scittype){
+    listClear(lipropertyUdr);
+    date citDate;
+    citDate= dateCreateNow();    
+    AcquireUDR acquireUdr1 = udrCreate(AcquireUDR);
+    AcquisitionParametersUDR acquisitionParamUdr = udrCreate(AcquisitionParametersUDR);    
+    //acquisitionParamUdr.consumptionDate=citDate;
+    acquisitionParamUdr.consumptionDate = convertDate(scitdate_from); //Updated as per defect identified in NEOM Demo preparation on 13th May 2025 - Liladhar
+    /*
+    if(sevent_name == "UNIT_STORAGE" || sevent_name == "UNIT_ELECTRICITY")
+    {
+        acquisitionParamUdr.serviceId = "STRG_SERV";
+    }
+    else
+    {
+        acquisitionParamUdr.serviceId = "CONT_SERV";
+    }
+    
+    //acquisitionParamUdr.serviceId = "VSL_STUS";
+    if(sevent_name == "HATCH_COVER_CLOSE")
+    {
+     acquisitionParamUdr.serviceId = "VSL_SERV";   
+    }
+    if(sevent_name == "DEPARTED")
+    {
+     acquisitionParamUdr.serviceId = "VSL_STUS";   
+    } */
+    list<string> vesselServiceList = listCreate(string);
+    vesselServiceList = strSplit(externalReferenceGet("CM_AcuitiPort.PRF_ExtRef_AcuitiPort", "VESSEL_SERVICE_EVENTS"),",");
+    boolean flag=false;
+    for(string compareEvent:vesselServiceList)
+    {
+	   if(compareEvent==sevent_name)
+	   {
+		  flag=true;
+	   }  
+    }
+    
+   // if(sevent_name == (string) listGet(vesselServiceList,0) || sevent_name == (string) listGet(vesselServiceList,1) || sevent_name == (string) listGet(vesselServiceList,2) || sevent_name == (string) listGet(vesselServiceList,3) || sevent_name == (string) listGet(vesselServiceList,4) || sevent_name == (string) listGet(vesselServiceList,5) || sevent_name == (string) listGet(vesselServiceList,6) || sevent_name == (string) listGet(vesselServiceList,7) || sevent_name == (string) listGet(vesselServiceList,8) || sevent_name == (string) listGet(vesselServiceList,9) || sevent_name == (string) listGet(vesselServiceList,10) || sevent_name == (string) listGet(vesselServiceList,11) || sevent_name == (string) listGet(vesselServiceList,13))
+    if(flag)
+    {
+    if ( sphase== "ARRIVED" || sphase == "DEPARTED")
+	{
+	   acquisitionParamUdr.serviceId = "VSL_STUS";
+	}
+	else
+	{
+	 acquisitionParamUdr.serviceId = "VSL_SERV"; 
+	}
+
+    }	
+   else if(sevent_name == "UNIT_STORAGE" || sevent_name == "UNIT_ELECTRICITY")
+    {
+        acquisitionParamUdr.serviceId = "STRG_SERV";
+    }
+    else
+    {
+        acquisitionParamUdr.serviceId = "CONT_SERV";
+    }	
+    acquisitionParamUdr.userId=spayee_id;    
+    list<AcquisitionParametersUDR> aquisitionParamList = listCreate(AcquisitionParametersUDR);
+    acquireUdr1.parameters = aquisitionParamList;    
+    ChargeableItemUDR chargebleItemUdr = udrCreate(ChargeableItemUDR);
+    chargebleItemUdr.name = "APCS";    
+	chargeableItemPropCcString("ZZAGENT1" ,sagent1);
+	chargeableItemPropCcString("ZZBILL_LADING" ,sbill_lading);
+	chargeableItemPropCcString("ZZBOOKING_NUMBER" ,sbooking_number);
+	chargeableItemPropCcString("ZZCATEGORY" ,scategory);
+	chargeableItemPropCcString("ZZCONSIGNEE_ID" ,sconsignee_id);
+	chargeableItemPropCcString("ZZCONTAINER_ID" ,scontainer_id);
+	chargeableItemPropCcDate("ZZCSTMDCDAT" ,convertDate(scstmdcdat));
+	chargeableItemPropCcString("ZZCSTMDECNO" ,scstmdecno);
+	chargeableItemPropCcString("ZZENDDATEFLAG" ,senddateflag);
+	chargeableItemPropCcString("ZZEQUIPTYPE" ,sequiptype);
+	chargeableItemPropCcString("ZZEVENT_CAT" ,sevent_cat);
+	chargeableItemPropCcString("ZZEVENT_GKEY" ,sevent_gkey);
+	chargeableItemPropCcString("ZZEVENT_NAME" ,sevent_name);
+	chargeableItemPropCcString("ZZFREIGHT_KIND" ,sfreight_kind);
+	chargeableItemPropCcNumber("ZZGROSS_TON" ,sgross_ton);
+	chargeableItemPropCcString("ZZIBVISIT_ID" ,sibvisit_id);
+	chargeableItemPropCcString("ZZISO_GRP" ,siso_grp);
+	chargeableItemPropCcString("ZZISO_LEN" ,siso_len);
+	chargeableItemPropCcString("ZZIS_IMDG" ,sis_imdg);
+	chargeableItemPropCcString("ZZIMDGCLASS" ,simdgclass);
+	chargeableItemPropCcString("ZZOOG" ,sis_oog);
+	chargeableItemPropCcString("ZZLAST_PORT" ,slast_port);
+	chargeableItemPropCcString("ZZLINE_ID" ,sline_id);
+	chargeableItemPropCcString("ZZOBVISIT_ID" ,sobvisit_id);
+	chargeableItemPropCcString("ZZPAYEE_ID" ,spayee_id);
+	chargeableItemPropCcString("ZZIS_REEFER" ,sis_reefer);
+	chargeableItemPropCcString("ZZSHIPPER_ID" ,sshipper_id);
+	chargeableItemPropCcString("ZZSPCL_STOW" ,sspcl_stow);
+	chargeableItemPropCcString("ZZSUBCON_ID" ,ssubcon_id);
+	chargeableItemPropCcString("ZZTERMINALID" ,sterminalid);
+	chargeableItemPropCcString("ZZUNIT_GKEY" ,sunit_gkey);
+	chargeableItemPropCcString("ZZVESSEL_ID" ,svessel_id);
+	chargeableItemPropCcString("ZZVESSEL_LENGTH" ,svessel_length);
+	chargeableItemPropCcString("ZZVESSEL_LINE" ,svessel_line);
+	chargeableItemPropCcString("ZZVESSEL_NAME" ,svessel_name);
+	chargeableItemPropCcString("ZZVESSEL_SERVICE" ,svessel_service);
+	chargeableItemPropCcString("ZZVESSEL_TYPE" ,svessel_type);
+	chargeableItemPropCcNumber("ZZTEU" ,steu);
+	chargeableItemPropCcString("ZZVISIT_ID" ,svisit_id);
+	chargeableItemPropCcString("ZZGKEY_TYPE" ,sgkey_type);
+	chargeableItemPropCcDate("ZZLASTCHARGEDTIME" ,convertDate(slastchargedtime));
+	chargeableItemPropCcDate("ZZWORK_ENDDTTM" ,convertDate(swork_enddttm));
+	chargeableItemPropCcDate("ZZWORK_STRTDTTM" ,convertDate(swork_strtdttm));
+	chargeableItemPropCcDate("ZZTIME_IN" ,convertDate(stime_in));
+	chargeableItemPropCcDate("ZZTIME_OUT" ,convertDate(stime_out));
+	chargeableItemPropCcDate("ZZSHIPARR_DATETIME" ,convertDate(sshiparr_datetime));
+	chargeableItemPropCcDate("ZZSHIPDEP_DATETIME" ,convertDate(sshipdep_datetime));
+	chargeableItemPropCcString("ZZIBCARRIER_TYPE" ,sibcarrier_type);
+	chargeableItemPropCcString("ZZOBCARRIER_TYPE" ,sobcarrier_type);
+    chargeableItemPropCcString("ZZPHASE" ,sphase);
+    chargeableItemPropCcDate("ZZDELIVERY_DTTM" ,convertDate(sdelivery_dttm));
+	chargeableItemPropCcNumber("CIT_QUANTITY" ,scit_quantity);
+	chargeableItemPropCcString("CIT_QTY_UNIT" ,scit_qty_unit);
+    
+    chargeableItemPropCcDate("CITDATE_FROM" ,convertDate(scitdate_from));
+	chargeableItemPropCcDate("CITDATE_TO" ,convertDate(scitdate_to));
+    
+     string stime_to,stime_from;
+    dateToString(stime_to,getTimeValue(convertDate(scitdate_to)));
+    dateToString(stime_from,getTimeValue(convertDate(scitdate_from)));
+    debug("The value of stime_to = " + (stime_to));
+    debug("The value of stime_from = " + (stime_from));
+	//chargeableItemPropCcDate("CITDATE_FROM" ,getDateValue(convertDate(scitdate_from)));
+	//chargeableItemPropCcDate("CITDATE_TO" ,getDateValue(convertDate(scitdate_to)));
+    //chargeableItemPropString("CITTIME_FROM" ,getTimeValue(convertDate(scitdate_from)));
+	//chargeableItemPropString("CITTIME_TO" ,getTimeValue(convertDate(scitdate_to)));
+    chargeableItemPropCcString("CITTIME_FROM" ,strREReplaceAll(stime_from ,":" ,""));
+    chargeableItemPropCcString("CITTIME_TO" ,strREReplaceAll(stime_to,":" ,""));
+    //chargeableItemPropCcString("CITTIME_FROM" ,stime_from);
+    //chargeableItemPropCcString("CITTIME_TO" ,stime_to);
+    
+    if(scittype == "AC01")
+    {
+	   chargeableItemPropCcString("CITTYPE" ,scittype);
+    }
+    chargebleItemUdr.properties = lipropertyUdr;    
+    acquisitionParamUdr.chargeableItem = chargebleItemUdr;
+    listAdd(aquisitionParamList,acquisitionParamUdr);
+    //debug("sendContainerCIC ::: The value of acquireUdr1 = " + (acquireUdr1));
+    
+    return acquireUdr1;
+};
+
+void chargeableItemPropCcString(string val1, string val2){
+    PropertyUDR propUdr = udrCreate(PropertyUDR);
+    propUdr.name=val1;
+    propUdr.value=val2;
+    listAdd(lipropertyUdr,propUdr);
+};
+
+void chargeableItemPropCcNumber(string val1, double val2){
+    PropertyUDR propUdr = udrCreate(PropertyUDR);
+    propUdr.name=val1;
+    propUdr.value=val2;
+    listAdd(lipropertyUdr,propUdr);
+};
+
+void chargeableItemPropCcDate(string val1, date val2){
+    PropertyUDR propUdr = udrCreate(PropertyUDR);
+    propUdr.name=val1;
+    propUdr.value=val2;
+    listAdd(lipropertyUdr,propUdr);
+};
+
+date strToDateCheck(string inDate, string dateFormat){
+	date outDate;
+	if(inDate != null){
+		if(!strToDate(outDate,inDate,dateFormat))
+			debug("Invalid input string format: " +inDate);
+	}
+	else{
+        debug("Input is null");
+	}
+	return outDate;
+};
+
+string dateToStringCheck(date dEndWOrk, string dateFormat){
+    string outString;
+    if(dEndWOrk != null){
+        if(!dateToString(outString,dEndWOrk,dateFormat))
+            debug("Invalid input date format."+dEndWOrk);
+    }
+    else{
+        debug("Input date is null");
+    } 
+    return outString;
+};
+
+date convertDate(string sInDate){	
+	date dInDate = strToDateCheck(sInDate,"dd/MM/yyyy HH:mm:ss");
+    string sOutDate = dateToStringCheck(dInDate,"yyyy-MM-dd'T'HH:mm:ss");
+    date dOutDate = strToDateCheck(sOutDate,"yyyy-MM-dd'T'HH:mm:ss");
+    return dOutDate;
+};
+
+date getTimeValue(date dInDate)
+{
+    debug("The value of dInDate = " + (dInDate));
+    date dOutTime;
+    string sInDate = dateToStringCheck(dInDate,"yyyy-MM-dd'T'HH:mm:ss");
+    debug("The value of sInDate = " + (sInDate));
+    string sOutTime = strSubstring(sInDate,11,19);
+    debug("The value of sOutTime = " + (sOutTime));
+    dOutTime = strToDateCheck(sOutTime,"HH:mm:ss");
+    return dOutTime;
+}
+
+date getDateValue(date dInDate)
+{
+    debug("The value of dInDate = " + (dInDate));
+    date dOutDate;
+    string sInDate = dateToStringCheck(dInDate,"yyyy-MM-dd'T'HH:mm:ss");
+    debug("The value of sInDate = " + (sInDate));
+    string sOutDate = strSubstring(sInDate,0,10);
+    debug("The value of sOutDate = " + (sOutDate));
+    dOutDate = strToDateCheck(sOutDate,"yyyy-MM-dd");
+    return dOutDate;
+}
+
+
+ZSOM_TECHID_ACUITIPORT_GET_UDR getTechIdentifier(citFileDataTI SomUDR,string tempPId){
+    ZSOM_TECHID_ACUITIPORT_GET_UDR rfcCIUdr=udrCreate(ZSOM_TECHID_ACUITIPORT_GET_UDR);    
+    rfcCIUdr.importParams=udrCreate(importParams_ZSOM_TECHID_ACUITIPORT_GET);
+    list<ZAP_T_TECHID> somUdrInpLi = listCreate(ZAP_T_TECHID);
+    ZAP_T_TECHID somInp = udrCreate(ZAP_T_TECHID);
+    somInp.INPUT = tempPId;
+    listAdd(somUdrInpLi,somInp);
+    rfcCIUdr.importParams.IM_INPUT = somUdrInpLi;
+    rfcCIUdr.context=SomUDR;
+    return rfcCIUdr;
+};
+]]></string>
+</exportmultiplex>

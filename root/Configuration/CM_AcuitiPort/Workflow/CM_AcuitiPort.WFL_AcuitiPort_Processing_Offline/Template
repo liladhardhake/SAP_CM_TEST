@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Template" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <list classname="java.util.ArrayList" name="Comments"/>
+   <storable name="Execution Config" storable-id="dr.WorkflowExecutionConfig" ver="10.0">
+      <enum name="debugType" storable-id="dr.DebugType" value="FILE"/>
+      <storable name="executionSettings" storable-id="dr.ExecutionSettings" ver="10.0">
+         <storable name="autostart" storable-id="dr.AutoStartSettings" ver="1.0">
+            <enum classname="com.digitalroute.wf.AutoStartSettings$AbortBehaviour" name="abort behaviour" value="ABORT"/>
+            <boolean name="enabled" value="false"/>
+            <int name="instances" value="0"/>
+         </storable>
+         <enum name="dist" storable-id="dr.WorkflowDistType" value="ROUND_ROBIN"/>
+         <boolean name="enabled" value="true"/>
+         <list classname="java.util.LinkedList" name="groupList">
+            <storable name="0" storable-id="dr.PicoGroupEntity" ver="2.0">
+               <string name="GroupName" value="ecsa1"/>
+               <int name="PicoType" value="2"/>
+            </storable>
+         </list>
+      </storable>
+      <int name="noOfFilesToKeep" value="10"/>
+      <string name="throughputMIM" null="true"/>
+      <string name="txnHandler" value="Default Handler"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Field Types">
+      <storable name="0" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Source - Directory"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="672577418"/>
+         <string name="Node Name" value="From_Filter"/>
+      </storable>
+      <storable name="1" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Source - Filename"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="672577418"/>
+         <string name="Node Name" value="From_Filter"/>
+      </storable>
+      <storable name="10" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Disk - Directory"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-279974329"/>
+         <string name="Node Name" value="auditDir"/>
+      </storable>
+      <storable name="2" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Webservices - HTTP Address"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-322542984"/>
+         <string name="Node Name" value="Web_Service_Request"/>
+      </storable>
+      <storable name="3" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Webservices - Server Timeout"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-322542984"/>
+         <string name="Node Name" value="Web_Service_Request"/>
+      </storable>
+      <storable name="4" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Webservices - Username"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-322542984"/>
+         <string name="Node Name" value="Web_Service_Request"/>
+      </storable>
+      <storable name="5" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Webservices - Password"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-322542984"/>
+         <string name="Node Name" value="Web_Service_Request"/>
+      </storable>
+      <storable name="6" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Connection - Hosts"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="1089207242"/>
+         <string name="Node Name" value="SAP_CC_Batch"/>
+      </storable>
+      <storable name="7" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Connection - User Name"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="1089207242"/>
+         <string name="Node Name" value="SAP_CC_Batch"/>
+      </storable>
+      <storable name="8" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Connection - Password"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="1089207242"/>
+         <string name="Node Name" value="SAP_CC_Batch"/>
+      </storable>
+      <storable name="9" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Connection - Timeout"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="1089207242"/>
+         <string name="Node Name" value="SAP_CC_Batch"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Logged error MIM"/>
+   <list classname="java.util.ArrayList" name="Nodes">
+      <storable name="0" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.batchrt.coll.disk.BatchCollRtDiskInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="4">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.batchrt.coll.disk.BatchCollRtDiskInsp]]></string>
+               <storable name="Data" storable-id="dr.batchcollrt.BatchCollRtBaseData" ver="20.0">
+                  <storable name="agentData" storable-id="dr.DiskAdvInputData" ver="10.0">
+                     <string name="collectionStrategyName" null="true"/>
+                     <boolean name="routeFileRef" value="false"/>
+                     <array classname="java.lang.String" name="strategyClasses" size="2">
+                        <string name="0" value="com.digitalroute.misc.advcoll.impl.DefaultFileInfo"/>
+                        <string name="1"><![CDATA[com.digitalroute.misc.advcoll.impl.DefaultSourceFileHandling]]></string>
+                     </array>
+                     <string name="strategyCombinationClass"><![CDATA[com.digitalroute.misc.advcoll.impl.DefaultCollectionStrategy]]></string>
+                     <array classname="com.digitalroute.devkit.storable.DRStorable" name="strategyConfigs" size="2">
+                        <storable name="0" storable-id="dr.DefaultFileInfoConfig" ver="10.0">
+                           <string name="baseDir" value="/home/mzadmin/AcuitiPort/Container/Val_out"/>
+                           <enum name="compType" storable-id="dr.CompressionType" value="NONE"/>
+                           <string name="fileRegExp" value="OUTPUT_*.*"/>
+                           <boolean name="subfolders" value="false"/>
+                        </storable>
+                        <storable name="1" storable-id="dr.DefaultSourceFileHandlingConfig" ver="10.0">
+                           <int name="idleTime" value="0"/>
+                           <boolean name="moveBeforeRetrieval" value="false"/>
+                           <string name="moveSuffix" value=""/>
+                           <string name="rbDirectory" value=""/>
+                           <int name="rbKeepInterval" value="-1"/>
+                           <string name="rbRenamePrefix" value=""/>
+                           <string name="rbRenameSuffix" value=""/>
+                           <string name="rbReplace" value=""/>
+                           <string name="rbSearch" value=""/>
+                           <enum name="rbType" storable-id="dr.RetrievalType" value="REMOVE"/>
+                        </storable>
+                     </array>
+                  </storable>
+                  <int name="cancelBatchCount" value="0"/>
+                  <enum name="cancelBatchType" storable-id="dr.CancelBatchType" value="NEVER_ABORT"/>
+                  <int name="errorMode" value="1"/>
+                  <int name="repeatInterval" value="5"/>
+               </storable>
+            </storable>
+            <storable name="1" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.devkit.wf.DRFileInfoSortOrderServiceInsp]]></string>
+               <storable name="Data" storable-id="dr.DRFileInfoSortOrderServiceConfig" ver="10.0">
+                  <boolean name="enabled" value="false"/>
+                  <boolean name="ignoreCase" value="false"/>
+                  <int name="length" value="0"/>
+                  <enum name="orderType" storable-id="dr.DRFileOrderType" value="FILENAME_VALUE"/>
+                  <enum name="patternType" storable-id="dr.DRFilenamePatternSelection" value="POSITION"/>
+                  <string name="regExp" null="true"/>
+                  <enum name="sortOrder" storable-id="dr.DRSortOrder" value="ASCENDING"/>
+                  <enum name="sortType" storable-id="dr.DRFilenameSortType" value="ALPHANUMERIC"/>
+                  <int name="startPos" value="0"/>
+               </storable>
+            </storable>
+            <storable name="2" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.wfc.ultra.server.service.RealtimeDecoderInsp]]></string>
+               <storable name="Data" storable-id="dr.RealtimeDecoderConfig" ver="11.0">
+                  <object name="decoderConfig">
+                     <null name="Object Internal"/>
+                  </object>
+                  <string name="decoderName" value="CM_AcuitiPort.ULF_AcuitiPort.citFileConstructed"/>
+                  <boolean name="doFullDecode" value="false"/>
+               </storable>
+            </storable>
+            <storable name="3" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.misc.compression.DecompressionServiceInsp]]></string>
+               <storable name="Data" storable-id="dr.CompressionServiceConfig" ver="12.0">
+                  <string name="algorithm" value="No Compression"/>
+                  <storable name="pluginConfig" null="true"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="From_Filter"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.CM_AcuitiPort.ULF_AcuitiPort;
+import apl.CM_AcuitiPort.APL_CC_Mapping;
+import ultra.SAP_RFC.CM_AcuitiPort.PRF_RFC_ZFICA;
+import ultra.SAP_RFC.CM_AcuitiPort.PRF_RFC_ZFICA.subUdr;
+import apl.CM_AcuitiPort.APL_Company_Maps;
+import ultra.CM_AcuitiPort.ULF_Company_Maps;
+
+
+table compMapSharedTable=tableCreateShared("CM_AcuitiPort.PRF_Shared_Table_TB_COMPANY_MAPS");
+mimPublish(global,"incFileNameMim",string);
+mimPublish(global,"incFileTimeMim",string);
+
+consume {    
+    map<string,string> MapFromCompMap = mapCreate(string,string);
+    string tempPayeeID;
+    string incFileName=(string)mimGet("From_Filter","Source Filename");
+    string incFileTime=(string)mimGet("From_Filter","File Retrieval Timestamp");
+    mimSet("incFileNameMim",incFileName);
+    mimSet("incFileTimeMim",incFileTime);
+    if(instanceOf(input,citFileDataTI)){
+        debug("INPUT>>> " +input);
+        citFileDataTI containerUDR = (citFileDataTI)input;
+        //debug("The value of containerUDR = " + (containerUDR));
+        
+        //CompanyMap table Lookup in order to fetch PayeeId details
+        //debug("ZZCATEGORY-- "+containerUDR.ZZCATEGORY+" --ZZCONSIGNEE_ID-- "+containerUDR.ZZCONSIGNEE_ID+" --ZZEVENT_NAME-- "+containerUDR.ZZEVENT_NAME+" --ZZFREIGHT_KIND-- "+containerUDR.ZZFREIGHT_KIND+" --ZZLINE_ID-- "+containerUDR.ZZLINE_ID+" --ZZSHIPPER_ID-- "+containerUDR.ZZSHIPPER_ID+" --ZZSPCL_STOW-- "+containerUDR.ZZSPCL_STOW);
+        if(containerUDR.ZZPHASE == "ARRIVED" || containerUDR.ZZPHASE == "DEPARTED"){
+            containerUDR.ZZEVENT_NAME = containerUDR.ZZPHASE;
+        }
+        MapFromCompMap = getPayeeFromCompanyMaps(containerUDR.ZZCATEGORY, containerUDR.ZZCONSIGNEE_ID, containerUDR.ZZEVENT_NAME, containerUDR.ZZFREIGHT_KIND, containerUDR.ZZLINE_ID, containerUDR.ZZSHIPPER_ID, containerUDR.ZZSPCL_STOW, containerUDR.ZZVESSEL_LINE, containerUDR.ZZVESSEL_SERVICE, compMapSharedTable);
+        debug("The value of MapFromCompMap = " + (MapFromCompMap));
+        if (mapSize(MapFromCompMap) > 0){
+            
+            string sPayee = mapGet(MapFromCompMap,"PAYEE");
+            //debug("The value of payee = " +sPayee);
+            string Alternate_Payee = mapGet(MapFromCompMap,"ALTERNATE_INVOICE_PAYEE");
+            //debug("The value of Alternate_Payee = " + (Alternate_Payee));
+            string additionalCust = mapGet(MapFromCompMap,"ADDITIONAL_CUSTOMER");
+            //debug("The value of additionalCust = " + (additionalCust));
+            if (sPayee != "-"){ ////TARIFF_PARTY found from TB_COMPANY_MAPS_UNIT_MARINE
+                Alternate_Payee = Alternate_Payee == "-" ? "" : Alternate_Payee;
+                additionalCust = additionalCust != "-" ? additionalCust : "";
+                ZSOM_TECHID_ACUITIPORT_GET_UDR rfcCIUdr = getTechIdentifier(containerUDR,sPayee);
+                debug("payee ::"+sPayee);
+                udrRoute(rfcCIUdr,"toRFC");
+            }
+            else{ //Check in CompanyType for getting the Default payer                        
+                string sCompanyNameType = mapGet(MapFromCompMap, "INVOICE_COMPANY_TYPE");
+                string sPayeeId = sCompanyNameType == "LINE_ID" ? containerUDR.ZZLINE_ID : sCompanyNameType == "CONSIGNEE_ID" ? containerUDR.ZZCONSIGNEE_ID : sCompanyNameType == "SHIPPER_ID" ? containerUDR.ZZSHIPPER_ID : sCompanyNameType == "VESSEL_LINE" ? containerUDR.ZZVESSEL_LINE : "";
+            if (sPayeeId != "-"){
+                 Alternate_Payee = Alternate_Payee == "-" ? "" : Alternate_Payee;
+                 additionalCust = additionalCust == "-" ? "" : additionalCust;
+                  ZSOM_TECHID_ACUITIPORT_GET_UDR rfcCIUdr = getTechIdentifier(containerUDR,sPayeeId);
+                  debug("payeeId ::"+sPayeeId);
+                  udrRoute(rfcCIUdr,"toRFC");
+               }
+            }
+         }
+         else{
+            debug("No Payee ID found in Company Map");
+        }
+        
+        /*
+        debug("The value of compMap = " + (MapFromCompMap));
+        if(mapContains(MapFromCompMap,"PAYEE")){
+            tempPayeeID=(string)mapGet(MapFromCompMap,"PAYEE");
+            debug("The value of tempPayeeID = " + (tempPayeeID));
+            ZSOM_TECHID_ACUITIPORT_GET_UDR rfcCIUdr = getTechIdentifier(containerUDR,tempPayeeID);
+            udrRoute(rfcCIUdr,"toRFC");
+        }
+        else{
+            debug("No Payee ID found in Company Map");
+        }
+        */
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="4">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="BatchRT.BeginBatch"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="BatchRT.CancelBatch"/>
+                     </storable>
+                     <storable name="2" storable-id="dr.UltraClientInfo" ver="1.0">
+                        <string name="FormatName" value="CM_AcuitiPort.ULF_AcuitiPort"/>
+                        <string name="TypeName" value="CM_AcuitiPort.ULF_AcuitiPort.citFileDataTI"/>
+                     </storable>
+                     <storable name="3" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="BatchRT.EndBatch"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="compMap_SOMReq"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+               <storable name="Data" storable-id="rfc.agent.contract" ver="10.0">
+                  <int name="cacheExpiry" value="120"/>
+                  <int name="cacheSize" value="1000"/>
+                  <boolean name="enableConnectionPool" value="false"/>
+                  <boolean name="enableImmediateStop" value="false"/>
+                  <int name="executorSize" value="5"/>
+                  <int name="jCoPeakLimit" value="2"/>
+                  <int name="jCoPoolCapacity" value="2"/>
+                  <int name="queueSize" value="1000"/>
+                  <storable name="rfcProfile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="CM_AcuitiPort"/>
+                     <string name="Key" value="MZ1655892219561"/>
+                     <string name="Name" value="PRF_RFC_ZFICA"/>
+                     <string name="Type" value="SAP RFC Profile"/>
+                  </storable>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="SOM_RFC_Processor"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.CM_AcuitiPort.ULF_AcuitiPort;
+import apl.CM_AcuitiPort.APL_CC_Mapping;
+import ultra.SAP_RFC.CM_AcuitiPort.PRF_RFC_ZFICA;
+import ultra.SAP_RFC.CM_AcuitiPort.PRF_RFC_ZFICA.subUdr;
+import ultra.ws.CM_AcuitiPort.PRF_WS_CheckCharge.cycles;
+import ultra.ws.CM_AcuitiPort.PRF_WS_CheckCharge.schema;
+import apl.CM_AcuitiPort.APL_Dependent_Event;
+import apl.CM_AcuitiPort.APL_Audit;
+import ultra.CM_AcuitiPort.ULF_Audit;
+
+table dpndntMapSharedTable=tableCreateShared("CM_AcuitiPort.PRF_Shared_Table_TB_DEPENDENT_TABLE");
+    
+consume {    
+    string incFileName=(string)mimGet("compMap_SOMReq","incFileNameMim");
+    string wflName=(string)mimGet("Workflow","Workflow Name");
+    string incFileTime=(string)mimGet("compMap_SOMReq","incFileTimeMim");
+    string unit_event_gkey, eventname, cont_ves_id,filterWFLFlag, proWFLFag,remark;
+    list<string> dpndntEvntLi=listCreate(string);
+    date cstm_dec_dttm,lst_chrg_dttm,wrk_end_dttm,wrk_strt_dttm,tm_in,tm_out,shp_arr_dttm,shp_dep_dttm,citdt_frm,citdt_to;
+    double gr_ton,tu,ct_qty;
+    //Response of technical Identifier RFC
+    if(instanceOf(input,ZSOM_TECHID_ACUITIPORT_GET_UDR))
+    {        
+        //debug("Technical Identifier response: "+input);
+        ZSOM_TECHID_ACUITIPORT_GET_UDR rfcUDR =(ZSOM_TECHID_ACUITIPORT_GET_UDR)input;
+        string sTechnicalId,sBP,sCA;
+        exportParams_ZSOM_TECHID_ACUITIPORT_GET exportParams = (exportParams_ZSOM_TECHID_ACUITIPORT_GET)rfcUDR.exportParams;
+        citFileDataTI citFileUdr1 = (citFileDataTI)rfcUDR.context;
+        eventname=citFileUdr1.ZZEVENT_NAME;
+        unit_event_gkey=citFileUdr1.ZZUNIT_GKEY;
+        cont_ves_id=citFileUdr1.ZZCONTAINER_ID;
+        if(udrIsPresent(exportParams.EX_OUTPUT) && listSize(exportParams.EX_OUTPUT)>0){
+            //debug("The value of listSize(exportParams.EX_OUTPUT) = " + (listSize(exportParams.EX_OUTPUT)));
+            //debug("The value of exportParams.EX_OUTPUT_1 = " + (exportParams.EX_OUTPUT));
+            list < ZAP_T_TECHID_OUTPUT > outLi = listCreate(ZAP_T_TECHID_OUTPUT);
+            outLi = exportParams.EX_OUTPUT;
+            //debug("The value of (string)listGet(outLi,0) = " + ((string)listGet(outLi,0)));
+			for(ZAP_T_TECHID_OUTPUT outList:outLi){
+                debug("outList.BP strTrim() :: "+strTrim(outList.SOLD_TO_PARTY));
+				debug("outList.TECH_ID strTrim() :: "+strTrim(outList.TECH_ID));
+				debug("outList.CA strTrim() :: "+strTrim(outList.VKONT));			
+                sBP = outList.SOLD_TO_PARTY;
+                sTechnicalId = outList.TECH_ID;
+                sCA = outList.VKONT;
+            }
+            debug("BusinessPartner: "+sBP+" TechnicalID: "+sTechnicalId+ " sCA: "+sCA);
+        }
+        
+        //Dependent Table Lookup in order to fetch dependent Events
+        //debug("ZZEVENT_NAME-- "+citFileUdr1.ZZEVENT_NAME+" --ZZLINE_ID-- "+citFileUdr1.ZZLINE_ID+" --ZZCATEGORY-- "+citFileUdr1.ZZCATEGORY+" --ZZFREIGHT_KIND-- "+citFileUdr1.ZZFREIGHT_KIND+" --ZZSPCL_STOW-- "+citFileUdr1.ZZSPCL_STOW+ " --ZZIS_REEFER-- "+citFileUdr1.ZZIS_REEFER);
+        dpndntEvntLi=returnDependentEvents(citFileUdr1.ZZEVENT_NAME, citFileUdr1.ZZLINE_ID, citFileUdr1.ZZCATEGORY, citFileUdr1.ZZFREIGHT_KIND, citFileUdr1.ZZSPCL_STOW, citFileUdr1.ZZIS_REEFER,dpndntMapSharedTable);
+        //debug("The value of dpndntEvntLi = " + (dpndntEvntLi));
+        
+        if(sTechnicalId != null){
+			//debug("Arrived/Departed Event to CC");
+            WSCycle_chargeableItemCheckCharge wsChargeItemBundle=udrCreate(WSCycle_chargeableItemCheckCharge);
+            ChargeableItemCheckChargeRequest checkChargeReq=udrCreate(ChargeableItemCheckChargeRequest);
+//          wsChargeItemBundle.param=checkChargeReq;
+            gr_ton=(double)citFileUdr1.ZZGROSS_TON;
+            tu=(double)citFileUdr1.ZZTEU;
+            ct_qty=(double)citFileUdr1.CIT_QUANTITY;
+            citFileUdr1.ZZPAYEE_ID=sTechnicalId;
+            debug("The Length of IS_REEFER before checkcharge " +strLength(citFileUdr1.ZZIS_REEFER),"for the EVENT_GKEY" +citFileUdr1.ZZEVENT_GKEY);
+            ChargeableItem chargeItem = createContainerCIC(citFileUdr1.ZZAGENT1,citFileUdr1.ZZBILL_LADING,citFileUdr1.ZZBOOKING_NUMBER,citFileUdr1.ZZCATEGORY,citFileUdr1.ZZCONSIGNEE_ID,citFileUdr1.ZZCONTAINER_ID,citFileUdr1.ZZCSTMDCDAT,citFileUdr1.ZZCSTMDECNO,citFileUdr1.ZZENDDATEFLAG,citFileUdr1.ZZEQUIPTYPE,citFileUdr1.ZZEVENT_CAT,citFileUdr1.ZZEVENT_GKEY,citFileUdr1.ZZEVENT_NAME,citFileUdr1.ZZFREIGHT_KIND,gr_ton,citFileUdr1.ZZIBVISIT_ID,citFileUdr1.ZZISO_GRP,citFileUdr1.ZZISO_LEN,citFileUdr1.ZZIS_IMDG,citFileUdr1.ZZIMDGCLASS,citFileUdr1.ZZOOG,citFileUdr1.ZZLAST_PORT,citFileUdr1.ZZLINE_ID,citFileUdr1.ZZOBVISIT_ID,citFileUdr1.ZZPAYEE_ID,citFileUdr1.ZZIS_REEFER,citFileUdr1.ZZSHIPPER_ID,citFileUdr1.ZZSPCL_STOW,citFileUdr1.ZZSUBCON_ID,citFileUdr1.ZZTERMINALID,citFileUdr1.ZZUNIT_GKEY,citFileUdr1.ZZVESSEL_ID,citFileUdr1.ZZVESSEL_LENGTH,citFileUdr1.ZZVESSEL_LINE,citFileUdr1.ZZVESSEL_NAME,citFileUdr1.ZZVESSEL_SERVICE,citFileUdr1.ZZVESSEL_TYPE,tu,citFileUdr1.ZZVISIT_ID,citFileUdr1.ZZGKEY_TYPE,citFileUdr1.ZZLASTCHARGEDTIME,citFileUdr1.ZZWORK_ENDDTTM,citFileUdr1.ZZWORK_STRTDTTM,citFileUdr1.ZZTIME_IN,citFileUdr1.ZZTIME_OUT,citFileUdr1.ZZSHIPARR_DATETIME,citFileUdr1.ZZSHIPDEP_DATETIME,citFileUdr1.ZZIBCARRIER_TYPE,citFileUdr1.ZZOBCARRIER_TYPE,citFileUdr1.ZZPHASE,citFileUdr1.ZZDELIVERY_DTTM,ct_qty,citFileUdr1.CIT_QTY_UNIT,citFileUdr1.CITDATE_FROM,citFileUdr1.CITDATE_TO,citFileUdr1.CITTYPE);
+            //debug("Charge item received_1: " + chargeItem);
+            checkChargeReq.chargeableItem = chargeItem;
+            checkChargeReq.context = udrCreate(ChargeableItemChargeContext);
+            checkChargeReq.context.chargingResultContext = udrCreate(ChargingResultContext);
+            checkChargeReq.context.chargingResultContext.notificationReturned=true;
+            checkChargeReq.context.chargingResultContext.chargedItemReturned=true;
+            //checkChargeReq.context.chargingOutputContext.chargeableItemExported=true; //added for unit_transportation event
+            wsChargeItemBundle.param = checkChargeReq;
+            wsChargeItemBundle.context = citFileUdr1;
+            debug("<<<<<CHECK CHARGE REQUEST = " + (wsChargeItemBundle));
+            
+            
+            //CheckCharge Request creation for Dependent Events
+            debug("The value of dpndntEvntLi = " + (dpndntEvntLi));                   
+            if(listSize(dpndntEvntLi)>0){
+                udrRoute(wsChargeItemBundle,"to_wsCC",clone);
+                for(string dpndntEvntList:dpndntEvntLi){
+                    citFileUdr1.ZZEVENT_NAME=dpndntEvntList;
+                    citFileUdr1.ZZGKEY_TYPE="D";
+                    debug("The Length of IS_REEFER before checkcharge " +strLength(citFileUdr1.ZZIS_REEFER),"for the EVENT_GKEY" +citFileUdr1.ZZEVENT_GKEY);
+                    chargeItem = createContainerCIC(citFileUdr1.ZZAGENT1,citFileUdr1.ZZBILL_LADING,citFileUdr1.ZZBOOKING_NUMBER,citFileUdr1.ZZCATEGORY,citFileUdr1.ZZCONSIGNEE_ID,citFileUdr1.ZZCONTAINER_ID,citFileUdr1.ZZCSTMDCDAT,citFileUdr1.ZZCSTMDECNO,citFileUdr1.ZZENDDATEFLAG,citFileUdr1.ZZEQUIPTYPE,citFileUdr1.ZZEVENT_CAT,citFileUdr1.ZZEVENT_GKEY,citFileUdr1.ZZEVENT_NAME,citFileUdr1.ZZFREIGHT_KIND,gr_ton,citFileUdr1.ZZIBVISIT_ID,citFileUdr1.ZZISO_GRP,citFileUdr1.ZZISO_LEN,citFileUdr1.ZZIS_IMDG,citFileUdr1.ZZIMDGCLASS,citFileUdr1.ZZOOG,citFileUdr1.ZZLAST_PORT,citFileUdr1.ZZLINE_ID,citFileUdr1.ZZOBVISIT_ID,citFileUdr1.ZZPAYEE_ID,citFileUdr1.ZZIS_REEFER,citFileUdr1.ZZSHIPPER_ID,citFileUdr1.ZZSPCL_STOW,citFileUdr1.ZZSUBCON_ID,citFileUdr1.ZZTERMINALID,citFileUdr1.ZZUNIT_GKEY,citFileUdr1.ZZVESSEL_ID,citFileUdr1.ZZVESSEL_LENGTH,citFileUdr1.ZZVESSEL_LINE,citFileUdr1.ZZVESSEL_NAME,citFileUdr1.ZZVESSEL_SERVICE,citFileUdr1.ZZVESSEL_TYPE,tu,citFileUdr1.ZZVISIT_ID,citFileUdr1.ZZGKEY_TYPE,citFileUdr1.ZZLASTCHARGEDTIME,citFileUdr1.ZZWORK_ENDDTTM,citFileUdr1.ZZWORK_STRTDTTM,citFileUdr1.ZZTIME_IN,citFileUdr1.ZZTIME_OUT,citFileUdr1.ZZSHIPARR_DATETIME,citFileUdr1.ZZSHIPDEP_DATETIME,citFileUdr1.ZZIBCARRIER_TYPE,citFileUdr1.ZZOBCARRIER_TYPE,citFileUdr1.ZZPHASE,citFileUdr1.ZZDELIVERY_DTTM,ct_qty,citFileUdr1.CIT_QTY_UNIT,citFileUdr1.CITDATE_FROM,citFileUdr1.CITDATE_TO,citFileUdr1.CITTYPE);
+                    //debug("Charge item received_2: " + chargeItem);
+                    checkChargeReq.chargeableItem = chargeItem;
+                    checkChargeReq.context = udrCreate(ChargeableItemChargeContext);
+                    checkChargeReq.context.chargingResultContext = udrCreate(ChargingResultContext);
+                    checkChargeReq.context.chargingResultContext.notificationReturned=true;
+                    checkChargeReq.context.chargingResultContext.chargedItemReturned=true;
+                    //checkChargeReq.context.chargingOutputContext.chargeableItemExported=true; //added for unit_transportation event
+                    wsChargeItemBundle.param = checkChargeReq;
+                    wsChargeItemBundle.context = citFileUdr1;
+                    debug("<<<<<CHECK CHARGE REQUEST DEPENDENT = " + (wsChargeItemBundle));
+                    udrRoute(wsChargeItemBundle,"to_wsCC");
+                }
+            }
+            else
+            {
+                udrRoute(wsChargeItemBundle,"to_wsCC");
+            }
+        }
+    }
+     else
+    {
+        filterWFLFlag="Y";
+        proWFLFag="N";
+        remark="Technical ID not found";
+		auditInfoTI auditdataUDR=udrCreate(auditInfoTI);
+		auditdataUDR =maptoauditdata(incFileName,wflName, incFileTime, eventname,unit_event_gkey,cont_ves_id,filterWFLFlag,proWFLFag,remark);
+	    debug("IN THE AUDIT PART::" +auditdataUDR);
+		udrRoute(auditdataUDR,"toAuditEnc");
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="2">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="RfcErrorUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.CM_AcuitiPort.PRF_RFC_ZFICA.ZSOM_TECHID_ACUITIPORT_GET_UDR]]></string>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="SOMRes_DepMap_wsReq"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.ws.WSForwarderInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.ws.WSForwarderInsp"/>
+               <storable name="Data" storable-id="dr.WSForwarderData" ver="11.0">
+                  <boolean name="cdataSupport" value="false"/>
+                  <boolean name="enableBasicAuthentication" value="true"/>
+                  <boolean name="enableRouteRawXML" value="false"/>
+                  <string name="httpAddress" value="http://cc2020:9180/chargeableItemCharging"/>
+                  <password name="httpPassword" value="DR-4-91E098B565FBBA310D65EE5F9D8D63B3"/>
+                  <string name="httpUsername" value="CC_Webservice"/>
+                  <storable name="profile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="CM_AcuitiPort"/>
+                     <string name="Key" value="MZ1655278057874"/>
+                     <string name="Name" value="PRF_WS_CheckCharge"/>
+                     <string name="Type" value="WS Profile"/>
+                  </storable>
+                  <string name="routeRawXMLTo" null="true"/>
+                  <int name="serverTimeout" value="3000"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Web_Service_Request"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.CM_AcuitiPort.ULF_AcuitiPort;
+import apl.CM_AcuitiPort.APL_CC_Mapping;
+import ultra.ws.CM_AcuitiPort.PRF_WS_CheckCharge.schema;
+import ultra.sapcc.batch;
+import ultra.sapcc;
+import apl.CM_AcuitiPort.APL_Audit;
+import ultra.CM_AcuitiPort.ULF_Audit;
+
+consume {
+    string incFileName=(string)mimGet("compMap_SOMReq","incFileNameMim");
+    string wflName=(string)mimGet("Workflow","Workflow Name");
+    string incFileTime=(string)mimGet("compMap_SOMReq","incFileTimeMim");
+    string unit_event_gkey, eventname, cont_ves_id,filterWFLFlag, proWFLFag,remark;
+    date cstm_dec_dttm,lst_chrg_dttm,wrk_end_dttm,wrk_strt_dttm,tm_in,tm_out,shp_arr_dttm,shp_dep_dttm,citdt_frm,citdt_to;
+    double gr_ton,tu,ct_qty;
+    //Response of WebService
+    if (instanceOf(input, WSCycle_chargeableItemCheckCharge)){
+        //debug("check charge response >> "+input);
+        WSCycle_chargeableItemCheckCharge ws = (WSCycle_chargeableItemCheckCharge) input;
+        ChargeableItemCheckChargeResponse resUDR = udrCreate(ChargeableItemCheckChargeResponse);
+        //debug("Context of checkcharge :: " + ws.context);
+        citFileDataTI citFileUdr2 = (citFileDataTI)ws.context;
+        eventname=citFileUdr2.ZZEVENT_NAME;
+        unit_event_gkey=citFileUdr2.ZZUNIT_GKEY;
+        cont_ves_id=citFileUdr2.ZZCONTAINER_ID;
+        resUDR = ws.response;
+        debug("<<<<<CHECK CHARGE RESPONSE :: " + resUDR);
+        if(udrIsPresent(resUDR.error)){
+            debug("Error received from charging system" + resUDR.error);
+            filterWFLFlag="Y";
+            proWFLFag="N";
+            remark=resUDR.error.message;
+		    auditInfoTI auditdataUDR=udrCreate(auditInfoTI);
+		    auditdataUDR =maptoauditdata(incFileName,wflName, incFileTime, eventname,unit_event_gkey,cont_ves_id,filterWFLFlag,proWFLFag,remark);
+	        debug("IN THE AUDIT PART::" +auditdataUDR);
+		    udrRoute(auditdataUDR,"toAuditEnc");
+            
+        }
+        else{
+            //debug("Inside Else");
+            CCBatchCycleUDR ccDependentUDR = udrCreate(CCBatchCycleUDR);
+            AcquireUDR acquireUDR = udrCreate(AcquireUDR);
+            //Create CIC for dependent Event
+            gr_ton=(double)citFileUdr2.ZZGROSS_TON;
+            tu=(double)citFileUdr2.ZZTEU;
+            ct_qty=(double)citFileUdr2.CIT_QUANTITY;
+            //debug("CAllingActualCIC_Start");
+            debug("The value of citFileUdr2.ZZDELIVERY_DTTM = " + (citFileUdr2.ZZDELIVERY_DTTM));
+            acquireUDR = sendContainerCIC(citFileUdr2.ZZAGENT1,citFileUdr2.ZZBILL_LADING,citFileUdr2.ZZBOOKING_NUMBER,citFileUdr2.ZZCATEGORY,citFileUdr2.ZZCONSIGNEE_ID,citFileUdr2.ZZCONTAINER_ID,citFileUdr2.ZZCSTMDCDAT,citFileUdr2.ZZCSTMDECNO,citFileUdr2.ZZENDDATEFLAG,citFileUdr2.ZZEQUIPTYPE,citFileUdr2.ZZEVENT_CAT,citFileUdr2.ZZEVENT_GKEY,citFileUdr2.ZZEVENT_NAME,citFileUdr2.ZZFREIGHT_KIND,gr_ton,citFileUdr2.ZZIBVISIT_ID,citFileUdr2.ZZISO_GRP,citFileUdr2.ZZISO_LEN,citFileUdr2.ZZIS_IMDG,citFileUdr2.ZZIMDGCLASS,citFileUdr2.ZZOOG,citFileUdr2.ZZLAST_PORT,citFileUdr2.ZZLINE_ID,citFileUdr2.ZZOBVISIT_ID,citFileUdr2.ZZPAYEE_ID,citFileUdr2.ZZIS_REEFER,citFileUdr2.ZZSHIPPER_ID,citFileUdr2.ZZSPCL_STOW,citFileUdr2.ZZSUBCON_ID,citFileUdr2.ZZTERMINALID,citFileUdr2.ZZUNIT_GKEY,citFileUdr2.ZZVESSEL_ID,citFileUdr2.ZZVESSEL_LENGTH,citFileUdr2.ZZVESSEL_LINE,citFileUdr2.ZZVESSEL_NAME,citFileUdr2.ZZVESSEL_SERVICE,citFileUdr2.ZZVESSEL_TYPE,tu,citFileUdr2.ZZVISIT_ID,citFileUdr2.ZZGKEY_TYPE,citFileUdr2.ZZLASTCHARGEDTIME,citFileUdr2.ZZWORK_ENDDTTM,citFileUdr2.ZZWORK_STRTDTTM,citFileUdr2.ZZTIME_IN,citFileUdr2.ZZTIME_OUT,citFileUdr2.ZZSHIPARR_DATETIME,citFileUdr2.ZZSHIPDEP_DATETIME,citFileUdr2.ZZIBCARRIER_TYPE,citFileUdr2.ZZOBCARRIER_TYPE,citFileUdr2.ZZPHASE,citFileUdr2.ZZDELIVERY_DTTM,ct_qty,citFileUdr2.CIT_QTY_UNIT,citFileUdr2.CITDATE_FROM,citFileUdr2.CITDATE_TO,citFileUdr2.CITTYPE);
+            //debug("The value of acquireUDR = " + (acquireUDR));
+            //debug("CAllingActualCIC_End");
+            ccDependentUDR.request = acquireUDR;
+            ccDependentUDR.freeField = citFileUdr2;
+            //debug("***Sending ActualCIC_Dependen to CC***"+dateCreateNow());
+            debug("<<<<<CC REQUEST" + acquireUDR);
+            udrRoute(ccDependentUDR,"toBatchCC");
+        }
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="1">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[ws.CM_AcuitiPort.PRF_WS_CheckCharge.cycles.AbstractChargeableItemChargingServicesWSCycle]]></string>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="wsRes_ccBatchReq"/>
+      </storable>
+      <storable name="6" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.sapcc.batch.SAPCCBatchProcessorInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.sapcc.batch.SAPCCBatchProcessorInsp]]></string>
+               <storable name="Data" storable-id="dr.VersionSafeSAPCCOnlineProcessorConfig" ver="10.0">
+                  <boolean name="apiAuthentication" value="true"/>
+                  <boolean name="convertStr" value="false"/>
+                  <boolean name="enableDebug" value="true"/>
+                  <boolean name="enableSecuredConnection" value="false"/>
+                  <string name="hosts" value="cc2020:2000"/>
+                  <password name="keystorePassword" value="DR-4-017BB0B8FB061C1876D43DD75468AA40"/>
+                  <string name="keystorePath" value=""/>
+                  <password name="password" value="DR-4-4B3232D068C138988B8F2E40C368A744"/>
+                  <int name="timeout" value="2000"/>
+                  <string name="username" value="CC_Webservice"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="SAP_CC_Batch"/>
+      </storable>
+      <storable name="7" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.sapcc.batch;
+import ultra.sapcc;
+import apl.CM_AcuitiPort.APL_Audit;
+import ultra.CM_AcuitiPort.ULF_Audit;
+import ultra.CM_AcuitiPort.ULF_AcuitiPort;
+consume {
+    string incFileName=(string)mimGet("compMap_SOMReq","incFileNameMim");
+    string wflName=(string)mimGet("Workflow","Workflow Name");
+    string incFileTime=(string)mimGet("compMap_SOMReq","incFileTimeMim");
+    string unit_event_gkey, eventname, cont_ves_id,filterWFLFlag, proWFLFag,remark;
+    if (instanceOf(input,CCBatchCycleUDR)){   
+        CCBatchCycleUDR resl= (CCBatchCycleUDR)input;    
+        debug("<<<<<CC RESPONSE ::"+ resl);
+  
+        citFileDataTI citFileUdr2 = (citFileDataTI)resl.freeField;
+        eventname=citFileUdr2.ZZEVENT_NAME;
+        unit_event_gkey=citFileUdr2.ZZUNIT_GKEY;
+        cont_ves_id=citFileUdr2.ZZCONTAINER_ID;
+    }
+    else
+    {
+        filterWFLFlag="Y";
+        proWFLFag="N";
+        remark="Acquire UDR Failed";
+		auditInfoTI auditdataUDR=udrCreate(auditInfoTI);
+		auditdataUDR =maptoauditdata(incFileName,wflName, incFileTime, eventname,unit_event_gkey,cont_ves_id,filterWFLFlag,proWFLFag,remark);
+	    debug("IN THE AUDIT PART::" +auditdataUDR);
+		udrRoute(auditdataUDR,"toAuditEnc");
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="1">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="sapcc.batch.CCBatchCycleUDR"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="BatchCcRes"/>
+      </storable>
+      <storable name="8" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.wfc.ultra.UltraEncoderRealtimeInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.wfc.ultra.UltraEncoderRealtimeInsp]]></string>
+               <storable name="Data" storable-id="dr.UltraEncoderDataValidation" ver="12.0">
+                  <storable name="encoderConfig" null="true"/>
+                  <string name="encoderName" value="CM_AcuitiPort.ULF_Audit.auditInfo_encoder"/>
+                  <boolean name="skipEncoding" value="false"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="auditEnc"/>
+      </storable>
+      <storable name="9" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.batchrt.forw.disk.BatchForwRtDiskInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="2">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.batchrt.forw.disk.BatchForwRtDiskInsp]]></string>
+               <storable name="Data" storable-id="dr.batchforwrt.BatchForwRtBaseData" ver="20.0">
+                  <storable name="agentData" storable-id="dr.DiskOutputData" ver="13.0">
+                     <string name="arguments" value=""/>
+                     <string name="command" value=""/>
+                     <enum name="compType" storable-id="dr.CompressionType" value="NONE"/>
+                     <boolean name="createEmpty" value="false"/>
+                     <boolean name="createNonExistingBaseDir" value="false"/>
+                     <string name="directory" value="/home/mzadmin/AcuitiPort/Container/Audit"/>
+                     <enum name="inputType" storable-id="dr.InputType" value="ByteArray"/>
+                  </storable>
+                  <int name="closingCriteriaByteCount" value="0"/>
+                  <int name="closingCriteriaDuration" value="0"/>
+                  <int name="closingCriteriaUdrCount" value="0"/>
+               </storable>
+            </storable>
+            <storable name="1" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.devkit.wf.DRFNTServiceInsp"/>
+               <storable name="Data" storable-id="dr.DRFNTServiceConfig" ver="11.0">
+                  <boolean name="createNonExistDirectories" value="true"/>
+                  <array classname="com.digitalroute.devkit.hidden.DRFNTServiceEntry" name="entries" size="2">
+                     <storable name="0" storable-id="dr.DRFNTServiceEntry" ver="3.0">
+                        <int name="Alignment" value="1"/>
+                        <string name="Date format" null="true"/>
+                        <boolean name="Delimiter" value="false"/>
+                        <string name="Mim entry" null="true"/>
+                        <string name="Pad" null="true"/>
+                        <int name="Size" value="-1"/>
+                        <string name="Trailing separator" null="true"/>
+                        <string name="User entry" value="AUDIT_"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRFNTServiceEntry" ver="3.0">
+                        <int name="Alignment" value="1"/>
+                        <string name="Date format" null="true"/>
+                        <boolean name="Delimiter" value="false"/>
+                        <string name="Mim entry" value="compMap_SOMReq.incFileNameMim"/>
+                        <string name="Pad" null="true"/>
+                        <int name="Size" value="-1"/>
+                        <string name="Trailing separator" null="true"/>
+                        <string name="User entry" null="true"/>
+                     </storable>
+                  </array>
+                  <boolean name="fNTListEnabled" value="true"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="auditDir"/>
+      </storable>
+   </list>
+   <storable name="Persistent" storable-id="dr.WorkflowPersistentConfig" ver="10.0">
+      <string name="persistentInspector" null="true"/>
+      <storable name="persistentStorageConfig" null="true"/>
+      <string name="persistentTimeoutHandler" null="true"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Routes">
+      <storable name="0" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toA1"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toRFC"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="10" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toAuditDir"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toA2"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="to_wsCC"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toA3"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toBatchCC"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="6" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toA4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="7" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toAuditEnc"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="8" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toAuditEnc"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="9" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toAuditEnc"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Service"/>
+   <boolean name="Template Valid" value="true"/>
+   <storable name="Thread data" storable-id="dr.WorkflowExecutionRealtimeConfig" ver="10.0">
+      <int name="countInterval" value="1"/>
+      <int name="queueSize" value="1000"/>
+      <string name="queueStrategy" value="Blocking queue"/>
+      <string name="queueWorkerStrategy" value="RoundRobin"/>
+      <boolean name="standalone" value="true"/>
+      <int name="threads" value="8"/>
+   </storable>
+</exportmultiplex>

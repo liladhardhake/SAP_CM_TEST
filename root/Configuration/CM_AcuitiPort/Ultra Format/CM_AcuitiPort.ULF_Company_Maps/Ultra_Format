@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Ultra_Format" ref_path="ultra_format[Internal]/storable[ultra_format]/storable[Data]">
+   <string name="Definition"><![CDATA[internal tableUDR
+{
+  string TARIFF_INVOICE;
+  string ALTERNATIVE_INVOICE_TARIFF;
+  string INVOICE_COMPANY_TYPE;
+  string ADDITIONAL_CUSTOMER;  
+  string PARENT_EVENT;
+  string LINE_ID;
+  string CATEGORY;
+  string FREIGHT_KIND;  
+  string SPECIAL_STOW;
+  string CONSIGNEE_ID;
+  string SHIPPER_ID;
+  string VESSEL_SERVICE;
+  string VESSEL_LINE;  
+};
+
+internal val1{
+    string message;
+};]]></string>
+</exportmultiplex>

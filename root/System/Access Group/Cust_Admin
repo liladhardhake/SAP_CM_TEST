@@ -1,0 +1,1126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<access_group category="Internal">
+   <storable name="access_group" storable-id="dr.AccessGroupAppData" ver="1.0">
+      <array classname="com.digitalroute.mgmtserver.ApplicationData" name="Applications" size="66">
+         <storable name="0" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="APL Code"/>
+         </storable>
+         <storable name="1" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="APL Collection Strategy"/>
+         </storable>
+         <storable name="10" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Conditional Trace Template"/>
+         </storable>
+         <storable name="11" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Configuration Browser"/>
+         </storable>
+         <storable name="12" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Configuration Diff"/>
+         </storable>
+         <storable name="13" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Couchbase Profile"/>
+         </storable>
+         <storable name="14" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Data Hub"/>
+         </storable>
+         <storable name="15" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Data Hub Profile"/>
+         </storable>
+         <storable name="16" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Data Masking Profile"/>
+         </storable>
+         <storable name="17" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Data Veracity"/>
+         </storable>
+         <storable name="18" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Data Veracity Profile"/>
+         </storable>
+         <storable name="19" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Database Profile"/>
+         </storable>
+         <storable name="2" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Aggregation Profile"/>
+         </storable>
+         <storable name="20" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Diameter Application Profile"/>
+         </storable>
+         <storable name="21" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Diameter Routing Profile"/>
+         </storable>
+         <storable name="22" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Distributed Storage Profile"/>
+         </storable>
+         <storable name="23" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Documentation Generator"/>
+         </storable>
+         <storable name="24" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Duplicate Batch Inspector"/>
+         </storable>
+         <storable name="25" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Duplicate Batch Profile"/>
+         </storable>
+         <storable name="26" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Duplicate UDR Inspector"/>
+         </storable>
+         <storable name="27" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Duplicate UDR Profile"/>
+         </storable>
+         <storable name="28" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="ECS Inspector"/>
+         </storable>
+         <storable name="29" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="1">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="ECS Statistics"/>
+         </storable>
+         <storable name="3" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Aggregation Session Inspector"/>
+         </storable>
+         <storable name="30" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Elasticsearch Profile"/>
+         </storable>
+         <storable name="31" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Encrypt Password"/>
+         </storable>
+         <storable name="32" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Encryption Profile"/>
+         </storable>
+         <storable name="33" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Event Notification"/>
+         </storable>
+         <storable name="34" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="1">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Execution Manager"/>
+         </storable>
+         <storable name="35" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="External Reference Profile"/>
+         </storable>
+         <storable name="36" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="File System Profile"/>
+         </storable>
+         <storable name="37" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Inter Workflow Profile"/>
+         </storable>
+         <storable name="38" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="JMS Profile"/>
+         </storable>
+         <storable name="39" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="KPI Profile"/>
+         </storable>
+         <storable name="4" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Alarm Detection"/>
+         </storable>
+         <storable name="40" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Kafka Profile"/>
+         </storable>
+         <storable name="41" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="MZSH Commands"/>
+         </storable>
+         <storable name="42" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Open API Profile"/>
+         </storable>
+         <storable name="43" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Python Interpreter Profile"/>
+         </storable>
+         <storable name="44" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Python Module"/>
+         </storable>
+         <storable name="45" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="REST Server Profile"/>
+         </storable>
+         <storable name="46" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Redis Profile"/>
+         </storable>
+         <storable name="47" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="SAP RFC Profile"/>
+         </storable>
+         <storable name="48" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="SNMP Collection Profile"/>
+         </storable>
+         <storable name="49" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="SNMP OID Profile"/>
+         </storable>
+         <storable name="5" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Amazon Profile"/>
+         </storable>
+         <storable name="50" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Shared Table Profile"/>
+         </storable>
+         <storable name="51" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Suspend Execution"/>
+         </storable>
+         <storable name="52" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="System Exporter"/>
+         </storable>
+         <storable name="53" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="System Importer"/>
+         </storable>
+         <storable name="54" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="System Log"/>
+         </storable>
+         <storable name="55" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="System Monitor"/>
+         </storable>
+         <storable name="56" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="1">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="System Statistics"/>
+         </storable>
+         <storable name="57" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="UDR File Editor"/>
+         </storable>
+         <storable name="58" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="UDR View"/>
+         </storable>
+         <storable name="59" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Ultra Format"/>
+         </storable>
+         <storable name="6" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Archive Inspector"/>
+         </storable>
+         <storable name="60" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Ultra Format Converter"/>
+         </storable>
+         <storable name="61" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="WS Profile"/>
+         </storable>
+         <storable name="62" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Web API Hosts"/>
+         </storable>
+         <storable name="63" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Workflow"/>
+         </storable>
+         <storable name="64" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Workflow Bridge Profile"/>
+         </storable>
+         <storable name="65" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Workflow Group"/>
+         </storable>
+         <storable name="7" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Archive Profile"/>
+         </storable>
+         <storable name="8" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Audit Profile"/>
+         </storable>
+         <storable name="9" storable-id="dr.ApplicationData" ver="1.0">
+            <array classname="com.digitalroute.mgmtserver.Permission" name="Permissions" size="2">
+               <storable name="0" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Write"/>
+               </storable>
+               <storable name="1" storable-id="dr.Permission" ver="1.0">
+                  <array classname="java.lang.String" name="Groups" size="1">
+                     <string name="0" value="Cust_Admin"/>
+                  </array>
+                  <string name="Name" value="Execute"/>
+               </storable>
+            </array>
+            <string name="Type" value="Categorized Grouping Profile"/>
+         </storable>
+      </array>
+      <storable name="Group" storable-id="dr.AccessGroup" ver="4.0">
+         <string name="Description" value="Customer Administrator"/>
+         <string name="Group" value="Cust_Admin"/>
+         <boolean name="IsSystem" value="false"/>
+         <map classname="java.util.HashMap" name="Metadata" size="1">
+            <string name="key_0" value="SCIMInfo"/>
+            <bytearray name="value_0"><![CDATA[M`S^F9F;_G````"AC;VTN9&EG:71A;')O=71E+FUG;71S97)V97(N4T-)34UE
+M=&%D871A`0```7<!`(DU_YP````#551#`0```9?0?@O9_YP````,07-I82]+
+M;VQK871A`0```"0S,3,V9&%C9"UA83`R+30W,C0M.6-F.2UC83<U8F(X-3!E
+(.30!``````$`
+`
+]]></bytearray>
+         </map>
+         <array name="Users" null="true"/>
+      </storable>
+   </storable>
+</access_group>

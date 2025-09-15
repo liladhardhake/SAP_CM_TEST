@@ -1,0 +1,1485 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="APL_Source_Code" ref_path="apl_script[Internal]/storable[apl_script]/storable[Data]">
+   <string name="Definition"><![CDATA[import ultra.CM_AcuitiPort.ULF_AcuitiPort;
+import ultra.SAP_RFC.CM_AcuitiPort.PRF_RFC_ZAP_CIT_UPD_RERATING;
+import ultra.SAP_RFC.CM_AcuitiPort.PRF_RFC_ZAP_CIT_UPD_RERATING.subUdr;
+import apl.CM_AcuitiPort.APL_Constants;
+
+
+//validate Input Record : Container file
+containerFileDataTI validateContainerInputRecord(containerFileDataTI inUdr){
+    containerErrBlock errUdr = udrCreate(containerErrBlock);
+	if(isFieldBlank(inUdr.contFileDataUdr.EVENT_NAME)||	isFieldBlank(inUdr.contFileDataUdr.CATEGORY)|| isFieldBlank(inUdr.contFileDataUdr.FREIGHT_KIND))   
+    {
+		errUdr.ERROR_CODE = "ERRCT01";
+		errUdr.ERROR_MESSAGE = "EVENT_NAME/CATEGORY/FREIGHT_KIND NOT PRESENT OR NULL FOR CONTAINER INPUT";
+	}
+    else
+    {
+        string sFieldsToCheck =  mapGet(mapMandatoryFieldValidation,inUdr.contFileDataUdr.EVENT_NAME+"_"+inUdr.contFileDataUdr.FREIGHT_KIND+"_"+inUdr.contFileDataUdr.CATEGORY);
+        if(isFieldBlank(sFieldsToCheck))
+        {
+            errUdr.ERROR_CODE = "ERRCT02";
+		    errUdr.ERROR_MESSAGE = "COMBINATION OF EVENT_NAME, FREIGHT_KIND AND CATEGORY NOT PRESENT FOR CONTAINER INPUT IN TABLE TB_MANDATORY_FIELD_VALIDATION_QUERY : " + (inUdr.contFileDataUdr.EVENT_NAME+"_"+inUdr.contFileDataUdr.FREIGHT_KIND+"_"+inUdr.contFileDataUdr.CATEGORY);
+        }
+        else
+        {
+            list<string> liFields = strSplit(sFieldsToCheck,",");
+            if(liFields != null && listSize(liFields) > 0){
+                for(string sField : liFields){
+                    if(isContainerFieldPresent(inUdr,sField)){
+    					debug("Field Present" + sField);
+    				}
+    				else{
+    					debug("Field is not present" + sField);
+    					errUdr.ERROR_CODE = "ERR";
+    					errUdr.ERROR_MESSAGE = "FIELD NOT PRESENT OR NULL : " + sField;
+                        break;
+    				}    					
+                }
+            }
+        }
+	}
+    inUdr.error = errUdr;
+    return inUdr;
+};
+
+boolean isContainerFieldPresent(containerFileDataTI inUdr, string sFieldToCheck){
+    boolean booRetValue = false;
+    any anyFieldValue = udrGetValue(inUdr.contFileDataUdr, sFieldToCheck);
+    debug("The value of anyFieldValue = " + (anyFieldValue));
+    if(anyFieldValue != null)
+    {
+        if(sFieldToCheck=="QUANTITY")
+        {
+            if((int)anyFieldValue > 0 )
+            {
+                booRetValue = true;
+            }
+            else
+            {
+                //return false
+            }            
+        }
+        else if(sFieldToCheck=="GROSS_TON")
+        {
+            if((float)anyFieldValue > 0.0 )
+            {
+                booRetValue = true;
+            }
+            else
+            {
+                //
+            }
+        }        
+        else if(anyFieldValue != "")
+        {
+            booRetValue = true;
+        }
+        else
+        {
+            //
+        }
+    }
+    else
+    {
+       debug("anyFieldValue value null");
+    }
+    
+    return booRetValue;
+};
+targetFileInt mapContainerInputToInternal(containerFileDataTI inputUdr){
+    targetFileInt internalUdr = udrCreate(targetFileInt);
+    
+	internalUdr.agent1            = isNotEmptyBlank(inputUdr.contFileDataUdr.AGENT1         );
+    internalUdr.bill_lading       = isNotEmptyBlank(inputUdr.contFileDataUdr.BILL_LADING    );
+    internalUdr.booking_number    = isNotEmptyBlank(inputUdr.contFileDataUdr.BOOKING_NUMBER );
+    internalUdr.category          = isNotEmpty(inputUdr.contFileDataUdr.CATEGORY       );
+    internalUdr.consignee_id      = isNotEmptyBlank(inputUdr.contFileDataUdr.CONSIGNEE_ID   );
+    internalUdr.container_id      = isNotEmptyBlank(inputUdr.contFileDataUdr.CONTAINER_ID   );
+    internalUdr.cstmdcdat         = isNotEmptyDate(inputUdr.contFileDataUdr.CSTMDCDAT      );
+    internalUdr.cstmdecno         = isNotEmptyBlank(inputUdr.contFileDataUdr.CSTMDECNO      );
+    internalUdr.event_name        = isNotEmpty(inputUdr.contFileDataUdr.EVENT_NAME     );
+    
+    //Change for endDateFlag -- send this flag only for torage events
+    if(liStorageEvents != null && listSize(liStorageEvents)>0)
+    {
+        int iIndex = listFindIndex(liStorageEvents, string sStorageEventName, sStorageEventName == internalUdr.event_name);
+        if(iIndex == -1)
+        {
+            debug("Not a storage event");
+            internalUdr.enddateflag = "-";
+        }
+        else
+        {
+            internalUdr.enddateflag = isFieldBlank(inputUdr.contFileDataUdr.EVENT_ENDDTTM) || inputUdr.contFileDataUdr.EVENT_ENDDTTM == "-" ? "N" : "Y";
+            debug("Storage EndDateFlag");
+        }
+    }
+    else
+    {
+        internalUdr.enddateflag = "-";
+    }
+    internalUdr.equiptype         = isNotEmpty(inputUdr.contFileDataUdr.EQUIPTYPE      );
+	internalUdr.event_cat         = "REAL";
+    internalUdr.event_gkey        = isNotEmpty(inputUdr.contFileDataUdr.EVENT_GKEY     );
+    
+    internalUdr.freight_kind      = isNotEmpty(inputUdr.contFileDataUdr.FREIGHT_KIND   );
+    
+    if(inputUdr.contFileDataUdr.GROSS_TON != null){
+    	strToFloat(internalUdr.gross_ton,inputUdr.contFileDataUdr.GROSS_TON);
+    }
+    else{
+    	internalUdr.gross_ton = 0.00;
+    }
+    
+	internalUdr.ibvisit_id        = isNotEmptyBlank(inputUdr.contFileDataUdr.IBVISIT_ID     );
+	internalUdr.iso_grp           = isNotEmpty(inputUdr.contFileDataUdr.ISO_GROUP      );
+	internalUdr.iso_len           = isNotEmpty(inputUdr.contFileDataUdr.ISO_LENGTH     );
+    internalUdr.is_imdg           = isNotEmpty(inputUdr.contFileDataUdr.IS_IMDG        );
+    internalUdr.imdgclass         = isNotEmpty(inputUdr.contFileDataUdr.IMDGCLASS      );
+    internalUdr.is_oog            = isNotEmpty(inputUdr.contFileDataUdr.IS_OOG         );
+	internalUdr.last_port         = isNotEmptyBlank(inputUdr.contFileDataUdr.LAST_PORT      );
+    internalUdr.line_id           = isNotEmptyBlank(inputUdr.contFileDataUdr.LINE_ID        );
+    internalUdr.obvisit_id        = isNotEmptyBlank(inputUdr.contFileDataUdr.OBVISIT_ID     );
+	internalUdr.payee_id          = "READ_FROM_SOM";
+    //debug("IS_REEFER length in mapto internal func::"+strLength(inputUdr.contFileDataUdr.IS_REEFER),"For EVENT_GKEY:"+inputUdr.contFileDataUdr.EVENT_GKEY);   
+	internalUdr.is_reefer         = isNotEmpty(inputUdr.contFileDataUdr.IS_REEFER     );
+	internalUdr.shipper_id        = isNotEmpty(inputUdr.contFileDataUdr.SHIPPER_ID     );
+    internalUdr.spcl_stow         = isNotEmpty(inputUdr.contFileDataUdr.SPCL_STOW      );
+    internalUdr.subcon_id         = isNotEmpty(inputUdr.contFileDataUdr.SUBCON_ID      );
+    internalUdr.terminalid        = isNotEmpty(inputUdr.contFileDataUdr.TERMINALID     );
+    internalUdr.unit_gkey         = isNotEmpty(inputUdr.contFileDataUdr.UNIT_GKEY      );
+    internalUdr.vessel_id         = isNotEmpty(inputUdr.contFileDataUdr.VESSEL_ID      );
+    internalUdr.vessel_length     = isNotEmpty(inputUdr.contFileDataUdr.VESSEL_LENGTH  );
+    internalUdr.vessel_line       = isNotEmpty(inputUdr.contFileDataUdr.VES_LINE       );
+    internalUdr.vessel_name       = isNotEmpty(inputUdr.contFileDataUdr.VESSEL_NAME    );
+    internalUdr.vessel_service    = isNotEmpty(inputUdr.contFileDataUdr.VES_SER        );
+    internalUdr.vessel_type       = isNotEmpty(inputUdr.contFileDataUdr.VESSEL_TYPE    );
+	internalUdr.teu               = (inputUdr.contFileDataUdr.ISO_LENGTH == externalReferenceGet("CM_AcuitiPort.PRF_ExtRef_AcuitiPort","CONTAINER_EQUIPMENT_LENGTH")) ? 1 : 2 ;
+	internalUdr.visit_id          = isNotEmpty(inputUdr.contFileDataUdr.VISIT_ID       );
+	internalUdr.gkey_type         = "A";
+	//internalUdr.lastchargedtime   = "01/01/1970 00:00:00"; //Default date : dd/MM/yyyy HH:mm:ss
+    internalUdr.work_enddttm      = isNotEmptyDate(inputUdr.contFileDataUdr.WORK_ENDTIME);
+	internalUdr.work_strtdttm     = isNotEmptyDate(inputUdr.contFileDataUdr.WORK_STARTTIME);
+	internalUdr.time_in           = isNotEmptyDate(inputUdr.contFileDataUdr.TIME_IN);
+	internalUdr.time_out          = isNotEmptyDate(inputUdr.contFileDataUdr.TIME_OUT);
+    internalUdr.shiparr_datetime  = isNotEmptyDate(inputUdr.contFileDataUdr.SHIPARR_DATETIME);	
+    internalUdr.shipdep_datetime  = isNotEmptyDate(inputUdr.contFileDataUdr.SHIPDEP_DATETIME);
+	
+	internalUdr.ibcarrier_type = isNotEmptyBlank(inputUdr.contFileDataUdr.IBCARRIER_TYPE);
+	internalUdr.obcarrier_type = isNotEmptyBlank(inputUdr.contFileDataUdr.OBCARRIER_TYPE);
+	internalUdr.phase          = "";
+	internalUdr.cit_quantity   = (inputUdr.contFileDataUdr.QUANTITY > 0) ? inputUdr.contFileDataUdr.QUANTITY : 0;
+    internalUdr.cit_qty_unit   = isNotEmpty(inputUdr.contFileDataUdr.QUANTITY_UNIT);
+    internalUdr.citdate_from   = isNotEmptyDate(inputUdr.contFileDataUdr.EVENT_STARTDTTM);
+    if(internalUdr.enddateflag == "N")
+    {
+        internalUdr.citdate_to     = internalUdr.citdate_from;
+    }
+    else
+    {
+	   internalUdr.citdate_to     = isNotEmptyDate(inputUdr.contFileDataUdr.EVENT_ENDDTTM);
+    }
+
+	//internalUdr.delivery_dttm  = isNotEmpty(inputUdr.contFileDataUdr.DELIVERY_DTTM); 
+    if(isFieldBlank(inputUdr.contFileDataUdr.DELIVERY_DTTM)){
+        internalUdr.lastchargedtime  = "01/01/1970 00:00:00";
+		internalUdr.delivery_dttm    = "01/01/1970 00:00:00";
+    }
+    else{
+    	internalUdr.lastchargedtime   = inputUdr.contFileDataUdr.DELIVERY_DTTM;
+		internalUdr.delivery_dttm     = inputUdr.contFileDataUdr.DELIVERY_DTTM;
+    }
+     
+	if(inputUdr.contFileDataUdr.EVENT_NAME == "UNIT_STORAGE" && internalUdr.enddateflag == "N"){
+		internalUdr.cittype = "AC01";
+	}
+	else{
+		internalUdr.cittype = "-";
+	}
+    return internalUdr;
+};
+
+vesselStatusDataTI validateVesselStatusInputRecord(vesselStatusDataTI inUdr){
+    vesselStatusErrBlock errUdr = udrCreate(vesselStatusErrBlock);
+	debug("recieved input is: "+inUdr);
+	if(isFieldBlank(inUdr.vessStatusDataUdr.VESSELVISIT_ID) ||
+       (isFieldBlank(inUdr.vessStatusDataUdr.SHIPARR_DATETIME))||
+       //(isFieldBlank(inUdr.vessStatusDataUdr.SHIPDEP_DATETIME))||
+       (isFieldBlank(inUdr.vessStatusDataUdr.WORK_STRTDTTM)) ||
+       //(isFieldBlank(inUdr.vessStatusDataUdr.WORK_ENDDTTM))||
+       (isFieldBlank(inUdr.vessStatusDataUdr.PHASE))||
+       (inUdr.vessStatusDataUdr.GROSS_TON == 0.0) ||
+       (isFieldBlank(inUdr.vessStatusDataUdr.VESSEL_LINE)) ||
+       (isFieldBlank(inUdr.vessStatusDataUdr.VESSEL_ID)) ||
+       (isFieldBlank(inUdr.vessStatusDataUdr.VESSEL_NAME)) ||
+       (isFieldBlank(inUdr.vessStatusDataUdr.VESSEL_TYPE))||
+       (isFieldBlank(inUdr.vessStatusDataUdr.VESSEL_SERVICE))||
+       (isFieldBlank(inUdr.vessStatusDataUdr.LAST_PORT))||
+       (isFieldBlank(inUdr.vessStatusDataUdr.VESSEL_LENGTH))||
+       (isFieldBlank(inUdr.vessStatusDataUdr.TERMINAL_ID )))
+       {
+    		errUdr.ERROR_CODE = "ERR";
+    		errUdr.ERROR_MESSAGE = "MANDATORY FIELDS NOT PRESENT OR NULL";
+	   }
+    
+    
+    inUdr.error = errUdr;
+    return inUdr;
+};
+
+targetFileInt mapVesselStatusInputToInternal(vesselStatusDataTI inputUdr){
+    targetFileInt internalUdr = udrCreate(targetFileInt);
+
+    internalUdr.terminalid     = isNotEmpty(inputUdr.vessStatusDataUdr.TERMINAL_ID);
+    internalUdr.last_port      = isNotEmptyBlank(inputUdr.vessStatusDataUdr.LAST_PORT);
+    internalUdr.phase          = isNotEmptyBlank(strToUpper(inputUdr.vessStatusDataUdr.PHASE));
+    internalUdr.vessel_id      = isNotEmpty(inputUdr.vessStatusDataUdr.VESSEL_ID);
+    internalUdr.vessel_name    = isNotEmpty(inputUdr.vessStatusDataUdr.VESSEL_NAME);
+    internalUdr.vessel_line    = isNotEmpty(inputUdr.vessStatusDataUdr.VESSEL_LINE);
+    internalUdr.vessel_service = isNotEmpty(inputUdr.vessStatusDataUdr.VESSEL_SERVICE);
+    internalUdr.vessel_type    = isNotEmpty(inputUdr.vessStatusDataUdr.VESSEL_TYPE);
+    internalUdr.vessel_length = isNotEmpty(inputUdr.vessStatusDataUdr.VESSEL_LENGTH);
+    internalUdr.visit_id = isNotEmpty(inputUdr.vessStatusDataUdr.VESSELVISIT_ID);
+    internalUdr.shiparr_datetime = isNotEmptyDate(inputUdr.vessStatusDataUdr.SHIPARR_DATETIME);
+    internalUdr.shipdep_datetime = isNotEmptyDate(inputUdr.vessStatusDataUdr.SHIPDEP_DATETIME);
+    internalUdr.work_enddttm = isNotEmptyDate(inputUdr.vessStatusDataUdr.WORK_ENDDTTM);
+    internalUdr.work_strtdttm = isNotEmptyDate(inputUdr.vessStatusDataUdr.WORK_STRTDTTM);
+    internalUdr.ibcarrier_type = isNotEmptyBlank(inputUdr.vessStatusDataUdr.IBCARRIER_TYPE);
+    internalUdr.obcarrier_type = isNotEmptyBlank(inputUdr.vessStatusDataUdr.OBCARRIER_TYPE);
+    internalUdr.gross_ton = inputUdr.vessStatusDataUdr.GROSS_TON;
+    if(internalUdr.phase == "DEPARTED")
+    {
+        internalUdr.gkey_type = "A";
+    }
+    else
+    {
+        internalUdr.gkey_type = "D";
+    }   
+    internalUdr.event_cat         = "REAL";
+    internalUdr.cstmdcdat = "01/01/1970 00:00:00";
+    internalUdr.lastchargedtime = "01/01/1970 00:00:00";
+    internalUdr.time_in = "01/01/1970 00:00:00";
+    internalUdr.time_out = "01/01/1970 00:00:00";
+    internalUdr.delivery_dttm = "01/01/1970 00:00:00";
+    internalUdr.cit_qty_unit = "EA";
+    if(internalUdr.phase == "DEPARTED")
+    {
+    	internalUdr.citdate_to = isNotEmptyDate(inputUdr.vessStatusDataUdr.SHIPDEP_DATETIME);
+        internalUdr.citdate_from = isNotEmptyDate(inputUdr.vessStatusDataUdr.SHIPARR_DATETIME);
+        internalUdr.event_gkey= "D"+inputUdr.vessStatusDataUdr.VESSELVISIT_ID;    }  
+    else
+    {
+        internalUdr.citdate_to = isNotEmptyDate(inputUdr.vessStatusDataUdr.SHIPARR_DATETIME);
+        internalUdr.citdate_from = isNotEmptyDate(inputUdr.vessStatusDataUdr.SHIPARR_DATETIME);
+        internalUdr.event_gkey= "A"+inputUdr.vessStatusDataUdr.VESSELVISIT_ID;
+    }
+    
+    return internalUdr;
+};
+
+
+vesselServiceDataTI validateVesselServiceInputRecord(vesselServiceDataTI inUdr){
+    vesselServiceErrBlock errUdr = udrCreate(vesselServiceErrBlock);
+    
+	if(isFieldBlank(inUdr.vessServiceDataUdr.EVENT_NAME))
+    {
+        
+		errUdr.ERROR_CODE = "ERR";
+		errUdr.ERROR_MESSAGE = "EVENT_NAME NOT PRESENT OR NULL";
+	}
+    else
+    {
+        debug("EVENT NAME PRESENT AND IS NOT NULL");
+	    string sTempKey = inUdr.vessServiceDataUdr.EVENT_NAME+"_"+"NA"+"_"+"MARINE"; 
+        string sFieldsToCheck = mapGet(mapMandatoryFieldValidation, sTempKey);
+    	if(isFieldBlank(sFieldsToCheck))
+        {
+            debug("EVENT_NAME NOT PRESENT IN TABLE TB_MANDATORY_FIELD_VALIDATION");
+            errUdr.ERROR_CODE = "ERR";
+		    errUdr.ERROR_MESSAGE = "COMBINATION OF EVENT_NAME, FREIGHT_KIND, CATEGORY NOT PRESENT IN TABLE TB_MANDATORY_FIELD_VALIDATION : " +  inUdr.vessServiceDataUdr.EVENT_NAME+"_"+"MARINE"+"_"+"NA";
+        }
+        else
+        {
+            debug("COMBINATION OF EVENT_NAME, FREIGHT_KIND AND CATEGORY PRESENT :: "  + sTempKey);
+            list<string> liFields = strSplit(sFieldsToCheck,",");
+            if(liFields != null && listSize(liFields) > 0)
+            {
+                    for(string sField : liFields)
+        		    {
+        				if(isVesselServiceFieldPresent(inUdr,sField))
+                        {
+            
+        					//debug("Field Present" + sField);
+        				}
+        				else
+                        {
+        					//debug("Field is not present" + sField);
+        					errUdr.ERROR_CODE = "ERR";
+        					errUdr.ERROR_MESSAGE = "FIELD NOT PRESENT OR NULL : " + sField;
+        					break;
+        				}
+                    }
+              }
+        }
+                        
+	}
+    inUdr.error = errUdr;
+    return inUdr;
+};
+
+boolean isVesselServiceFieldPresent(vesselServiceDataTI inUdr, string sFieldToCheck){
+    boolean booRetValue = false;
+	any anyFieldValue = udrGetValue(inUdr.vessServiceDataUdr, sFieldToCheck);
+    debug("The value of anyFieldValue = " + (anyFieldValue));
+	if(anyFieldValue != null)
+    {
+        if(sFieldToCheck=="QUANTITY")
+        {
+            if((int)anyFieldValue > 0 )
+            {
+                //debug("Return true : QUANTITY");
+                booRetValue = true;
+            }
+            else
+            {
+                //
+                //debug("Return false: QUANTITY");
+            }            
+        }
+        else if(sFieldToCheck=="GROSS_TON")
+        {
+            if((float)anyFieldValue > 0.0 )
+            {
+               // debug("Return true : GROSS_TON");
+                booRetValue = true;
+            }
+            else
+            {
+                //
+               // debug("Return false: GROSS_TON");
+            }
+        }        
+        else if(anyFieldValue != "")
+        {
+           // debug("Return true");
+            booRetValue = true;
+        }
+        else
+        {
+            //
+            //debug("Return false");
+        }
+    }
+    else
+    {
+        //debug("anyFieldValue value null");
+    }
+    return booRetValue;		
+};
+
+targetFileInt mapVesselServiceInputToInternal(vesselServiceDataTI inputUdr) {
+    targetFileInt internalUdr = udrCreate(targetFileInt);
+    
+    internalUdr.event_gkey  = isNotEmpty(inputUdr.vessServiceDataUdr.EVENT_GKEY);
+    internalUdr.event_name  = isNotEmpty(inputUdr.vessServiceDataUdr.EVENT_NAME);
+    internalUdr.line_id     = isNotEmptyBlank(inputUdr.vessServiceDataUdr.LINE_ID);
+    internalUdr.subcon_id   = isNotEmpty(inputUdr.vessServiceDataUdr.SUB_CON_ID);
+    internalUdr.vessel_id   = isNotEmpty(inputUdr.vessServiceDataUdr.VESSEL_ID);
+    internalUdr.vessel_name = isNotEmpty(inputUdr.vessServiceDataUdr.VESSEL_NAME);
+    internalUdr.vessel_line = isNotEmpty(inputUdr.vessServiceDataUdr.VESSEL_LINE);
+    internalUdr.shiparr_datetime = isNotEmptyDate(inputUdr.vessServiceDataUdr.SHIPARR_DATETIME);
+    internalUdr.cit_quantity = inputUdr.vessServiceDataUdr.QUANTITY;
+    internalUdr.cit_qty_unit = isNotEmpty(inputUdr.vessServiceDataUdr.QUANTITY_UNIT);
+    internalUdr.citdate_from = isNotEmptyDate(inputUdr.vessServiceDataUdr.SHIPARR_DATETIME);
+    internalUdr.gkey_type = "A";
+    internalUdr.event_cat         = "REAL";
+    internalUdr.cstmdcdat = "01/01/1970 00:00:00";
+    internalUdr.lastchargedtime = "01/01/1970 00:00:00";
+    internalUdr.time_in = "01/01/1970 00:00:00";
+    internalUdr.time_out = "01/01/1970 00:00:00";
+    //internalUdr.citdate_from = "19/08/2022 00:00:00";
+    internalUdr.citdate_to = isNotEmptyDate(inputUdr.vessServiceDataUdr.SHIPDEP_DATETIME);
+    internalUdr.delivery_dttm = "01/01/1970 00:00:00";
+    internalUdr.shipdep_datetime = isNotEmptyDate(inputUdr.vessServiceDataUdr.SHIPDEP_DATETIME);
+	internalUdr.work_enddttm = isNotEmptyDate(inputUdr.vessServiceDataUdr.WORK_ENDDTTM);
+    internalUdr.work_strtdttm = isNotEmptyDate(inputUdr.vessServiceDataUdr.WORK_STRTDTTM);
+	internalUdr.terminalid     = isNotEmpty(inputUdr.vessServiceDataUdr.TERMINAL_ID);
+	internalUdr.visit_id = isNotEmpty(inputUdr.vessServiceDataUdr.VESSELVISIT_ID);
+	internalUdr.vessel_service = isNotEmpty(inputUdr.vessServiceDataUdr.VESSEL_SERVICE);
+    internalUdr.vessel_type    = isNotEmpty(inputUdr.vessServiceDataUdr.VESSEL_TYPE);
+    internalUdr.vessel_length = isNotEmpty(inputUdr.vessServiceDataUdr.VESSEL_LENGTH);
+	internalUdr.gross_ton = inputUdr.vessServiceDataUdr.GROSS_TON;
+	internalUdr.last_port      = isNotEmpty(inputUdr.vessServiceDataUdr.LAST_PORT);
+	internalUdr.ibcarrier_type = isNotEmptyBlank(inputUdr.vessServiceDataUdr.IBCARRIER_TYPE);
+	internalUdr.obcarrier_type = isNotEmptyBlank(inputUdr.vessServiceDataUdr.OBCARRIER_TYPE);
+    return internalUdr;
+};
+
+citFileDataTI createCITRecord(targetFileInt internalUdr)
+{
+    debug("Inside createCitRecord");
+    citFileDataTI citFileUdr = udrCreate(citFileDataTI);
+    
+	citFileUdr.ZZAGENT1           = isNotEmptyBlank(internalUdr.agent1                       );
+    citFileUdr.ZZBILL_LADING      = isNotEmptyBlank(internalUdr.bill_lading                  );
+    citFileUdr.ZZBOOKING_NUMBER   = isNotEmptyBlank(internalUdr.booking_number               );
+    citFileUdr.ZZCATEGORY         = isNotEmpty(internalUdr.category                     );
+    citFileUdr.ZZCONSIGNEE_ID     = isNotEmptyBlank(internalUdr.consignee_id                 );
+    citFileUdr.ZZCONTAINER_ID     = isNotEmptyBlank(internalUdr.container_id                 );
+    citFileUdr.ZZCSTMDCDAT        = isNotEmptyDate(internalUdr.cstmdcdat                );
+    citFileUdr.ZZCSTMDECNO        = isNotEmptyBlank(internalUdr.cstmdecno                    );
+	citFileUdr.ZZENDDATEFLAG      = isNotEmpty(internalUdr.enddateflag                  );
+    citFileUdr.ZZEQUIPTYPE        = isNotEmpty(internalUdr.equiptype                    );
+	citFileUdr.ZZEVENT_CAT        = isNotEmpty(internalUdr.event_cat                    );
+    citFileUdr.ZZEVENT_GKEY       = isNotEmpty(internalUdr.event_gkey                   );
+    citFileUdr.ZZEVENT_NAME       = isNotEmpty(internalUdr.event_name                   );
+    citFileUdr.ZZFREIGHT_KIND     = isNotEmpty(internalUdr.freight_kind                 );
+    citFileUdr.ZZGROSS_TON        = internalUdr.gross_ton > 0.0 ? internalUdr.gross_ton : 0.0;
+    citFileUdr.ZZIBVISIT_ID       = isNotEmptyBlank(internalUdr.ibvisit_id                   );
+	citFileUdr.ZZISO_GRP          = isNotEmpty(internalUdr.iso_grp                      );
+	citFileUdr.ZZISO_LEN          = isNotEmpty(internalUdr.iso_len                      );
+    citFileUdr.ZZIS_IMDG          = isNotEmpty(internalUdr.is_imdg                      );
+    citFileUdr.ZZIMDGCLASS        = isNotEmpty(internalUdr.imdgclass                    );
+    citFileUdr.ZZOOG              = isNotEmpty(internalUdr.is_oog                       );
+	citFileUdr.ZZLAST_PORT        = isNotEmptyBlank(internalUdr.last_port                    );
+    citFileUdr.ZZLINE_ID          = isNotEmptyBlank(internalUdr.line_id                      );
+    citFileUdr.ZZOBVISIT_ID       = isNotEmptyBlank(internalUdr.obvisit_id                   );
+	citFileUdr.ZZPAYEE_ID         = isNotEmpty(internalUdr.payee_id                     );
+	citFileUdr.ZZIS_REEFER        = isNotEmpty(internalUdr.is_reefer                    );
+	citFileUdr.ZZSHIPPER_ID       = isNotEmpty(internalUdr.shipper_id                   );
+    citFileUdr.ZZSPCL_STOW        = isNotEmpty(internalUdr.spcl_stow                    );
+    citFileUdr.ZZSUBCON_ID        = isNotEmpty(internalUdr.subcon_id                    );
+    citFileUdr.ZZTERMINALID       = isNotEmptyBlank(internalUdr.terminalid                   );
+    citFileUdr.ZZUNIT_GKEY        = isNotEmpty(internalUdr.unit_gkey                    );
+    citFileUdr.ZZVESSEL_ID        = isNotEmpty(internalUdr.vessel_id                    );
+    citFileUdr.ZZVESSEL_LENGTH    = isNotEmpty(internalUdr.vessel_length                );
+    citFileUdr.ZZVESSEL_LINE      = isNotEmpty(internalUdr.vessel_line                  );
+    citFileUdr.ZZVESSEL_NAME      = isNotEmpty(internalUdr.vessel_name                  );
+    citFileUdr.ZZVESSEL_SERVICE   = isNotEmpty(internalUdr.vessel_service               );
+    citFileUdr.ZZVESSEL_TYPE      = isNotEmpty(internalUdr.vessel_type                  );
+	citFileUdr.ZZTEU              = internalUdr.teu > 0 ? internalUdr.teu : 0            ;
+	citFileUdr.ZZVISIT_ID         = isNotEmpty(internalUdr.visit_id                     );
+	citFileUdr.ZZGKEY_TYPE        = isNotEmptyBlank(internalUdr.gkey_type                    );
+	citFileUdr.ZZLASTCHARGEDTIME  = isNotEmptyDate(internalUdr.lastchargedtime          );
+	citFileUdr.ZZWORK_ENDDTTM     = isNotEmptyDate(internalUdr.work_enddttm             );
+	citFileUdr.ZZWORK_STRTDTTM    = isNotEmptyDate(internalUdr.work_strtdttm            );
+    citFileUdr.ZZTIME_IN          = isNotEmptyDate(internalUdr.time_in                  );
+    citFileUdr.ZZTIME_OUT         = isNotEmptyDate(internalUdr.time_out                 );
+    citFileUdr.ZZSHIPARR_DATETIME = isNotEmptyDate(internalUdr.shiparr_datetime         );
+    citFileUdr.ZZSHIPDEP_DATETIME = isNotEmptyDate(internalUdr.shipdep_datetime         );
+    citFileUdr.ZZIBCARRIER_TYPE   = isNotEmptyBlank(internalUdr.ibcarrier_type               );
+    citFileUdr.ZZOBCARRIER_TYPE   = isNotEmptyBlank(internalUdr.obcarrier_type               );
+    citFileUdr.ZZPHASE            = isNotEmptyBlank(internalUdr.phase                        );
+    citFileUdr.ZZDELIVERY_DTTM    = isNotEmptyDate(internalUdr.delivery_dttm            );
+    citFileUdr.CIT_QUANTITY       = internalUdr.cit_quantity > 0 ? internalUdr.cit_quantity : 0;
+    citFileUdr.CIT_QTY_UNIT       = isNotEmpty(internalUdr.cit_qty_unit                 );
+    citFileUdr.CITDATE_FROM       = isNotEmptyDate(internalUdr.citdate_from             );
+	citFileUdr.CITDATE_TO         = isNotEmptyDate(internalUdr.citdate_to               );
+	citFileUdr.CITTYPE            = isNotEmpty(internalUdr.cittype                      );
+	
+    return citFileUdr;    
+};
+
+void loadTableMandatoryFieldValidation(table tbFieldValidation){
+	//tbFieldValidation = tableCreate(DB_PROFILE_ACUITIPORT,TB_MANDATORY_FIELD_VALIDATION_QUERY);
+	//tableCreateIndex(tbFieldValidation,0);
+	int iTabRowCnt = tableRowCount(tbFieldValidation);
+	if(iTabRowCnt > 0){
+		debug("Table loading successful for 'TB_MANDATORY_FIELD_VALIDATION' ");
+		for(int i=0; i<iTabRowCnt; i++)        {
+			mapSet(mapMandatoryFieldValidation,(string)tableGet(tbFieldValidation,i,"EVENT_NAME")+"_"+(string)tableGet(tbFieldValidation,i,"FREIGHT_KIND")+"_"+(string)tableGet(tbFieldValidation,i,"CATEGORY"),(string)tableGet(tbFieldValidation,i,"MANDATORY_FIELDS"));
+		}
+        if(mapSize(mapMandatoryFieldValidation)>0){
+            debug("Map :  " +mapMandatoryFieldValidation );
+        }
+        else{
+            debug("Table loading failed for 'TB_MANDATORY_FIELD_VALIDATION' ");
+        }
+	}
+	else{
+		debug("Table loading failed for 'TB_MANDATORY_FIELD_VALIDATION' ");
+	}
+};
+
+string isNotEmpty(string sVal)
+{
+    string sRetVal = "-";
+    sRetVal = (sVal != null && sVal != "") ? sVal : "-";
+    return sRetVal;
+};
+
+string isNotEmptyBlank(string sVal)
+{
+    string sRetVal; // = " ";
+    sRetVal = (sVal != null && sVal != "") ? sVal : " ";
+    return sRetVal;
+};
+
+string isNotEmptyDate(string sVal)
+{
+    string sRetVal; // = "-";
+    sRetVal = (sVal != null && sVal != "" && sVal != "-") ? sVal : "01/01/1970 00:00:00";
+    return sRetVal;
+};
+
+string checkNotNullForComparison(string sVal)
+{
+    string sRetVal; // = "";
+    sRetVal = (sVal != null && sVal != "") ? sVal : "";
+    return sRetVal;
+};
+
+boolean isFieldBlank(string sVal)
+{
+    if(sVal == null || sVal == "")
+        return true;
+    else 
+        return false;
+};
+
+bytearray addNewLine(bytearray ba){
+    bytearray baEnter;
+    baEnter = baCreateFromHexString("0a");
+    ba = baAppend(ba,baEnter);
+    return ba;  
+};
+
+fieldStruct createJsonStruct(string sField, string sOldVal, string sNewVal)
+{
+    fieldStruct structUdr = udrCreate(fieldStruct);
+    structUdr.sFieldName = sField;
+    structUdr.sOldValue = sOldVal;
+    structUdr.sNewValue = sNewVal;
+    return structUdr;
+};
+jsonFieldStruct compareTwoRecords(any oldRecUdr, any newRecUdr, string sID)
+{
+    jsonFieldStruct recUpdUdr = udrCreate(jsonFieldStruct);
+    list<fieldStruct> liChangedParam = listCreate(fieldStruct);
+    
+    recUpdUdr.sUpdateParam = "";
+    recUpdUdr.context = newRecUdr;
+    recUpdUdr.fieldStructUdr = liChangedParam;
+    
+	if(strEqualsIgnoreCase(sID, "CONTAINER"))
+	{
+        debug("CONTAINER");
+		containerFileDataTI oldContUdr = (containerFileDataTI)oldRecUdr;
+		containerFileDataTI newContUdr = (containerFileDataTI)newRecUdr;
+		debug("The value of oldContUdr = " + (oldContUdr));
+        debug("The value of newContUdr = " + (newContUdr));
+		if((oldContUdr.contFileDataUdr.EVENT_GKEY) == checkNotNullForComparison(newContUdr.contFileDataUdr.EVENT_GKEY))
+		{	
+			if((oldContUdr.contFileDataUdr.AGENT1) == checkNotNullForComparison(newContUdr.contFileDataUdr.AGENT1))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZAGENT1",oldContUdr.contFileDataUdr.AGENT1,checkNotNullForComparison(newContUdr.contFileDataUdr.AGENT1)));
+			}
+			
+			if((oldContUdr.contFileDataUdr.BILL_LADING) == checkNotNullForComparison(newContUdr.contFileDataUdr.BILL_LADING))
+			{
+				//no change in value
+			}
+			else  
+			{
+                listAdd(liChangedParam, createJsonStruct("ZZBILL_LADING",oldContUdr.contFileDataUdr.BILL_LADING,checkNotNullForComparison(newContUdr.contFileDataUdr.BILL_LADING)));
+			}
+			if((oldContUdr.contFileDataUdr.BOOKING_NUMBER) == checkNotNullForComparison(newContUdr.contFileDataUdr.BOOKING_NUMBER))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZBOOKING_NUMBER",oldContUdr.contFileDataUdr.BOOKING_NUMBER,checkNotNullForComparison(newContUdr.contFileDataUdr.BOOKING_NUMBER)));
+			}
+			if((oldContUdr.contFileDataUdr.CATEGORY) == checkNotNullForComparison(newContUdr.contFileDataUdr.CATEGORY))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZCATEGORY",oldContUdr.contFileDataUdr.CATEGORY,checkNotNullForComparison(newContUdr.contFileDataUdr.CATEGORY)));
+			}
+			if((oldContUdr.contFileDataUdr.CONSIGNEE_ID) == checkNotNullForComparison(newContUdr.contFileDataUdr.CONSIGNEE_ID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZCONSIGNEE_ID",oldContUdr.contFileDataUdr.CONSIGNEE_ID,checkNotNullForComparison(newContUdr.contFileDataUdr.CONSIGNEE_ID)));
+			}
+			if((oldContUdr.contFileDataUdr.CONTAINER_ID) == checkNotNullForComparison(newContUdr.contFileDataUdr.CONTAINER_ID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZCONTAINER_ID",oldContUdr.contFileDataUdr.CONTAINER_ID,checkNotNullForComparison(newContUdr.contFileDataUdr.CONTAINER_ID)));
+			}
+			if((oldContUdr.contFileDataUdr.CSTMDCDAT) == checkNotNullForComparison(newContUdr.contFileDataUdr.CSTMDCDAT))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZCSTMDCDAT",oldContUdr.contFileDataUdr.CSTMDCDAT,checkNotNullForComparison(newContUdr.contFileDataUdr.CSTMDCDAT)));
+			}
+			if((oldContUdr.contFileDataUdr.CSTMDECNO) == checkNotNullForComparison(newContUdr.contFileDataUdr.CSTMDECNO))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZCSTMDECNO",oldContUdr.contFileDataUdr.CSTMDECNO,checkNotNullForComparison(newContUdr.contFileDataUdr.CSTMDECNO)));
+			}
+			if((oldContUdr.contFileDataUdr.EQUIPTYPE) == checkNotNullForComparison(newContUdr.contFileDataUdr.EQUIPTYPE))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZEQUIPTYPE",oldContUdr.contFileDataUdr.EQUIPTYPE,checkNotNullForComparison(newContUdr.contFileDataUdr.EQUIPTYPE)));
+				
+			}
+			if((oldContUdr.contFileDataUdr.EVENT_NAME) == checkNotNullForComparison(newContUdr.contFileDataUdr.EVENT_NAME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZEVENT_NAME",oldContUdr.contFileDataUdr.EVENT_NAME,checkNotNullForComparison(newContUdr.contFileDataUdr.EVENT_NAME)));
+			}
+			if((oldContUdr.contFileDataUdr.FREIGHT_KIND) == checkNotNullForComparison(newContUdr.contFileDataUdr.FREIGHT_KIND))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZFREIGHT_KIND",oldContUdr.contFileDataUdr.FREIGHT_KIND,checkNotNullForComparison(newContUdr.contFileDataUdr.FREIGHT_KIND)));
+			}
+			if((oldContUdr.contFileDataUdr.GROSS_TON) == checkNotNullForComparison(newContUdr.contFileDataUdr.GROSS_TON))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZGROSS_TON",oldContUdr.contFileDataUdr.GROSS_TON,checkNotNullForComparison(newContUdr.contFileDataUdr.GROSS_TON)));
+			}
+			if((oldContUdr.contFileDataUdr.IBVISIT_ID) == checkNotNullForComparison(newContUdr.contFileDataUdr.IBVISIT_ID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZIBVISIT_ID",oldContUdr.contFileDataUdr.IBVISIT_ID,checkNotNullForComparison(newContUdr.contFileDataUdr.IBVISIT_ID)));
+			}
+			if((oldContUdr.contFileDataUdr.ISO_LENGTH) == checkNotNullForComparison(newContUdr.contFileDataUdr.ISO_LENGTH))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZISO_LENGTH",oldContUdr.contFileDataUdr.ISO_LENGTH,checkNotNullForComparison(newContUdr.contFileDataUdr.ISO_LENGTH)));
+			}
+			if((oldContUdr.contFileDataUdr.IS_IMDG) == checkNotNullForComparison(newContUdr.contFileDataUdr.IS_IMDG))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZIS_IMDG",oldContUdr.contFileDataUdr.IS_IMDG,checkNotNullForComparison(newContUdr.contFileDataUdr.IS_IMDG)));
+			}
+			if((oldContUdr.contFileDataUdr.IMDGCLASS) == checkNotNullForComparison(newContUdr.contFileDataUdr.IMDGCLASS))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZIMDGCLASS",oldContUdr.contFileDataUdr.IMDGCLASS,checkNotNullForComparison(newContUdr.contFileDataUdr.IMDGCLASS)));
+			}
+			if((oldContUdr.contFileDataUdr.IS_OOG) == checkNotNullForComparison(newContUdr.contFileDataUdr.IS_OOG))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZOOG",oldContUdr.contFileDataUdr.IS_OOG,checkNotNullForComparison(newContUdr.contFileDataUdr.IS_OOG)));
+			}
+			if((oldContUdr.contFileDataUdr.LAST_PORT) == checkNotNullForComparison(newContUdr.contFileDataUdr.LAST_PORT))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZLAST_PORT",oldContUdr.contFileDataUdr.LAST_PORT,checkNotNullForComparison(newContUdr.contFileDataUdr.LAST_PORT)));
+			}
+			if((oldContUdr.contFileDataUdr.LINE_ID) == checkNotNullForComparison(newContUdr.contFileDataUdr.LINE_ID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZLINE_ID",oldContUdr.contFileDataUdr.LINE_ID,checkNotNullForComparison(newContUdr.contFileDataUdr.LINE_ID)));
+			}
+			if((oldContUdr.contFileDataUdr.OBVISIT_ID) == checkNotNullForComparison(newContUdr.contFileDataUdr.OBVISIT_ID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZOBVISIT_ID",oldContUdr.contFileDataUdr.OBVISIT_ID,checkNotNullForComparison(newContUdr.contFileDataUdr.OBVISIT_ID)));
+			}
+			if((oldContUdr.contFileDataUdr.SHIPPER_ID) == checkNotNullForComparison(newContUdr.contFileDataUdr.SHIPPER_ID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZSHIPPER_ID",oldContUdr.contFileDataUdr.SHIPPER_ID,checkNotNullForComparison(newContUdr.contFileDataUdr.SHIPPER_ID)));
+			}
+			if((oldContUdr.contFileDataUdr.SPCL_STOW) == checkNotNullForComparison(newContUdr.contFileDataUdr.SPCL_STOW))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZSPCL_STOW",oldContUdr.contFileDataUdr.SPCL_STOW,checkNotNullForComparison(newContUdr.contFileDataUdr.SPCL_STOW)));
+			}
+			if((oldContUdr.contFileDataUdr.SUBCON_ID) == checkNotNullForComparison(newContUdr.contFileDataUdr.SUBCON_ID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZSUBCON_ID",oldContUdr.contFileDataUdr.SUBCON_ID,checkNotNullForComparison(newContUdr.contFileDataUdr.SUBCON_ID)));
+			}
+			if((oldContUdr.contFileDataUdr.TERMINALID) == checkNotNullForComparison(newContUdr.contFileDataUdr.TERMINALID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZTERMINALID",oldContUdr.contFileDataUdr.TERMINALID,checkNotNullForComparison(newContUdr.contFileDataUdr.TERMINALID)));
+			}
+			
+			if((oldContUdr.contFileDataUdr.UNIT_GKEY) == checkNotNullForComparison(newContUdr.contFileDataUdr.UNIT_GKEY))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZUNIT_GKEY",oldContUdr.contFileDataUdr.UNIT_GKEY,checkNotNullForComparison(newContUdr.contFileDataUdr.UNIT_GKEY)));
+			}
+			
+			if((oldContUdr.contFileDataUdr.VESSEL_ID) == checkNotNullForComparison(newContUdr.contFileDataUdr.VESSEL_ID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_ID",oldContUdr.contFileDataUdr.VESSEL_ID,checkNotNullForComparison(newContUdr.contFileDataUdr.VESSEL_ID)));
+			}
+			if((oldContUdr.contFileDataUdr.VESSEL_LENGTH) == checkNotNullForComparison(newContUdr.contFileDataUdr.VESSEL_LENGTH))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_LENGTH",oldContUdr.contFileDataUdr.VESSEL_LENGTH,checkNotNullForComparison(newContUdr.contFileDataUdr.VESSEL_LENGTH)));
+			}
+			if((oldContUdr.contFileDataUdr.VES_LINE) == checkNotNullForComparison(newContUdr.contFileDataUdr.VES_LINE))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_LINE",oldContUdr.contFileDataUdr.VES_LINE,checkNotNullForComparison(newContUdr.contFileDataUdr.VES_LINE)));
+			}
+			if((oldContUdr.contFileDataUdr.VESSEL_NAME) == checkNotNullForComparison(newContUdr.contFileDataUdr.VESSEL_NAME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_NAME",oldContUdr.contFileDataUdr.VESSEL_NAME,checkNotNullForComparison(newContUdr.contFileDataUdr.VESSEL_NAME)));
+			}
+			if((oldContUdr.contFileDataUdr.VES_SER) == checkNotNullForComparison(newContUdr.contFileDataUdr.VES_SER))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_SERVICE",oldContUdr.contFileDataUdr.VES_SER,checkNotNullForComparison(newContUdr.contFileDataUdr.VES_SER)));
+			}
+			if((oldContUdr.contFileDataUdr.VESSEL_TYPE) == checkNotNullForComparison(newContUdr.contFileDataUdr.VESSEL_TYPE))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_TYPE",oldContUdr.contFileDataUdr.VESSEL_TYPE,checkNotNullForComparison(newContUdr.contFileDataUdr.VESSEL_TYPE)));
+			}
+			if((oldContUdr.contFileDataUdr.VISIT_ID) == checkNotNullForComparison(newContUdr.contFileDataUdr.VISIT_ID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVISIT_ID",oldContUdr.contFileDataUdr.VISIT_ID,checkNotNullForComparison(newContUdr.contFileDataUdr.VISIT_ID)));
+			}
+			if((oldContUdr.contFileDataUdr.WORK_ENDTIME) == checkNotNullForComparison(newContUdr.contFileDataUdr.WORK_ENDTIME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZWORK_ENDDTTM",oldContUdr.contFileDataUdr.WORK_ENDTIME,checkNotNullForComparison(newContUdr.contFileDataUdr.WORK_ENDTIME)));
+			}
+			if((oldContUdr.contFileDataUdr.WORK_STARTTIME) == checkNotNullForComparison(newContUdr.contFileDataUdr.WORK_STARTTIME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZWORK_STRTDTTM",oldContUdr.contFileDataUdr.WORK_STARTTIME,checkNotNullForComparison(newContUdr.contFileDataUdr.WORK_STARTTIME)));
+			}
+			if((oldContUdr.contFileDataUdr.TIME_IN) == checkNotNullForComparison(newContUdr.contFileDataUdr.TIME_IN))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZTIME_IN",oldContUdr.contFileDataUdr.TIME_IN,checkNotNullForComparison(newContUdr.contFileDataUdr.TIME_IN)));
+			}
+			if((oldContUdr.contFileDataUdr.TIME_OUT) == checkNotNullForComparison(newContUdr.contFileDataUdr.TIME_OUT))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZTIME_OUT",oldContUdr.contFileDataUdr.TIME_OUT,checkNotNullForComparison(newContUdr.contFileDataUdr.TIME_OUT)));
+			}
+			if((oldContUdr.contFileDataUdr.SHIPARR_DATETIME) == checkNotNullForComparison(newContUdr.contFileDataUdr.SHIPARR_DATETIME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZSHIPARR_DATETIME",oldContUdr.contFileDataUdr.SHIPARR_DATETIME,checkNotNullForComparison(newContUdr.contFileDataUdr.SHIPARR_DATETIME)));
+			}
+			if((oldContUdr.contFileDataUdr.SHIPDEP_DATETIME) == checkNotNullForComparison(newContUdr.contFileDataUdr.SHIPDEP_DATETIME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZSHIPDEP_DATETIME",oldContUdr.contFileDataUdr.SHIPDEP_DATETIME,checkNotNullForComparison(newContUdr.contFileDataUdr.SHIPDEP_DATETIME)));
+			}
+			/*if((oldContUdr.contFileDataUdr.EVENT_STARTDTTM) == checkNotNullForComparison(newContUdr.contFileDataUdr.EVENT_STARTDTTM))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZEVENT_STARTDTTM",oldContUdr.contFileDataUdr.EVENT_STARTDTTM,checkNotNullForComparison(newContUdr.contFileDataUdr.EVENT_STARTDTTM)));
+			}
+			if((oldContUdr.contFileDataUdr.EVENT_ENDDTTM) == checkNotNullForComparison(newContUdr.contFileDataUdr.EVENT_ENDDTTM))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZEVENT_ENDDTTM",oldContUdr.contFileDataUdr.EVENT_ENDDTTM,checkNotNullForComparison(newContUdr.contFileDataUdr.EVENT_ENDDTTM)));
+			}*/
+			if((oldContUdr.contFileDataUdr.IBCARRIER_TYPE) == checkNotNullForComparison(newContUdr.contFileDataUdr.IBCARRIER_TYPE))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZIBCARRIER_TYPE",oldContUdr.contFileDataUdr.IBCARRIER_TYPE,checkNotNullForComparison(newContUdr.contFileDataUdr.IBCARRIER_TYPE)));
+			}
+			
+			if((oldContUdr.contFileDataUdr.OBCARRIER_TYPE) == checkNotNullForComparison(newContUdr.contFileDataUdr.OBCARRIER_TYPE))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZOBCARRIER_TYPE",oldContUdr.contFileDataUdr.OBCARRIER_TYPE,checkNotNullForComparison(newContUdr.contFileDataUdr.OBCARRIER_TYPE)));
+			}
+			if((oldContUdr.contFileDataUdr.QUANTITY) == (newContUdr.contFileDataUdr.QUANTITY))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("CIT_QUANTITY",(string)oldContUdr.contFileDataUdr.QUANTITY,(string)newContUdr.contFileDataUdr.QUANTITY));                        
+			}
+			if((oldContUdr.contFileDataUdr.QUANTITY_UNIT) == checkNotNullForComparison(newContUdr.contFileDataUdr.QUANTITY_UNIT))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("CIT_QTY_UNIT",oldContUdr.contFileDataUdr.QUANTITY_UNIT,checkNotNullForComparison(newContUdr.contFileDataUdr.QUANTITY_UNIT)));
+			}
+			if((oldContUdr.contFileDataUdr.IS_REEFER) == checkNotNullForComparison(newContUdr.contFileDataUdr.IS_REEFER))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZIS_REEFER",oldContUdr.contFileDataUdr.IS_REEFER,checkNotNullForComparison(newContUdr.contFileDataUdr.IS_REEFER)));
+			}
+            if((oldContUdr.contFileDataUdr.DELIVERY_DTTM) == checkNotNullForComparison(newContUdr.contFileDataUdr.DELIVERY_DTTM))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZDELIVERY_DTTM",oldContUdr.contFileDataUdr.DELIVERY_DTTM,checkNotNullForComparison(newContUdr.contFileDataUdr.DELIVERY_DTTM)));
+			}
+			if((oldContUdr.contFileDataUdr.EVENT_STARTDTTM) == checkNotNullForComparison(newContUdr.contFileDataUdr.EVENT_STARTDTTM))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("CITDATE_FROM",oldContUdr.contFileDataUdr.EVENT_STARTDTTM,checkNotNullForComparison(newContUdr.contFileDataUdr.EVENT_STARTDTTM)));
+			}
+			if((oldContUdr.contFileDataUdr.EVENT_ENDDTTM) == checkNotNullForComparison(newContUdr.contFileDataUdr.EVENT_ENDDTTM))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("CITDATE_TO",oldContUdr.contFileDataUdr.EVENT_ENDDTTM,checkNotNullForComparison(newContUdr.contFileDataUdr.EVENT_ENDDTTM)));
+			}
+			
+			
+		}
+		else
+		{
+			debug("EVENT_GKEY DIFFERENT");
+		}
+	}
+	else if(strEqualsIgnoreCase(sID, "VESSEL_SERVICE"))
+	{
+		debug("Inside compareTwoRecords for Vessel Service");
+		
+		vesselServiceDataTI oldVesServUdr  = (vesselServiceDataTI)oldRecUdr;
+		vesselServiceDataTI newVesServUdr = (vesselServiceDataTI)newRecUdr;
+		if((oldVesServUdr.vessServiceDataUdr.EVENT_GKEY) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.EVENT_GKEY))
+		{
+			//no change in value
+			if((oldVesServUdr.vessServiceDataUdr.EVENT_NAME) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.EVENT_NAME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZEVENT_NAME",oldVesServUdr.vessServiceDataUdr.EVENT_NAME,newVesServUdr.vessServiceDataUdr.EVENT_NAME));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.LINE_ID) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.LINE_ID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZLINE_ID",oldVesServUdr.vessServiceDataUdr.LINE_ID,newVesServUdr.vessServiceDataUdr.LINE_ID));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.QUANTITY) == (newVesServUdr.vessServiceDataUdr.QUANTITY))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("CIT_QUANTITY",(string)oldVesServUdr.vessServiceDataUdr.QUANTITY,(string)newVesServUdr.vessServiceDataUdr.QUANTITY));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.QUANTITY_UNIT) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.QUANTITY_UNIT))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("CIT_QTY_UNIT",oldVesServUdr.vessServiceDataUdr.QUANTITY_UNIT,newVesServUdr.vessServiceDataUdr.QUANTITY_UNIT));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.SHIPARR_DATETIME) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.SHIPARR_DATETIME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZSHIPARR_DATETIME",oldVesServUdr.vessServiceDataUdr.SHIPARR_DATETIME,newVesServUdr.vessServiceDataUdr.SHIPARR_DATETIME));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.VESSEL_ID) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.VESSEL_ID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_ID",oldVesServUdr.vessServiceDataUdr.VESSEL_ID,newVesServUdr.vessServiceDataUdr.VESSEL_ID));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.VESSEL_NAME) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.VESSEL_NAME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_NAME",oldVesServUdr.vessServiceDataUdr.VESSEL_NAME,newVesServUdr.vessServiceDataUdr.VESSEL_NAME));
+			}
+            if((oldVesServUdr.vessServiceDataUdr.VESSEL_LINE) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.VESSEL_LINE))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_LINE",oldVesServUdr.vessServiceDataUdr.VESSEL_LINE,newVesServUdr.vessServiceDataUdr.VESSEL_LINE));
+			}
+            /*
+			if((oldVesServUdr.vessServiceDataUdr.VESSEL_OPERATOR_NAME) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.VESSEL_OPERATOR_NAME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_OPERATOR_NAME",oldVesServUdr.vessServiceDataUdr.VESSEL_OPERATOR_NAME,newVesServUdr.vessServiceDataUdr.VESSEL_OPERATOR_NAME));
+			}*/
+			if((oldVesServUdr.vessServiceDataUdr.SUB_CON_ID) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.SUB_CON_ID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZSUBCON_ID",oldVesServUdr.vessServiceDataUdr.SUB_CON_ID,newVesServUdr.vessServiceDataUdr.SUB_CON_ID));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.EVENT_STARTDTTM) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.EVENT_STARTDTTM))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZEVENT_STARTDTTM",oldVesServUdr.vessServiceDataUdr.EVENT_STARTDTTM,newVesServUdr.vessServiceDataUdr.EVENT_STARTDTTM));
+			}
+            if((oldVesServUdr.vessServiceDataUdr.GROSS_TON) == (newVesServUdr.vessServiceDataUdr.GROSS_TON))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZGROSS_TON",(string)oldVesServUdr.vessServiceDataUdr.GROSS_TON,(string)newVesServUdr.vessServiceDataUdr.GROSS_TON));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.SHIPARR_DATETIME) == (newVesServUdr.vessServiceDataUdr.SHIPARR_DATETIME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("CITDATE_FROM",(string)oldVesServUdr.vessServiceDataUdr.SHIPARR_DATETIME,(string)newVesServUdr.vessServiceDataUdr.SHIPARR_DATETIME));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.SHIPDEP_DATETIME) == (newVesServUdr.vessServiceDataUdr.SHIPDEP_DATETIME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("CITDATE_TO",(string)oldVesServUdr.vessServiceDataUdr.SHIPDEP_DATETIME,(string)newVesServUdr.vessServiceDataUdr.SHIPDEP_DATETIME));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.WORK_STRTDTTM) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.WORK_STRTDTTM))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZWORK_STRTDTTM",oldVesServUdr.vessServiceDataUdr.WORK_STRTDTTM,newVesServUdr.vessServiceDataUdr.WORK_STRTDTTM));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.WORK_ENDDTTM) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.WORK_ENDDTTM))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZWORK_ENDDTTM",oldVesServUdr.vessServiceDataUdr.WORK_ENDDTTM,newVesServUdr.vessServiceDataUdr.WORK_ENDDTTM));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.SHIPDEP_DATETIME) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.SHIPDEP_DATETIME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZSHIPDEP_DATETIME",oldVesServUdr.vessServiceDataUdr.SHIPDEP_DATETIME,newVesServUdr.vessServiceDataUdr.SHIPDEP_DATETIME));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.VESSEL_TYPE) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.VESSEL_TYPE))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_TYPE",oldVesServUdr.vessServiceDataUdr.VESSEL_TYPE,newVesServUdr.vessServiceDataUdr.VESSEL_TYPE));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.VESSEL_SERVICE) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.VESSEL_SERVICE))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_SERVICE",oldVesServUdr.vessServiceDataUdr.VESSEL_SERVICE,newVesServUdr.vessServiceDataUdr.VESSEL_SERVICE));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.VESSEL_LENGTH) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.VESSEL_LENGTH))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_LENGTH",oldVesServUdr.vessServiceDataUdr.VESSEL_LENGTH,newVesServUdr.vessServiceDataUdr.VESSEL_LENGTH));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.LAST_PORT) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.LAST_PORT))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZLAST_PORT",oldVesServUdr.vessServiceDataUdr.LAST_PORT,newVesServUdr.vessServiceDataUdr.LAST_PORT));
+			}
+            if((oldVesServUdr.vessServiceDataUdr.IBCARRIER_TYPE) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.IBCARRIER_TYPE))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZIBCARRIER_TYPE",oldVesServUdr.vessServiceDataUdr.IBCARRIER_TYPE,newVesServUdr.vessServiceDataUdr.IBCARRIER_TYPE));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.OBCARRIER_TYPE) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.OBCARRIER_TYPE))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZOBCARRIER_TYPE",oldVesServUdr.vessServiceDataUdr.OBCARRIER_TYPE,newVesServUdr.vessServiceDataUdr.OBCARRIER_TYPE));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.TERMINAL_ID) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.TERMINAL_ID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZTERMINALID",oldVesServUdr.vessServiceDataUdr.TERMINAL_ID,newVesServUdr.vessServiceDataUdr.TERMINAL_ID));
+			}
+			if((oldVesServUdr.vessServiceDataUdr.VESSELVISIT_ID) == checkNotNullForComparison(newVesServUdr.vessServiceDataUdr.VESSELVISIT_ID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVISIT_ID",oldVesServUdr.vessServiceDataUdr.VESSELVISIT_ID,newVesServUdr.vessServiceDataUdr.VESSELVISIT_ID));
+			}
+			
+			
+		}
+		else
+		{
+			debug("EVENT_GKEY DIFFERENT");
+		}
+		
+	}
+	else if(strEqualsIgnoreCase(sID, "VESSEL_STATUS"))
+	{
+		debug("Inside compareTwoRecords for Vessel Status");
+		vesselStatusDataTI oldVesStatUdr = (vesselStatusDataTI)oldRecUdr;
+		vesselStatusDataTI newVesStatUdr = (vesselStatusDataTI)newRecUdr;
+		if((oldVesStatUdr.vessStatusDataUdr.VESSELVISIT_ID) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.VESSELVISIT_ID))
+		{
+			//no change in value
+			if((oldVesStatUdr.vessStatusDataUdr.SHIPARR_DATETIME) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.SHIPARR_DATETIME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZSHIPARR_DATETIME",oldVesStatUdr.vessStatusDataUdr.SHIPARR_DATETIME,newVesStatUdr.vessStatusDataUdr.SHIPARR_DATETIME));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.SHIPDEP_DATETIME) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.SHIPDEP_DATETIME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZSHIPDEP_DATETIME",oldVesStatUdr.vessStatusDataUdr.SHIPDEP_DATETIME,newVesStatUdr.vessStatusDataUdr.SHIPDEP_DATETIME));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.WORK_STRTDTTM) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.WORK_STRTDTTM))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZWORK_STRTDTTM",(string)oldVesStatUdr.vessStatusDataUdr.WORK_STRTDTTM,(string)newVesStatUdr.vessStatusDataUdr.WORK_STRTDTTM));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.WORK_ENDDTTM) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.WORK_ENDDTTM))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZWORK_ENDDTTM",oldVesStatUdr.vessStatusDataUdr.WORK_ENDDTTM,newVesStatUdr.vessStatusDataUdr.WORK_ENDDTTM));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.PHASE) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.PHASE))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZPHASE",oldVesStatUdr.vessStatusDataUdr.PHASE,newVesStatUdr.vessStatusDataUdr.PHASE));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.GROSS_TON) == (newVesStatUdr.vessStatusDataUdr.GROSS_TON))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZGROSS_TON",(string)oldVesStatUdr.vessStatusDataUdr.GROSS_TON,(string)newVesStatUdr.vessStatusDataUdr.GROSS_TON));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.VESSEL_LINE) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.VESSEL_LINE))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_LINE",oldVesStatUdr.vessStatusDataUdr.VESSEL_LINE,newVesStatUdr.vessStatusDataUdr.VESSEL_LINE));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.VESSEL_ID) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.VESSEL_ID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_ID",oldVesStatUdr.vessStatusDataUdr.VESSEL_ID,newVesStatUdr.vessStatusDataUdr.VESSEL_ID));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.VESSEL_NAME) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.VESSEL_NAME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_NAME",oldVesStatUdr.vessStatusDataUdr.VESSEL_NAME,newVesStatUdr.vessStatusDataUdr.VESSEL_NAME));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.VESSEL_TYPE) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.VESSEL_TYPE))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_TYPE",oldVesStatUdr.vessStatusDataUdr.VESSEL_TYPE,newVesStatUdr.vessStatusDataUdr.VESSEL_TYPE));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.VESSEL_SERVICE) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.VESSEL_SERVICE))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_SERVICE",oldVesStatUdr.vessStatusDataUdr.VESSEL_SERVICE,newVesStatUdr.vessStatusDataUdr.VESSEL_SERVICE));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.LAST_PORT) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.LAST_PORT))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZLAST_PORT",oldVesStatUdr.vessStatusDataUdr.LAST_PORT,newVesStatUdr.vessStatusDataUdr.LAST_PORT));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.VESSEL_LENGTH) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.VESSEL_LENGTH))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZVESSEL_LENGTH",oldVesStatUdr.vessStatusDataUdr.VESSEL_LENGTH,newVesStatUdr.vessStatusDataUdr.VESSEL_LENGTH));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.TERMINAL_ID) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.TERMINAL_ID))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZTERMINALID",oldVesStatUdr.vessStatusDataUdr.TERMINAL_ID,newVesStatUdr.vessStatusDataUdr.TERMINAL_ID));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.IBCARRIER_TYPE) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.IBCARRIER_TYPE))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZIBCARRIER_TYPE",oldVesStatUdr.vessStatusDataUdr.IBCARRIER_TYPE,newVesStatUdr.vessStatusDataUdr.IBCARRIER_TYPE));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.OBCARRIER_TYPE) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.OBCARRIER_TYPE))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("ZZOBCARRIER_TYPE",oldVesStatUdr.vessStatusDataUdr.OBCARRIER_TYPE,newVesStatUdr.vessStatusDataUdr.OBCARRIER_TYPE));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.SHIPARR_DATETIME) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.SHIPARR_DATETIME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("CITDATE_FROM",oldVesStatUdr.vessStatusDataUdr.SHIPARR_DATETIME,newVesStatUdr.vessStatusDataUdr.SHIPARR_DATETIME));
+			}
+			if((oldVesStatUdr.vessStatusDataUdr.SHIPDEP_DATETIME) == checkNotNullForComparison(newVesStatUdr.vessStatusDataUdr.SHIPDEP_DATETIME))
+			{
+				//no change in value
+			}
+			else
+			{
+				listAdd(liChangedParam, createJsonStruct("CITDATE_TO",oldVesStatUdr.vessStatusDataUdr.SHIPDEP_DATETIME,newVesStatUdr.vessStatusDataUdr.SHIPDEP_DATETIME));
+			}
+			
+		}
+		else
+		{
+			debug("VESSELVISIT_ID DIFFERENT");
+		}
+	}
+	else
+	{
+		debug("Unknown Input Data");
+	}
+	
+	debug("The value of liChangedParam = " + (liChangedParam));
+	
+	return recUpdUdr;
+};
+string identifyInvoiceUpdOrReRateUpd(list<fieldStruct> liChange, string sID, string sEventName)
+{
+	string sRetValue = "";
+	if(liChange != null && listSize(liChange) > 0)
+	{
+		list<string> liInvoicingParams = listCreate(string);
+		list<string> liReRatingParams = listCreate(string);
+		
+		if(strEqualsIgnoreCase(sID, "CONTAINER"))
+		{
+            
+			liInvoicingParams = strSplit(externalReferenceGet("CM_AcuitiPort.PRF_ExtRef_AcuitiPort","CONTAINER_INVOICING_PARAM_LIST"),",");
+			liReRatingParams = strSplit(externalReferenceGet("CM_AcuitiPort.PRF_ExtRef_AcuitiPort","CONTAINER_RERATING_PARAM_LIST"),",");
+            debug("liReRatingParams :"+liReRatingParams);
+            /*if(sEventName == "UNIT_STORAGE" || sEventName == "UNIT_ELECTRICITY")
+            {
+                listAdd(liReRatingParams,"CITDATE_TO");
+            }*/
+            //list<string> liStorageEvents= strSplit(externalReferenceGet("CM_AcuitiPort.PRF_ExtRef_AcuitiPort","CONTAINER_STORAGE_EVENTS"),","); --> declared and defined in APL_Constants
+            if(liStorageEvents!= null && listSize(liStorageEvents)>0)
+            {
+                for(string sName:liStorageEvents)
+                {
+                    if(sName==sEventName)
+                    {
+                        listAdd(liReRatingParams,"CITDATE_TO");
+                        debug("Storage");
+                        
+                    }
+                }
+            }
+            debug("liReRatingParams  after storage :"+liReRatingParams);
+		}
+		else if(strEqualsIgnoreCase(sID, "VESSEL_SERVICE"))
+		{
+			liInvoicingParams = strSplit(externalReferenceGet("CM_AcuitiPort.PRF_ExtRef_AcuitiPort","VESSEL_SERVICE_INVOICING_PARAM_LIST"),",");
+			liReRatingParams = strSplit(externalReferenceGet("CM_AcuitiPort.PRF_ExtRef_AcuitiPort","VESSEL_SERVICE_RERATING_PARAM_LIST"),",");
+		}
+		else if(strEqualsIgnoreCase(sID, "VESSEL_STATUS"))
+		{
+			liInvoicingParams = strSplit(externalReferenceGet("CM_AcuitiPort.PRF_ExtRef_AcuitiPort","VESSEL_STATUS_INVOICING_PARAM_LIST"),",");
+			liReRatingParams = strSplit(externalReferenceGet("CM_AcuitiPort.PRF_ExtRef_AcuitiPort","VESSEL_STATUS_RERATING_PARAM_LIST"),",");
+		}
+		else
+		{
+			debug("Unknown Input Data");
+		}
+		
+		
+		if(liInvoicingParams != null && listSize(liInvoicingParams)>0)
+		{
+			debug("liInvoicingParams ::::" +liInvoicingParams);
+		}
+		else
+		{
+			debug("Property Value 'INVOICING_PARAM_LIST' loading failed");	
+			
+		}
+		
+		
+		if(liReRatingParams != null && listSize(liReRatingParams)>0)
+		{
+			debug("liReRatingParams ::::" +liReRatingParams);
+		}
+		else
+		{
+			debug("Property Value 'RERATING_PARAM_LIST' loading failed");			
+		}
+		
+		for(fieldStruct fieldStructUdr : liChange)
+		{
+            debug("The value of fieldStructUdr = " + (fieldStructUdr));
+            
+			int iIndexReRating = listFindIndex(liReRatingParams,string sReListVar, sReListVar == fieldStructUdr.sFieldName);
+			if(iIndexReRating != -1)
+			{
+				debug("Change in ReRating Param");
+				sRetValue = "R";
+				break;
+			}
+			else
+			{
+				int iIndexInvoicing = listFindIndex(liInvoicingParams,string sIListVar, sIListVar == fieldStructUdr.sFieldName);
+				if(iIndexInvoicing != -1)
+				{
+					debug("Change in Invoicing Param");
+					sRetValue = "I"; 
+				}
+			}
+		}
+	}
+	else
+	{
+		debug("Change list null or size 0");
+	}
+	return sRetValue;
+};
+void updateContainerTable(containerFileDataTI rfcUDR, string sOperation) 
+{
+	string sql ="update \"ACUITIPORT\".\"TB_CONTAINER_INPUT\" set \"AGENT1\" = \'"+ rfcUDR.contFileDataUdr.AGENT1 +"\' ,\"BILL_LADING\" = \'"+ rfcUDR.contFileDataUdr.BILL_LADING +"\' ,\"BOOKING_NUMBER\" = \'"+ rfcUDR.contFileDataUdr.BOOKING_NUMBER +"\' ,\"CATEGORY\" = \'"+ rfcUDR.contFileDataUdr.CATEGORY +"\' ,\"CONSIGNEE_ID\" = \'"+ rfcUDR.contFileDataUdr.CONSIGNEE_ID +"\' ,\"CONTAINER_ID\" = \'"+ rfcUDR.contFileDataUdr.CONTAINER_ID +"\' ,\"CSTMDCDAT\" = \'"+ rfcUDR.contFileDataUdr.CSTMDCDAT +"\' ,\"CSTMDECNO\" = \'"+ rfcUDR.contFileDataUdr.CSTMDECNO +"\' ,\"EQUIPTYPE\" = \'"+ rfcUDR.contFileDataUdr.EQUIPTYPE +"\' ,\"EVENT_GKEY\" = \'"+ rfcUDR.contFileDataUdr.EVENT_GKEY +"\' ,\"EVENT_NAME\" = \'"+ rfcUDR.contFileDataUdr.EVENT_NAME +"\' ,\"FREIGHT_KIND\" = \'"+ rfcUDR.contFileDataUdr.FREIGHT_KIND +"\' ,\"GROSS_TON\" = \'"+ rfcUDR.contFileDataUdr.GROSS_TON +"\' ,\"IBVISIT_ID\" = \'"+ rfcUDR.contFileDataUdr.IBVISIT_ID +"\' ,\"ISO_GROUP\" = \'"+ rfcUDR.contFileDataUdr.ISO_GROUP +"\' ,\"ISO_LENGTH\" = \'"+ rfcUDR.contFileDataUdr.ISO_LENGTH +"\' ,\"IS_IMDG\" = \'"+ rfcUDR.contFileDataUdr.IS_IMDG +"\' ,\"IMDGCLASS\" = \'"+ rfcUDR.contFileDataUdr.IMDGCLASS +"\' ,\"IS_OOG\" = \'"+ rfcUDR.contFileDataUdr.IS_OOG +"\' ,\"LAST_PORT\" = \'"+ rfcUDR.contFileDataUdr.LAST_PORT +"\' ,\"LINE_ID\" = \'"+ rfcUDR.contFileDataUdr.LINE_ID +"\' ,\"OBVISIT_ID\" = \'"+ rfcUDR.contFileDataUdr.OBVISIT_ID +"\' ,\"SHIPPER_ID\" = \'"+ rfcUDR.contFileDataUdr.SHIPPER_ID +"\' ,\"SPCL_STOW\" = \'"+ rfcUDR.contFileDataUdr.SPCL_STOW +"\' ,\"SUBCON_ID\" = \'"+ rfcUDR.contFileDataUdr.SUBCON_ID +"\' ,\"TERMINALID\" = \'"+ rfcUDR.contFileDataUdr.TERMINALID +"\' ,\"UNIT_GKEY\" = \'"+ rfcUDR.contFileDataUdr.UNIT_GKEY +"\' ,\"VESSEL_ID\" = \'"+ rfcUDR.contFileDataUdr.VESSEL_ID +"\' ,\"VESSEL_LENGTH\" = \'"+ rfcUDR.contFileDataUdr.VESSEL_LENGTH +"\' ,\"VES_LINE\" = \'"+ rfcUDR.contFileDataUdr.VES_LINE +"\' ,\"VESSEL_NAME\" = \'"+ rfcUDR.contFileDataUdr.VESSEL_NAME +"\' ,\"VES_SER\" = \'"+ rfcUDR.contFileDataUdr.VES_SER +"\' ,\"VESSEL_TYPE\" = \'"+ rfcUDR.contFileDataUdr.VESSEL_TYPE +"\' ,\"VISIT_ID\" = \'"+ rfcUDR.contFileDataUdr.VISIT_ID +"\' ,\"WORK_ENDTIME\" = \'"+ rfcUDR.contFileDataUdr.WORK_ENDTIME +"\' ,\"WORK_STARTTIME\" = \'"+ rfcUDR.contFileDataUdr.WORK_STARTTIME +"\' ,\"TIME_IN\" = \'"+ rfcUDR.contFileDataUdr.TIME_IN +"\' ,\"TIME_OUT\" = \'"+ rfcUDR.contFileDataUdr.TIME_OUT +"\' ,\"SHIPARR_DATETIME\" = \'"+ rfcUDR.contFileDataUdr.SHIPARR_DATETIME +"\' ,\"SHIPDEP_DATETIME\" = \'"+ rfcUDR.contFileDataUdr.SHIPDEP_DATETIME +"\' ,\"EVENT_STARTDTTM\" = \'"+ rfcUDR.contFileDataUdr.EVENT_STARTDTTM +"\' ,\"EVENT_ENDDTTM\" = \'"+ rfcUDR.contFileDataUdr.EVENT_ENDDTTM +"\' ,\"IBCARRIER_TYPE\" = \'"+ rfcUDR.contFileDataUdr.IBCARRIER_TYPE +"\' ,\"OBCARRIER_TYPE\" = \'"+ rfcUDR.contFileDataUdr.OBCARRIER_TYPE +"\' ,\"QUANTITY\" = \'"+ rfcUDR.contFileDataUdr.QUANTITY +"\' ,\"QUANTITY_UNIT\" = \'"+ rfcUDR.contFileDataUdr.QUANTITY_UNIT +"\' ,\"DELIVERY_DTTM\" = \'"+ rfcUDR.contFileDataUdr.DELIVERY_DTTM +"\' ,\"IS_REEFER\" = \'"+ rfcUDR.contFileDataUdr.IS_REEFER +"\' ,\"UPD_PROC_STATUS\" = \'PROCESESED\' ,\"EVENT_OPERATION\" = \'" +sOperation+ "\' where \"EVENT_GKEY\"= \'"+ rfcUDR.contFileDataUdr.EVENT_GKEY +"'";
+    debug("THE QUERY IS::" +sql);
+    sqlExec("CM_AcuitiPort.PRF_Database_Profile_PS4",sql);
+}
+
+void updateVesStatTable(vesselStatusDataTI rfcUDR, string sOperation)
+{
+    string eventGkey;
+    if(rfcUDR.vessStatusDataUdr.PHASE == "DEPARTED")
+    {
+        eventGkey = "D"+rfcUDR.vessStatusDataUdr.VESSELVISIT_ID;
+    }
+    else
+    {
+        eventGkey = "A"+rfcUDR.vessStatusDataUdr.VESSELVISIT_ID;
+    }
+	string sql ="update \"ACUITIPORT\".\"TB_VESSEL_STATUS_INPUT\" set \"VESSELVISIT_ID\" = \'" + rfcUDR.vessStatusDataUdr.VESSELVISIT_ID +"\',\"SHIPARR_DATETIME\" = \'" + rfcUDR.vessStatusDataUdr.SHIPARR_DATETIME +"\' ,\"SHIPDEP_DATETIME\" = \'" + rfcUDR.vessStatusDataUdr.SHIPDEP_DATETIME +"\' ,\"WORK_STRTDTTM\" = \'" + rfcUDR.vessStatusDataUdr.WORK_STRTDTTM +"\' ,\"WORK_ENDDTTM\" = \'" + rfcUDR.vessStatusDataUdr.WORK_ENDDTTM +"\' ,\"PHASE\" = \'" + rfcUDR.vessStatusDataUdr.PHASE +"\' ,\"GROSS_TON\" = \'" + rfcUDR.vessStatusDataUdr.GROSS_TON +"\' ,\"VESSEL_LINE\" = \'" + rfcUDR.vessStatusDataUdr.VESSEL_LINE +"\' ,\"VESSEL_ID\" = \'" + rfcUDR.vessStatusDataUdr.VESSEL_ID +"\' ,\"VESSEL_NAME\" = \'" + rfcUDR.vessStatusDataUdr.VESSEL_NAME +"\' ,\"VESSEL_TYPE\" = \'" + rfcUDR.vessStatusDataUdr.VESSEL_TYPE +"\' ,\"VESSEL_SERVICE\" = \'" + rfcUDR.vessStatusDataUdr.VESSEL_SERVICE +"\' ,\"LAST_PORT\" = \'" + rfcUDR.vessStatusDataUdr.LAST_PORT +"\' ,\"VESSEL_LENGTH\" = \'" + rfcUDR.vessStatusDataUdr.VESSEL_LENGTH +"\' ,\"TERMINAL_ID\" = \'" + rfcUDR.vessStatusDataUdr.TERMINAL_ID +"\' ,\"IBCARRIER_TYPE\" = \'" + rfcUDR.vessStatusDataUdr.IBCARRIER_TYPE +"\' ,\"OBCARRIER_TYPE\" = \'" + rfcUDR.vessStatusDataUdr.OBCARRIER_TYPE +"\' ,\"UPD_PROC_STATUS\" = \'RECIEVED\' ,\"EVENT_OPERATION\" = \'" +sOperation+ "\' where \"EVENT_GKEY\"= \'" + eventGkey +"'";
+    debug("THE QUERY IS::" +sql);
+    sqlExec("CM_AcuitiPort.PRF_Database_Profile_PS4",sql);
+}
+void updateVesServTable(vesselServiceDataTI rfcUDR, string sOperation)
+{
+	string sql ="update \"ACUITIPORT\".\"TB_VESSEL_SERVICES_INPUT\" set \"EVENT_GKEY\" = \'" +rfcUDR.vessServiceDataUdr.EVENT_GKEY +"\',\"EVENT_NAME\" = \'"+ rfcUDR.vessServiceDataUdr.EVENT_NAME +"\' ,\"LINE_ID\" = \'"+ rfcUDR.vessServiceDataUdr.LINE_ID +"\' ,\"QUANTITY\" = \'"+ rfcUDR.vessServiceDataUdr.QUANTITY +"\' ,\"QUANTITY_UNIT\" = \'"+ rfcUDR.vessServiceDataUdr.QUANTITY_UNIT +"\' ,\"SHIPARR_DATETIME\" = \'"+ rfcUDR.vessServiceDataUdr.SHIPARR_DATETIME +"\' ,\"VESSEL_ID\" = \'"+ rfcUDR.vessServiceDataUdr.VESSEL_ID +"\' ,\"VESSEL_NAME\" = \'"+ rfcUDR.vessServiceDataUdr.VESSEL_NAME +"\' ,\"VESSEL_LINE\" = \'"+ rfcUDR.vessServiceDataUdr.VESSEL_LINE +"\' ,\"SUB_CON_ID\" = \'"+ rfcUDR.vessServiceDataUdr.SUB_CON_ID +"\' ,\"EVENT_STARTDTTM\" = \'"+ rfcUDR.vessServiceDataUdr.EVENT_STARTDTTM +"\' ,\"VESSELVISIT_ID\" = \'"+ rfcUDR.vessServiceDataUdr.VESSELVISIT_ID +"\' ,\"SHIPDEP_DATETIME\" = \'"+ rfcUDR.vessServiceDataUdr.SHIPDEP_DATETIME +"\' ,\"WORK_STRTDTTM\" = \'"+ rfcUDR.vessServiceDataUdr.WORK_STRTDTTM +"\' ,\"WORK_ENDDTTM\" = \'"+ rfcUDR.vessServiceDataUdr.WORK_ENDDTTM +"\' ,\"GROSS_TON\" = \'"+ rfcUDR.vessServiceDataUdr.GROSS_TON +"\' ,\"VESSEL_TYPE\" = \'"+ rfcUDR.vessServiceDataUdr.VESSEL_TYPE +"\' ,\"VESSEL_SERVICE\" = \'"+ rfcUDR.vessServiceDataUdr.VESSEL_SERVICE +"\' ,\"LAST_PORT\" = \'"+ rfcUDR.vessServiceDataUdr.LAST_PORT +"\' ,\"VESSEL_LENGTH\" = \'"+ rfcUDR.vessServiceDataUdr.VESSEL_LENGTH +"\' ,\"IBCARRIER_TYPE\" = \'"+ rfcUDR.vessServiceDataUdr.IBCARRIER_TYPE +"\' ,\"OBCARRIER_TYPE\" = \'"+ rfcUDR.vessServiceDataUdr.OBCARRIER_TYPE +"\' ,\"TERMINAL_ID\" = \'"+ rfcUDR.vessServiceDataUdr.TERMINAL_ID +"\' ,\"UPD_PROC_STATUS\" = \'RECIEVED\' ,\"EVENT_OPERATION\" = \'" +sOperation+ "\' where \"EVENT_GKEY\"= \'"+ rfcUDR.vessServiceDataUdr.EVENT_GKEY +"'";
+    debug("THE QUERY IS TO UPDATE TABLE FOR VESSEL SERVICE ::" +sql);
+    sqlExec("CM_AcuitiPort.PRF_Database_Profile_PS4",sql);
+}
+]]></string>
+</exportmultiplex>
