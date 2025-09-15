@@ -9,6 +9,9 @@ import ultra.SAP_RFC.CM_AcuitiPort.PRF_Portal_Common.subUdr;
 ChargeUDR sendContainerCICV1ForPortal(string sagent1, string sbill_lading, string sbooking_number, string scategory, string sconsignee_id, string scontainer_id, date scstmdcdat, string scstmdecno, string senddateflag, string sequiptype, string sevent_cat, string sevent_gkey, string sevent_name, string sfreight_kind, double sgross_ton, string sibvisit_id, string siso_grp, string siso_len, string sis_imdg, string simdgclass, string sis_oog, string slast_port, string sline_id, string sobvisit_id, string spayee_id, string sis_reefer, string sshipper_id, string sspcl_stow, string ssubcon_id, string sterminalid, string sunit_gkey, string svessel_id, string svessel_length, string svessel_line, string svessel_name, string svessel_service, string svessel_type, double steu, string svisit_id, string sgkey_type, date slastchargedtime, date swork_enddttm, date swork_strtdttm, date stime_in, date stime_out, date sshiparr_datetime, date sshipdep_datetime, string sibcarrier_type, string sobcarrier_type, string sphase,date sdelivery_dttm, double scit_quantity, string scit_qty_unit, date scitdate_from, date scitdate_to, string scittype){
     debug("INSIDE CREATE CIC");
 */
+
+// Test comment
+ 
 ChargeUDR sendContainerCICV1ForPortal(PortalFileData portalOutUDR){
     debug("INSIDE CREATE CIC");
     debug("The value of portalOutUDR = " + (portalOutUDR));
